@@ -80,7 +80,7 @@ used to produce the reported results.
 | 図3 self-refine（GPT-5.4-mini, ラウンド別累積, n=20） | `v2_basic19/20260609_gpt-5.4-mini_low_paper19/`（先頭20試行） | `scripts/make_figs.py` `fig_selfrefine` |
 | 表7・図4 Hard12 ブロック（8モデル，X/120，n=10） | `v2_hard12/`（2026-07-05 に n=10 化。20260704_topup10h_{opus,g3fp,gpt54mini,g25f(+b),haiku}_hard12 を含む 16 run。Gemini 2 モデルは公式 API run＋topup） | `scripts/table7_hard12.py`（CAP=10。CAP=5 で旧 X/60 を再現） |
 | 表8・図5 失敗内訳・図4 Extreme12 ブロック（10モデル，n=10） | `v2_extreme12/`（2026-07-04/05 に n=10 化。20260704_topup10_{opus,fable5,sonnet5,g35flash,gpt54,g3fp}_hard2 を含む 21 run のプール。全モデル各タスク先頭10有効試行） | `scripts/table89.py`（CAP=10。タスク等加重・失敗内訳・Wilson CI を完全再現。CAP=5 で旧 n=5 表を再現） |
-| §4.3 V1（16タスク×100試行；完了1220=全成功・未完了380=CLIタイムアウト） | `v1_260308/experiment_log.jsonl` | (task, trial) ごとに SUCCESS の有無を数える単純集計 |
+| §4.3 V1（16タスク×100試行；完了1220=全成功・未完了380＝379がCLIタイムアウトで生成未到達＋1が誤出力(digit_sum trial31)） | `v1_260308/experiment_log.jsonl` | (task, trial) ごとに SUCCESS の有無を数える単純集計 |
 | §4.9 h3 予備調査（ntt / edit_distance / ackermann / suffix_array） | `h3_probe/`（Opus 4.8 = 20260702，Fable 5 = 20260703） | log.jsonl の per-task 単純集計（ntt の生成タイムアウト1件は失敗算入） |
 | §5.3 生成失敗パターン1〜3のコード例 | `v2_hard12/20260612_codex_gpt-5.4_hard12`（h_cantor_pair trial 24），`v2_hard12/20260612_claude_opus_hard12`（h_modexp trial 5 round 0/1） | 本文掲載コードと逐語一致 |
 | §5.5 Rabin–Karp（Opus 4.8 / Sonnet 4.6 / Fable 5） | `rabin_karp/`（hashgate＝設計調査，repro＝forward-only 各次元5試行，sonnet_rk_repro＝全試行生成不能，fable5_rk＝1D/2D 5/5・3D 4/4）＋`oracle/`（正準解）＋`rk1d_fable5.jan`（実行可能例） | 設計分類は classify_design.py（RK 実験一式に付属） |

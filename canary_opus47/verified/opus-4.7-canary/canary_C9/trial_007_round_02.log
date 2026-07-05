@@ -1,0 +1,24 @@
+STATUS: RUNTIME_ERROR
+RETURN_CODE: 1
+STDOUT:
+[ERROR (line 11)]
+[Expected value to be `0' for local variable `first'
+ but actual value is `-4',In statement:
+    local int first = 1
+    ...
+    delocal int first = 0
+  where a = 5
+        b = -5
+        n = 0]
+
+STDERR:
+
+ERROR: [ERROR (line 11)]
+[Expected value to be `0' for local variable `first'
+ but actual value is `-4',In statement:
+    local int first = 1
+    ...
+    delocal int first = 0
+  where a = 5
+        b = -5
+        n = 0]

@@ -1,0 +1,96 @@
+```janus
+procedure rk(int T[], int n, int P[], int m, int d, int q, stack r, int s, int ht, int hP, int hp)
+    if ht = hP then
+        local int j = 0, int diff = 0
+            from j = 0 do
+                if T[s + j] != P[j] then
+                    diff += 1
+                else
+                    skip
+                fi T[s + j] != P[j]
+                j += 1
+            loop
+                skip
+            until j = m
+            if diff = 0 then
+                local int sc = s
+                    push(sc, r)
+                delocal int sc = 0
+            else
+                skip
+            fi diff = 0
+            from j = m do
+                j -= 1
+                if T[s + j] != P[j] then
+                    diff -= 1
+                else
+                    skip
+                fi T[s + j] != P[j]
+            loop
+                skip
+            until j = 0
+        delocal int j = 0, int diff = 0
+    else
+        skip
+    fi ht = hP
+    if s < (n - m) then
+        s += 1
+        local int h2 = ((((ht - ((T[s - 1] * hp) % q)) + q) * d) + T[s + m - 1]) % q
+            call rk(T, n, P, m, d, q, r, s, h2, hP, hp)
+        delocal int h2 = ((((ht - ((T[s - 1] * hp) % q)) + q) * d) + T[s + m - 1]) % q
+        s -= 1
+    else
+        skip
+    fi s < (n - m)
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int hp = 1, int i = 0
+        from i = 0 do
+            skip
+        loop
+            hp *= d
+            i += 1
+        until i = (m - 1)
+        local int hP = 0, int j = 0
+            from j = 0 do
+                skip
+            loop
+                hP *= d
+                hP += P[j]
+                j += 1
+            until j = m
+            local int h0 = 0, int k = 0
+                from k = 0 do
+                    skip
+                loop
+                    h0 *= d
+                    h0 += T[k]
+                    k += 1
+                until k = m
+                local int s0 = 0, int hPm = hP % q, int h0m = h0 % q
+                    call rk(T, n, P, m, d, q, r, s0, h0m, hPm, hp)
+                delocal int s0 = 0, int hPm = hP % q, int h0m = h0 % q
+                from k = m do
+                    skip
+                loop
+                    k -= 1
+                    h0 -= T[k]
+                    h0 /= d
+                until k = 0
+            delocal int h0 = 0, int k = 0
+            from j = m do
+                skip
+            loop
+                j -= 1
+                hP -= P[j]
+                hP /= d
+            until j = 0
+        delocal int hP = 0, int j = 0
+        from i = (m - 1) do
+            skip
+        loop
+            hp /= d
+            i -= 1
+        until i = 0
+    delocal int hp = 1, int i = 0
+```

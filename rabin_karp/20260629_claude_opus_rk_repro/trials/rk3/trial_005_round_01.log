@@ -1,0 +1,3 @@
+STATUS: NO_HASH
+CASES: ['SUCCESS', 'SUCCESS']
+ERROR: The output is correct, but the required Rabin-Karp algorithm is not used: the procedure must compute a modular polynomial rolling hash (multiply by the radix d and reduce modulo the prime q), not a naive character-by-character comparison. Use BOTH d and q: hash the pattern and the first window, update the hash incrementally as the window slides (each step taking the result modulo q), and only confirm a candidate by direct comparison when the hashes are equal. Uncompute the hashes so the result stays reversible.

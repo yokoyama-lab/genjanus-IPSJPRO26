@@ -1,0 +1,33 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 11
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 9
+  ❌ 実行エラー: 2
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (9件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out001_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out002_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out004_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out005_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out009_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out010_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out011_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out012_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out014_gpt5-nano_260703_013639.janus
+
+❌ 実行エラーのあったファイル (2件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out003_gpt5-nano_260703_013639.janus
+  p11factorial_topup2_gpt5-nano_260703_013639_2644505/p11factorial_out013_gpt5-nano_260703_013639.janus
+
+📄 CSV出力: p11factorial_topup2_gpt5-nano_260703_013639_2644505/jana_check_results_p11factorial_topup2_gpt5-nano_260703_013639_2644505_summary.csv

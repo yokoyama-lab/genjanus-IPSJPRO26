@@ -1,0 +1,122 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 41
+  ❌ 実行エラー: 59
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (41件)
+------------------------------------------------------------
+  p16rle/p16rle_out004_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out006_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out007_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out008_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out010_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out011_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out012_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out013_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out018_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out019_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out022_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out029_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out030_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out034_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out035_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out038_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out039_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out040_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out042_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out045_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out046_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out047_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out050_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out055_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out056_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out057_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out058_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out059_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out061_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out062_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out063_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out071_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out072_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out074_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out080_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out081_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out082_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out087_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out093_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out094_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out095_gpt4_1_251228_130721.janus
+
+❌ 実行エラーのあったファイル (59件)
+------------------------------------------------------------
+  p16rle/p16rle_out001_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out002_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out003_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out005_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out009_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out014_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out015_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out016_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out017_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out020_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out021_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out023_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out024_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out025_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out026_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out027_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out028_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out031_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out032_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out033_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out036_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out037_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out041_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out043_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out044_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out048_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out049_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out051_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out052_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out053_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out054_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out060_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out064_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out065_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out066_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out067_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out068_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out069_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out070_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out073_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out075_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out076_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out077_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out078_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out079_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out083_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out084_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out085_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out086_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out088_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out089_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out090_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out091_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out092_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out096_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out097_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out098_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out099_gpt4_1_251228_130721.janus
+  p16rle/p16rle_out100_gpt4_1_251228_130721.janus
+
+📄 CSV出力: p16rle_251228_130721/jana_check_results_p16rle_251228_130721_summary.csv

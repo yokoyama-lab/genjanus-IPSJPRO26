@@ -1,0 +1,14 @@
+procedure xJk2Q9_step(int n, int a, int b)
+    local int orig_a = a
+    local int orig_b = b
+    local int i = n
+    from i = n do
+        skip
+    loop
+        n -= 1
+        a += 1
+        b -= 1
+    until n = 0
+    delocal int i = a - orig_a
+    delocal int orig_b = b + (a - orig_a)
+    delocal int orig_a = a + b - orig_b

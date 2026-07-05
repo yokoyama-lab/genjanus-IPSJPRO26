@@ -1,0 +1,111 @@
+//////////////////////////////////////////////////////////////////
+// Reversible Rabin-Karp Algorithm, last updated: March 6, 2026
+// (c) Tetsuo Yokoyama
+// no dummy element
+//
+// Constraints:
+//   - q must be prime (Fermat's little theorem: d^(q-2) = d^{-1} mod q)
+//   - gcd(d, q) = 1  (i.e., q must not divide d)
+//   - The -m (modular) flag may fail if d^(q-2) overflows the bit width
+//   - The -p (GF) flag is incompatible (iterate uncall uses negative step)
+//////////////////////////////////////////////////////////////////
+
+// 1Dの素朴な照合
+procedure naivesearch1(int T[], int n, int P[], int m, stack r)
+    iterate int s=0 to n-m
+        call naivematch1(T, n, P, m, s, r)
+    end
+
+procedure nm1(int T[], int n, int P[], int m, int s, int i, int f)
+    from i = 0 do
+        if T[s+i] != P[i] then
+            f ^= 1
+        fi f = 0
+        i += 1
+    until f = 0 || i = m
+    if f!=0 then
+       i -= m
+    fi f!=0
+
+procedure naivematch1(int T[], int n, int P[], int m, int s, stack r)
+    local int i = 0, int f = 1
+    call nm1(T, n, P, m, s, i, f) // 1.call
+    if f = 1 then
+        call ipush(s, r) // 2.copy
+    fi f = 1
+    uncall nm1(T, n, P, m, s, i, f) // 3.uncall
+    delocal int i = 0, int f = 1
+
+procedure hashfunc1(int P[], int m, int d, int p, int s)
+  iterate int i = 0 to m-1
+    p *= d
+    p += P[i+s]
+  end
+
+procedure sethash1(int P[], int m, int d, int p, int q, int s)
+  local int hash = 0
+  call hashfunc1(P, m, d, hash, s)
+  p ^= hash % q
+  uncall hashfunc1(P, m, d, hash, s) // zero clear hash
+  delocal int hash = 0
+
+procedure ipush(int s, stack r)
+  local int tmp = s
+  push(tmp,r)
+  delocal int tmp = 0
+
+// 負整数mの法qの代表元を求める
+procedure init_dexp(int m, int dexp, int q)
+  assert(dexp=0)
+  dexp -= m
+  from dexp = 0-m do
+    dexp += q-1
+  until dexp >= 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int t = 0, int p = 0
+  call sethash1(P,m,d,p,q,0)
+  call sethash1(T,m,d,t,q,0)
+
+  local int s = 0
+  from s = 0 do
+    if p = t then // pseudo-match
+      call naivematch1(T,n,P,m,s,r)
+    fi p = t
+  loop
+    local int dexp
+    local int tmp = (d*(t-T[s]* d**(m-1))+T[s+m]) % q // calculate phi
+    tmp <=> t
+    call init_dexp(1,dexp,q)
+    delocal int tmp = (d**dexp *(t-T[s+m]) + T[s] * d**(m-1)) % q // calculate phi^{-1}
+    uncall init_dexp(1,dexp,q)
+    delocal int dexp
+    s += 1
+  until s = n-m
+  delocal int s = n-m
+
+  uncall sethash1(P,m,d,p,q,0)
+  uncall sethash1(T,m,d,t,q,n-m)
+  delocal int t = 0, int p = 0
+
+procedure main()
+    int n = 10
+    int m = 4
+    int d = 26
+    int q = 3
+    int T[] = {1,2,1,2,1,2,1,2,1,2}
+    int P[4] = {1,2,1,2}
+    stack r
+
+    call rabinkarp1(T, n, P, m, d, q, r)
+    // call naivesearch1(T, n, P, m, r)
+
+/* Expected result:
+P[4] = {1, 2, 1, 2}
+T[10] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
+d = 26
+m = 4
+n = 10
+q = 3
+r = <6, 4, 2, 0]
+*/

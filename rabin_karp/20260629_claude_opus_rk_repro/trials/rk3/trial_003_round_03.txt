@@ -1,0 +1,160 @@
+Looking at this again: the real obstacle is that this Janus dialect cannot create a dynamically sized local array (locals are scalar-only, and even main arrays need a literal), and C1 forbids `H[s+1] += f(H[s])` anyway — so the literal "forward array" cannot be written here. The fix that actually makes the *hash itself* modular is to carry a value that is congruent to the true cube hash **mod q** at every step, using radix powers reduced mod q (`Wq = d^(m·m) mod q`, `Wmq = d^(m·m·m) mod q`) and reducing the added/removed plane hashes mod q in each incremental slide. This is reversible (multiply/`/=` undo the radix step; the slide is undone by reverse iteration), uses both `d` and `q`, and gates the direct comparison on the modular hashes.
+
+```
+procedure planehash(int X[][][], int a, int b, int dep, int m, int d, int q, int acc)
+  local int pw = 1
+    local int t = 0
+      from t = 0 do
+        acc += (X[a + t/m][b + t%m][dep] * pw) % q
+        pw *= d
+      loop t += 1
+      until t = m*m - 1
+    delocal int t = m*m - 1
+    local int t2 = 0
+      from t2 = 0 do
+        pw /= d
+      loop t2 += 1
+      until t2 = m*m - 1
+    delocal int t2 = m*m - 1
+  delocal int pw = 1
+
+procedure cubehash(int X[][][], int a, int b, int c, int m, int d, int q, int acc)
+  local int L = m * m * m
+    local int pw = 1
+      local int p = 0
+        from p = 0 do
+          acc += (X[a + (p%(m*m))/m][b + (p%(m*m))%m][c + (m - 1 - p/(m*m))] * pw) % q
+          pw *= d
+        loop p += 1
+        until p = L - 1
+      delocal int p = L - 1
+      local int p2 = 0
+        from p2 = 0 do
+          pw /= d
+        loop p2 += 1
+        until p2 = L - 1
+      delocal int p2 = L - 1
+    delocal int pw = 1
+  delocal int L = m * m * m
+
+procedure rollstep(int T[][][], int s1, int s2, int s, int m, int d, int q, int Wq, int Wmq, int h)
+  local int op = 0
+    local int op2 = 0
+      call planehash(T, s1, s2, s, m, d, q, op)
+      call planehash(T, s1, s2, s + m, m, d, q, op2)
+      h *= Wq
+      h -= (op % q) * Wmq
+      h += op2 % q
+      uncall planehash(T, s1, s2, s + m, m, d, q, op2)
+      uncall planehash(T, s1, s2, s, m, d, q, op)
+    delocal int op2 = 0
+  delocal int op = 0
+
+procedure countdiff(int T[][][], int a, int b, int c, int P[][][], int m, int diff)
+  local int L = m * m * m
+    local int p = 0
+      from p = 0 do
+        if T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m] then
+          diff += 1
+        else
+          skip
+        fi T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m]
+      loop p += 1
+      until p = L - 1
+    delocal int p = L - 1
+  delocal int L = m * m * m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int ph = 0
+    call cubehash(P, 0, 0, 0, m, d, q, ph)
+    local int Wq = 0
+      local int pwa = 1
+        local int ea = 0
+          from ea = 0 do
+            pwa *= d
+          loop ea += 1
+          until ea = m*m - 1
+        delocal int ea = m*m - 1
+        Wq += pwa % q
+        local int ea2 = 0
+          from ea2 = 0 do
+            pwa /= d
+          loop ea2 += 1
+          until ea2 = m*m - 1
+        delocal int ea2 = m*m - 1
+      delocal int pwa = 1
+      local int Wmq = 0
+        local int pwb = 1
+          local int eb = 0
+            from eb = 0 do
+              pwb *= d
+            loop eb += 1
+            until eb = m*m*m - 1
+          delocal int eb = m*m*m - 1
+          Wmq += pwb % q
+          local int eb2 = 0
+            from eb2 = 0 do
+              pwb /= d
+            loop eb2 += 1
+            until eb2 = m*m*m - 1
+          delocal int eb2 = m*m*m - 1
+        delocal int pwb = 1
+        local int s1 = 0
+          from s1 = 0 do
+            local int s2 = 0
+              from s2 = 0 do
+                local int h = 0
+                  call cubehash(T, s1, s2, 0, m, d, q, h)
+                  local int s3 = 0
+                    from s3 = 0 do
+                      local int hq = h % q
+                        local int phq = ph % q
+                          if hq = phq then
+                            local int diff = 0
+                              call countdiff(T, s1, s2, s3, P, m, diff)
+                              if diff = 0 then
+                                local int v1 = s1
+                                  local int v2 = s2
+                                    local int v3 = s3
+                                      push(v1, r)
+                                      push(v2, r)
+                                      push(v3, r)
+                                    delocal int v3 = 0
+                                  delocal int v2 = 0
+                                delocal int v1 = 0
+                              else
+                                skip
+                              fi diff = 0
+                              uncall countdiff(T, s1, s2, s3, P, m, diff)
+                            delocal int diff = 0
+                          else
+                            skip
+                          fi hq = phq
+                        delocal int phq = ph % q
+                      delocal int hq = h % q
+                    loop
+                      call rollstep(T, s1, s2, s3, m, d, q, Wq, Wmq, h)
+                      s3 += 1
+                    until s3 = n - m
+                  delocal int s3 = n - m
+                  local int s3b = n - m
+                    from s3b = n - m do
+                      skip
+                    loop
+                      s3b -= 1
+                      uncall rollstep(T, s1, s2, s3b, m, d, q, Wq, Wmq, h)
+                    until s3b = 0
+                  delocal int s3b = 0
+                  uncall cubehash(T, s1, s2, 0, m, d, q, h)
+                delocal int h = 0
+              loop s2 += 1
+              until s2 = n - m
+            delocal int s2 = n - m
+          loop s1 += 1
+          until s1 = n - m
+        delocal int s1 = n - m
+      delocal int Wmq = 0
+    delocal int Wq = 0
+    uncall cubehash(P, 0, 0, 0, m, d, q, ph)
+  delocal int ph = 0
+```

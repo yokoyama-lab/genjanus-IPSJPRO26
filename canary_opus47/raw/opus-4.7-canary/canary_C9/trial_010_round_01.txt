@@ -1,0 +1,23 @@
+Looking at the error: my local `i` ended at 5 but `delocal int i = 0` requires it to be 0. The deeper issue is that the loop needs to *zero `n`* (per the spec) while still having a clean way to detect the first entry and close any local.
+
+The cleanest fix is to drop the local entirely and use `a` itself as the first-entry detector (it starts at 0 in the call, and becomes nonzero after the first step), while the loop body decrements `n` down to 0:
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    from a = 0 do
+        skip
+    loop
+        a += 1
+        b -= 1
+        n -= 1
+    until n = 0
+```
+
+Trace for `n=5, a=0, b=0`:
+- Entry: `from a=0` true ✓. body `skip`. `until n=0`? n=5, no → step: `a=1, b=-1, n=4`.
+- Re-entry: `from a=0`? a=1, false ✓. ... step repeats.
+- After 5 steps: `a=5, b=-5, n=0`. Re-entry `a=0`? false ✓. `skip`. `until n=0`? **yes → exit.**
+
+Result: `n=0, a=5, b=-5` ✓ — matches the expected output.
+
+Edge case `n=0`: `from a=0` true, `skip`, `until n=0` immediately true → exits with everything unchanged (`a=0, n=0`), doing zero iterations. No local, so no `delocal` mismatch.

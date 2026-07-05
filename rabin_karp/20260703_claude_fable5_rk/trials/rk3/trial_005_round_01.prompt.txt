@@ -1,0 +1,181 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure powfill(int PW[], int rad, int m, int q)
+    PW[0] += 1
+    local int t = 0
+    from t = 0 do
+        local int x = (PW[t] * rad) % q
+        PW[t + 1] += x
+        delocal int x = PW[t + 1]
+        t += 1
+    until t = m
+    delocal int t = m
+
+procedure lvl1(int T[][][], int n, int m, int q, int PD[], int H1[])
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            local int k = 0
+            from k = 0 do
+                local int x = (T[i][j][k] * PD[m - 1 - k]) % q
+                H1[(i * n + j) * (n - m + 1)] += x
+                delocal int x = (T[i][j][k] * PD[m - 1 - k]) % q
+                k += 1
+            until k = m
+            delocal int k = m
+            if n - m > 0 then
+                local int s = 0
+                from s = 0 do
+                    local int x = (((H1[(i * n + j) * (n - m + 1) + s] % q) + q - ((T[i][j][s] * PD[m - 1]) % q)) * PD[1] + (T[i][j][s + m] % q)) % q
+                    H1[(i * n + j) * (n - m + 1) + s + 1] += x
+                    delocal int x = H1[(i * n + j) * (n - m + 1) + s + 1]
+                    s += 1
+                until s = n - m
+                delocal int s = n - m
+            else
+                skip
+            fi n - m > 0
+            j += 1
+        until j = n
+        delocal int j = n
+        i += 1
+    until i = n
+    delocal int i = n
+
+procedure roll(int A[], int H[], int nu, int nv, int sau, int sav, int sat, int shu, int shv, int shs, int cnt, int m, int q, int PW[])
+    local int u = 0
+    from u = 0 do
+        local int v = 0
+        from v = 0 do
+            local int t = 0
+            from t = 0 do
+                local int x = ((A[u * sau + v * sav + t * sat] % q) * PW[m - 1 - t]) % q
+                H[u * shu + v * shv] += x
+                delocal int x = ((A[u * sau + v * sav + t * sat] % q) * PW[m - 1 - t]) % q
+                t += 1
+            until t = m
+            delocal int t = m
+            if cnt > 1 then
+                local int s = 0
+                from s = 0 do
+                    local int x = (((H[u * shu + v * shv + s * shs] % q) + q - (((A[u * sau + v * sav + s * sat] % q) * PW[m - 1]) % q)) * PW[1] + (A[u * sau + v * sav + (s + m) * sat] % q)) % q
+                    H[u * shu + v * shv + (s + 1) * shs] += x
+                    delocal int x = H[u * shu + v * shv + (s + 1) * shs]
+                    s += 1
+                until s = cnt - 1
+                delocal int s = cnt - 1
+            else
+                skip
+            fi cnt > 1
+            v += 1
+        until v = nv
+        delocal int v = nv
+        u += 1
+    until u = nu
+    delocal int u = nu
+
+procedure cmp3(int T[][][], int P[][][], int s1, int s2, int s3, int m, int df)
+    local int a = 0
+    from a = 0 do
+        local int b = 0
+        from b = 0 do
+            local int e = 0
+            from e = 0 do
+                if T[s1 + a][s2 + b][s3 + e] != P[a][b][e] then
+                    df += 1
+                else
+                    skip
+                fi T[s1 + a][s2 + b][s3 + e] != P[a][b][e]
+                e += 1
+            until e = m
+            delocal int e = m
+            b += 1
+        until b = m
+        delocal int b = m
+        a += 1
+    until a = m
+    delocal int a = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int PD[m + 1] = 0, int P2[m + 1] = 0, int P3[m + 1] = 0, int H1[n * n * (n - m + 1)] = 0, int H2[n * (n - m + 1) * (n - m + 1)] = 0, int H3[(n - m + 1) * (n - m + 1) * (n - m + 1)] = 0, int Q1[m * m] = 0, int Q2[m] = 0, int Q3[1] = 0
+        call powfill(PD, d % q, m, q)
+        call powfill(P2, PD[m], m, q)
+        call powfill(P3, P2[m], m, q)
+        call lvl1(T, n, m, q, PD, H1)
+        call roll(H1, H2, n, n - m + 1, n * (n - m + 1), 1, n - m + 1, (n - m + 1) * (n - m + 1), 1, n - m + 1, n - m + 1, m, q, P2)
+        call roll(H2, H3, n - m + 1, n - m + 1, n - m + 1, 1, (n - m + 1) * (n - m + 1), n - m + 1, 1, (n - m + 1) * (n - m + 1), n - m + 1, m, q, P3)
+        call lvl1(P, m, m, q, PD, Q1)
+        call roll(Q1, Q2, m, 1, m, 1, 1, 1, 1, 1, 1, m, q, P2)
+        call roll(Q2, Q3, 1, 1, 1, 1, 1, 1, 1, 1, 1, m, q, P3)
+        local int s1 = 0
+        from s1 = 0 do
+            local int s2 = 0
+            from s2 = 0 do
+                local int s3 = 0
+                from s3 = 0 do
+                    if (H3[(s1 * (n - m + 1) + s2) * (n - m + 1) + s3] % q) = (Q3[0] % q) then
+                        local int df = 0
+                        call cmp3(T, P, s1, s2, s3, m, df)
+                        if df = 0 then
+                            local int w = 0
+                            w += s1
+                            push(w, r)
+                            w += s2
+                            push(w, r)
+                            w += s3
+                            push(w, r)
+                            delocal int w = 0
+                        else
+                            skip
+                        fi df = 0
+                        uncall cmp3(T, P, s1, s2, s3, m, df)
+                        delocal int df = 0
+                    else
+                        skip
+                    fi (H3[(s1 * (n - m + 1) + s2) * (n - m + 1) + s3] % q) = (Q3[0] % q)
+                    s3 += 1
+                until s3 = n - m + 1
+                delocal int s3 = n - m + 1
+                s2 += 1
+            until s2 = n - m + 1
+            delocal int s2 = n - m + 1
+            s1 += 1
+        until s1 = n - m + 1
+        delocal int s1 = n - m + 1
+        uncall roll(Q2, Q3, 1, 1, 1, 1, 1, 1, 1, 1, 1, m, q, P3)
+        uncall roll(Q1, Q2, m, 1, m, 1, 1, 1, 1, 1, 1, m, q, P2)
+        uncall lvl1(P, m, m, q, PD, Q1)
+        uncall roll(H2, H3, n - m + 1, n - m + 1, n - m + 1, 1, (n - m + 1) * (n - m + 1), n - m + 1, 1, (n - m + 1) * (n - m + 1), n - m + 1, m, q, P3)
+        uncall roll(H1, H2, n, n - m + 1, n * (n - m + 1), 1, n - m + 1, (n - m + 1) * (n - m + 1), 1, n - m + 1, n - m + 1, m, q, P2)
+        uncall lvl1(T, n, m, q, PD, H1)
+        uncall powfill(P3, P2[m], m, q)
+        uncall powfill(P2, PD[m], m, q)
+        uncall powfill(PD, d % q, m, q)
+    delocal int PD[m + 1] = 0, int P2[m + 1] = 0, int P3[m + 1] = 0, int H1[n * n * (n - m + 1)] = 0, int H2[n * (n - m + 1) * (n - m + 1)] = 0, int H3[(n - m + 1) * (n - m + 1) * (n - m + 1)] = 0, int Q1[m * m] = 0, int Q2[m] = 0, int Q3[1] = 0
+
+procedure main()
+    int T[4][4][4] = {{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}, {{2, 2, 2, 2}, {2, 2, 2, 2}, {0, 2, 2, 2}, {0, 2, 2, 2}}, {{3, 3, 0, 3}, {3, 3, 3, 0}, {3, 3, 3, 3}, {0, 3, 0, 0}}, {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {4, 4, 4, 4}}}
+    int n = 4
+    int P[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+    int m = 2
+    int d = 10
+    int q = 101
+    stack r
+    call rabinkarp3(T, n, P, m, d, q, r)
+
+```
+
+The output is correct but the required algorithm is not used:
+The output is correct, but the required Rabin-Karp algorithm is not used: the procedure must compute a modular polynomial rolling hash (multiply by the radix d and reduce modulo the prime q), not a naive character-by-character comparison. Use BOTH d and q: hash the pattern and the first window, update the hash incrementally as the window slides (each step taking the result modulo q), and only confirm a candidate by direct comparison when the hashes are equal. Uncompute the hashes so the result stays reversible.
+
+Please fix the procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 3D Rabin-Karp pattern matching algorithm. Given an n-by-n-by-n text cube T (int T[][][]) and an m-by-m-by-m pattern cube P (int P[][][]), find every corner position (s1,s2,s3) with 0 <= s1,s2,s3 <= n-m where the m-by-m-by-m subcube of T anchored at (s1,s2,s3) equals P, and push the matches onto the stack r. Use a three-level modular rolling hash with radix d and prime modulus q, confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1.  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

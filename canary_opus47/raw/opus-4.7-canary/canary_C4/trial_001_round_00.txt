@@ -1,0 +1,10 @@
+```
+procedure swap_neg_pair(int x, int y)
+    x <=> y
+    local int t = x
+    x -= 2*t
+    delocal int t = -x
+    local int u = y
+    y -= 2*u
+    delocal int u = -y
+```

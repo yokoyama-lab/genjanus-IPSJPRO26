@@ -1,0 +1,49 @@
+STATUS: RUNTIME_ERROR
+CASES: ['SUCCESS', 'RUNTIME_ERROR']
+ERROR: Passed case(s) 1..1 but failed case 2: with inputs {'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'n': 2, 'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'm': 2, 'd': 10, 'q': 101}, expected {'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'd': 10, 'm': 2, 'n': 2, 'q': 101, 'r': [0, 0, 0]}. PyJanus execution error
+  message: Array index `[2]' was out of bounds (array size was [2])
+  legacy: Error at line 19:
+            Array index `[2]' was out of bounds (array size was [2])
+            In statement:
+              acc += T[s1 + i][s2 + j][p] % q * pw % q % q
+          
+            Where: T[2][2][2] = {{{1, 2}, {2, 1}}, {{2, 1}, {1, 2}}}
+                   acc = 2
+                   d = 10
+                   e = 1
+                   i = 0
+                   j = 1
+                   m = 2
+                   p = 0
+                   pw = 10
+                   q = 101
+                   s1 = 0
+                   s2 = 1
+  location: /tmp/tmpwmumj46c.jan:19:20
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    18 |           call power(d, e, pw)
+  > 19 |           acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+       |                    ^
+    20 |           uncall power(d, e, pw)
+
+Context:
+  In statement:
+      acc += T[s1 + i][s2 + j][p] % q * pw % q % q
+    where T[2][2][2] = {{{1, 2}, {2, 1}}, {{2, 1}, {1, 2}}}
+          acc = 2
+          d = 10
+          e = 1
+          i = 0
+          j = 1
+          m = 2
+          p = 0
+          pw = 10
+          q = 101
+          s1 = 0
+          s2 = 1
+
+Fix hints:
+  - Check the array size and the expression used as the index at this location.

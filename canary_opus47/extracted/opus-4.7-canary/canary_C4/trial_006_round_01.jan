@@ -1,0 +1,12 @@
+procedure swap_neg_pair(int x, int y)
+    x <=> y
+    local int t = 0
+    t -= x
+    x += t
+    x += t
+    delocal int t = x
+    local int s = 0
+    s -= y
+    y += s
+    y += s
+    delocal int s = y

@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Expected value to be `0' for local variable `Wmq'
+            but actual value is `1'
+  legacy: Error at line 153:
+            Expected value to be `0' for local variable `Wmq'
+           but actual value is `1'
+            In statement:
+              local int Wmq
+              skip
+              delocal int Wmq
+  location: /tmp/tmphq34ypmj.jan:153:15
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    152 |         delocal int s1 = n - m
+  > 153 |       delocal int Wmq = 0
+        |               ^
+    154 |     delocal int Wq = 0
+
+Context:
+  In statement:
+      local int Wmq
+      skip
+      delocal int Wmq

@@ -1,0 +1,203 @@
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int lim = n - m
+            local int HP = 0
+              local int cp = 0
+              from cp = 0 do
+                HP *= D
+                local int slp = 0
+                  call addslicehash(P, 0, 0, cp, m, d, q, slp)
+                  HP += slp
+                  uncall addslicehash(P, 0, 0, cp, m, d, q, slp)
+                delocal int slp = 0
+                cp += 1
+              loop
+                skip
+              until cp = m
+              delocal int cp = m
+              local int s1 = 0
+              from s1 = 0 do
+                local int s2 = 0
+                from s2 = 0 do
+                  local int H = 0
+                    local int cw = 0
+                    from cw = 0 do
+                      H *= D
+                      local int slw = 0
+                        call addslicehash(T, s1, s2, cw, m, d, q, slw)
+                        H += slw
+                        uncall addslicehash(T, s1, s2, cw, m, d, q, slw)
+                      delocal int slw = 0
+                      cw += 1
+                    loop
+                      skip
+                    until cw = m
+                    delocal int cw = m
+                    local int s3 = 0
+                    from s3 = 0 do
+                      if (H % q) = (HP % q) then
+                        local int diff = 0
+                          call countdiff(T, s1, s2, s3, P, m, diff)
+                          if diff = 0 then
+                            call pushpos(s1, s2, s3, r)
+                          else
+                            skip
+                          fi diff = 0
+                          uncall countdiff(T, s1, s2, s3, P, m, diff)
+                        delocal int diff = 0
+                      else
+                        skip
+                      fi (H % q) = (HP % q)
+                    loop
+                      H *= D
+                      local int so = 0
+                        call addslicehash(T, s1, s2, s3, m, d, q, so)
+                        H -= so * DT
+                        uncall addslicehash(T, s1, s2, s3, m, d, q, so)
+                      delocal int so = 0
+                      local int si = 0
+                        call addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+                        H += si
+                        uncall addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+                      delocal int si = 0
+                      s3 += 1
+                    until s3 = lim
+                    delocal int s3 = lim
+                    local int s3b = lim
+                    from s3b = lim do
+                      skip
+                    loop
+                      s3b -= 1
+                      local int si2 = 0
+                        call addslicehash(T, s1, s2, s3b + m, m, d, q, si2)
+                        H -= si2
+                        uncall addslicehash(T, s1, s2, s3b + m, m, d, q, si2)
+                      delocal int si2 = 0
+                      local int so2 = 0
+                        call addslicehash(T, s1, s2, s3b, m, d, q, so2)
+                        H += so2 * DT
+                        uncall addslicehash(T, s1, s2, s3b, m, d, q, so2)
+                      delocal int so2 = 0
+                      H /= D
+                    until s3b = 0
+                    delocal int s3b = 0
+                    local int cwb = m
+                    from cwb = m do
+                      skip
+                    loop
+                      cwb -= 1
+                      local int slwb = 0
+                        call addslicehash(T, s1, s2, cwb, m, d, q, slwb)
+                        H -= slwb
+                        uncall addslicehash(T, s1, s2, cwb, m, d, q, slwb)
+                      delocal int slwb = 0
+                      H /= D
+                    until cwb = 0
+                    delocal int cwb = 0
+                  delocal int H = 0
+                loop
+                  s2 += 1
+                until s2 = lim
+                delocal int s2 = lim
+              loop
+                s1 += 1
+              until s1 = lim
+              delocal int s1 = lim
+              local int cpb = m
+              from cpb = m do
+                skip
+              loop
+                cpb -= 1
+                local int slpb = 0
+                  call addslicehash(P, 0, 0, cpb, m, d, q, slpb)
+                  HP -= slpb
+                  uncall addslicehash(P, 0, 0, cpb, m, d, q, slpb)
+                delocal int slpb = 0
+                HP /= D
+              until cpb = 0
+              delocal int cpb = 0
+            delocal int HP = 0
+          delocal int lim = n - m
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m

@@ -1,0 +1,21 @@
+The error was that my loop's entry test `s = 0` stayed true on re-entry: for `n=6` the first iteration skips 6 (a multiple of 3), so `s` is still 0 when the loop checks the entry assertion again — and it must be **false** on re-entry.
+
+The fix: make the entry test depend on a saved copy of the original `n`. Since `n` decreases each iteration while the copy stays fixed, `n = orig` is true only on the very first entry. The copy is closed with a matching `delocal`.
+
+Tracing `n=6`: 6→skip, 5→+5, 4→+4, 3→skip, 2→+2, 1→+1 ⟹ `s=12`, `n=0`. On re-entry `n` is 5,4,3,2,1 ≠ 6, so the entry test is correctly false. ✓
+
+```janus
+procedure sum_skip_three(int n, int s)
+    local int orig = n
+    from n = orig do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+    delocal int orig = orig
+```

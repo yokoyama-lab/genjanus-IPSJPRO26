@@ -1,0 +1,2 @@
+2026-06-29T16:43:13.684737 .venv/bin/genjanus --backend claude-cli --model opus --reasoning-effort medium --task rk2d --taskset rk --recipe L4_full --trials 5 --max-repairs 5 --run-id 20260629_claude_opus_rk_repro --resume
+2026-06-29T18:52:20.825761 .venv/bin/genjanus --backend claude-cli --model opus --reasoning-effort medium --task rk3 --taskset rk --recipe L4_full --trials 5 --max-repairs 5 --run-id 20260629_claude_opus_rk_repro --resume

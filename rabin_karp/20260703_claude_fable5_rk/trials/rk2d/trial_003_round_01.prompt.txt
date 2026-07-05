@@ -1,0 +1,238 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure hashes(int T[][], int n, int P[][], int m, int d, int q, int rh[][], int hh[][], int pr[], int ph)
+    local int dm = 1
+    local int k0 = 0
+    from k0 = 0 do
+        skip
+    loop
+        dm *= d
+        k0 += 1
+    until k0 = m - 1
+    delocal int k0 = m - 1
+
+    local int i = 0
+    from i = 0 do
+        local int acc = 0
+        local int k = 0
+        from k = 0 do
+            acc *= d
+            acc += T[i][k] % q
+        loop
+            k += 1
+        until k = m - 1
+        rh[i][0] += acc % q
+        from k = m - 1 do
+            acc -= T[i][k] % q
+            acc /= d
+        loop
+            k -= 1
+        until k = 0
+        delocal int k = 0
+        delocal int acc = 0
+        if m < n then
+            local int j = 0
+            from j = 0 do
+                local int t = (d * rh[i][j] + (q - (T[i][j] % q)) * (dm % q) + T[i][j+m] % q) % q
+                rh[i][j+1] += t
+                delocal int t = rh[i][j+1]
+            loop
+                j += 1
+            until j = n - m - 1
+            delocal int j = n - m - 1
+        else
+            skip
+        fi m < n
+    loop
+        i += 1
+    until i = n - 1
+    delocal int i = n - 1
+
+    local int j = 0
+    from j = 0 do
+        local int acc = 0
+        local int k = 0
+        from k = 0 do
+            acc *= d
+            acc += rh[k][j]
+        loop
+            k += 1
+        until k = m - 1
+        hh[0][j] += acc % q
+        from k = m - 1 do
+            acc -= rh[k][j]
+            acc /= d
+        loop
+            k -= 1
+        until k = 0
+        delocal int k = 0
+        delocal int acc = 0
+        if m < n then
+            local int s = 0
+            from s = 0 do
+                local int t = (d * hh[s][j] + (q - rh[s][j]) * (dm % q) + rh[s+m][j]) % q
+                hh[s+1][j] += t
+                delocal int t = hh[s+1][j]
+            loop
+                s += 1
+            until s = n - m - 1
+            delocal int s = n - m - 1
+        else
+            skip
+        fi m < n
+    loop
+        j += 1
+    until j = n - m
+    delocal int j = n - m
+
+    local int u = 0
+    from u = 0 do
+        local int acc = 0
+        local int v = 0
+        from v = 0 do
+            acc *= d
+            acc += P[u][v] % q
+        loop
+            v += 1
+        until v = m - 1
+        pr[u] += acc % q
+        from v = m - 1 do
+            acc -= P[u][v] % q
+            acc /= d
+        loop
+            v -= 1
+        until v = 0
+        delocal int v = 0
+        delocal int acc = 0
+    loop
+        u += 1
+    until u = m - 1
+    delocal int u = m - 1
+
+    local int acc = 0
+    local int k = 0
+    from k = 0 do
+        acc *= d
+        acc += pr[k]
+    loop
+        k += 1
+    until k = m - 1
+    ph += acc % q
+    from k = m - 1 do
+        acc -= pr[k]
+        acc /= d
+    loop
+        k -= 1
+    until k = 0
+    delocal int k = 0
+    delocal int acc = 0
+
+    local int k9 = m - 1
+    from k9 = m - 1 do
+        skip
+    loop
+        dm /= d
+        k9 -= 1
+    until k9 = 0
+    delocal int k9 = 0
+    delocal int dm = 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+    local int ph = 0
+    local int rh[n][n]
+    local int hh[n][n]
+    local int pr[m]
+    call hashes(T, n, P, m, d, q, rh, hh, pr, ph)
+    local int s2 = 0
+    from s2 = 0 do
+        local int s1 = 0
+        from s1 = 0 do
+            if hh[s1][s2] = ph then
+                local int c = 0
+                local int u = 0
+                from u = 0 do
+                    local int v = 0
+                    from v = 0 do
+                        if T[s1+u][s2+v] != P[u][v] then
+                            c += 1
+                        else
+                            skip
+                        fi T[s1+u][s2+v] != P[u][v]
+                    loop
+                        v += 1
+                    until v = m - 1
+                    delocal int v = m - 1
+                loop
+                    u += 1
+                until u = m - 1
+                delocal int u = m - 1
+                if c = 0 then
+                    local int a = s1
+                    push(a, r)
+                    delocal int a = 0
+                    local int b = s2
+                    push(b, r)
+                    delocal int b = 0
+                else
+                    skip
+                fi c = 0
+                local int u2 = 0
+                from u2 = 0 do
+                    local int v2 = 0
+                    from v2 = 0 do
+                        if T[s1+u2][s2+v2] != P[u2][v2] then
+                            c -= 1
+                        else
+                            skip
+                        fi T[s1+u2][s2+v2] != P[u2][v2]
+                    loop
+                        v2 += 1
+                    until v2 = m - 1
+                    delocal int v2 = m - 1
+                loop
+                    u2 += 1
+                until u2 = m - 1
+                delocal int u2 = m - 1
+                delocal int c = 0
+            else
+                skip
+            fi hh[s1][s2] = ph
+        loop
+            s1 += 1
+        until s1 = n - m
+        delocal int s1 = n - m
+    loop
+        s2 += 1
+    until s2 = n - m
+    delocal int s2 = n - m
+    uncall hashes(T, n, P, m, d, q, rh, hh, pr, ph)
+    delocal int pr[m]
+    delocal int hh[n][n]
+    delocal int rh[n][n]
+    delocal int ph = 0
+
+procedure main()
+    int T[5][5] = {{1, 2, 3, 1, 2}, {4, 1, 2, 4, 3}, {5, 4, 3, 2, 1}, {6, 2, 1, 4, 3}, {7, 2, 3, 2, 1}}
+    int n = 5
+    int P[2][2] = {{4, 3}, {2, 1}}
+    int m = 2
+    int d = 8
+    int q = 3
+    stack r
+    call rabinkarp2(T, n, P, m, d, q, r)
+
+```
+
+The program ran but produced incorrect output:
+Expected r=[3, 3, 3, 1, 1, 2], got r=[3, 3]
+
+Please fix the procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 2D Rabin-Karp pattern matching algorithm. Given an n-by-n text grid T (int T[][]) and an m-by-m pattern grid P (int P[][]), find every top-left position (s1,s2) with 0 <= s1,s2 <= n-m where the m-by-m subgrid of T anchored at (s1,s2) equals P, and push the matches onto the stack r. Use a two-level modular rolling hash with radix d and prime modulus q (hash rows, then combine columns), confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: the 5-by-5 text and 2-by-2 pattern below give r = <3, 3, 3, 1, 1, 2].  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

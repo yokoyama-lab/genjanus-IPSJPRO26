@@ -1,0 +1,143 @@
+procedure rowseg(int A[][], int r, int s2, int m, int d, int h)
+  local int k = 0
+  from k = 0 do
+    h *= d
+    h += A[r][s2 + k]
+    k += 1
+  loop skip
+  until k = m
+  delocal int k = m
+
+procedure buildp(int d, int m, int p)
+  if m > 1 then
+    local int e = 1
+    from e = 1 do
+      p *= d
+      e += 1
+    loop skip
+    until e = m
+    delocal int e = m
+  else
+    skip
+  fi m > 1
+
+procedure build_initial(int A[][], int s2, int m, int d, int wh)
+  local int i = 0
+  from i = 0 do
+    wh *= d
+    local int h = 0
+      call rowseg(A, i, s2, m, d, h)
+      wh += h
+      uncall rowseg(A, i, s2, m, d, h)
+    delocal int h = 0
+    i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+
+procedure roll_down(int A[][], int s1, int s2, int m, int d, int p, int wh)
+  local int hl = 0
+    call rowseg(A, s1, s2, m, d, hl)
+    wh -= hl * p
+    uncall rowseg(A, s1, s2, m, d, hl)
+  delocal int hl = 0
+  wh *= d
+  local int he = 0
+    call rowseg(A, s1 + m, s2, m, d, he)
+    wh += he
+    uncall rowseg(A, s1 + m, s2, m, d, he)
+  delocal int he = 0
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int p = 1
+    call buildp(d, m, p)
+    local int phfull = 0
+      call build_initial(P, 0, m, d, phfull)
+      local int s2 = 0
+      from s2 = 0 do
+        local int wh = 0
+          call build_initial(T, s2, m, d, wh)
+          local int s1 = 0
+          from s1 = 0 do
+            if (wh % q) = (phfull % q) then
+              local int diff = 0
+                local int ci = 0
+                from ci = 0 do
+                  local int ck = 0
+                  from ck = 0 do
+                    if T[s1+ci][s2+ck] != P[ci][ck] then
+                      diff += 1
+                    else
+                      skip
+                    fi T[s1+ci][s2+ck] != P[ci][ck]
+                    ck += 1
+                  loop skip
+                  until ck = m
+                  delocal int ck = m
+                  ci += 1
+                loop skip
+                until ci = m
+                delocal int ci = m
+                if diff = 0 then
+                  local int v1 = 0
+                    local int v2 = 0
+                      v1 += s1
+                      v2 += s2
+                      push(v1, r)
+                      push(v2, r)
+                    delocal int v2 = 0
+                  delocal int v1 = 0
+                else
+                  skip
+                fi diff = 0
+                local int ci2 = m
+                from ci2 = m do
+                  ci2 -= 1
+                  local int ck2 = m
+                  from ck2 = m do
+                    ck2 -= 1
+                    if T[s1+ci2][s2+ck2] != P[ci2][ck2] then
+                      diff -= 1
+                    else
+                      skip
+                    fi T[s1+ci2][s2+ck2] != P[ci2][ck2]
+                  loop skip
+                  until ck2 = 0
+                  delocal int ck2 = 0
+                loop skip
+                until ci2 = 0
+                delocal int ci2 = 0
+              delocal int diff = 0
+            else
+              skip
+            fi (wh % q) = (phfull % q)
+            if s1 < n - m then
+              call roll_down(T, s1, s2, m, d, p, wh)
+            else
+              skip
+            fi s1 < n - m
+            s1 += 1
+          loop skip
+          until s1 = n - m + 1
+          delocal int s1 = n - m + 1
+          if n - m > 0 then
+            local int v = n - m
+            from v = n - m do
+              v -= 1
+              uncall roll_down(T, v, s2, m, d, p, wh)
+            loop skip
+            until v = 0
+            delocal int v = 0
+          else
+            skip
+          fi n - m > 0
+          uncall build_initial(T, s2, m, d, wh)
+        delocal int wh = 0
+        s2 += 1
+      loop skip
+      until s2 = n - m + 1
+      delocal int s2 = n - m + 1
+      uncall build_initial(P, 0, m, d, phfull)
+    delocal int phfull = 0
+    uncall buildp(d, m, p)
+  delocal int p = 1

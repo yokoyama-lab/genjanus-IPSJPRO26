@@ -1,0 +1,122 @@
+procedure cubehash(int A[][][], int bi, int bj, int bk, int m, int d, int q, int h, stack s)
+  local int i = 0
+  from i = 0 do
+    skip
+  loop
+    local int j = 0
+    from j = 0 do
+      skip
+    loop
+      local int k = 0
+      from k = 0 do
+        skip
+      loop
+        h *= d
+        h += A[bi+i][bj+j][bk+k]
+        local int t = 0
+        t += h / q
+        h -= t * q
+        push(t, s)
+        delocal int t = 0
+        k += 1
+      until k = m
+      delocal int k = m
+      j += 1
+    until j = m
+    delocal int j = m
+    i += 1
+  until i = m
+  delocal int i = m
+
+procedure countmis(int T[][][], int bi, int bj, int bk, int P[][][], int m, int c)
+  local int i = 0
+  from i = 0 do
+    skip
+  loop
+    local int j = 0
+    from j = 0 do
+      skip
+    loop
+      local int k = 0
+      from k = 0 do
+        skip
+      loop
+        c += (T[bi+i][bj+j][bk+k] != P[i][j][k])
+        k += 1
+      until k = m
+      delocal int k = m
+      j += 1
+    until j = m
+    delocal int j = m
+    i += 1
+  until i = m
+  delocal int i = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int w = n - m + 1
+  local int s1 = 0
+  from s1 = 0 do
+    skip
+  loop
+    local int s2 = 0
+    from s2 = 0 do
+      skip
+    loop
+      local int s3 = 0
+      from s3 = 0 do
+        skip
+      loop
+        local int hw = 0
+        call cubehash(T, s1, s2, s3, m, d, q, hw, r)
+        local int hp = 0
+        call cubehash(P, 0, 0, 0, m, d, q, hp, r)
+        local int match = 0
+        if hw = hp then
+          match += 1
+        else
+          skip
+        fi match = 1
+        if match = 1 then
+          local int mism = 0
+          call countmis(T, s1, s2, s3, P, m, mism)
+          if mism = 0 then
+            local int p1 = 0
+            p1 += s1
+            push(p1, r)
+            delocal int p1 = 0
+            local int p2 = 0
+            p2 += s2
+            push(p2, r)
+            delocal int p2 = 0
+            local int p3 = 0
+            p3 += s3
+            push(p3, r)
+            delocal int p3 = 0
+          else
+            skip
+          fi mism = 0
+          uncall countmis(T, s1, s2, s3, P, m, mism)
+          delocal int mism = 0
+        else
+          skip
+        fi match = 1
+        if match = 1 then
+          match -= 1
+        else
+          skip
+        fi hw = hp
+        delocal int match = 0
+        uncall cubehash(P, 0, 0, 0, m, d, q, hp, r)
+        delocal int hp = 0
+        uncall cubehash(T, s1, s2, s3, m, d, q, hw, r)
+        delocal int hw = 0
+        s3 += 1
+      until s3 = w
+      delocal int s3 = w
+      s2 += 1
+    until s2 = w
+    delocal int s2 = w
+    s1 += 1
+  until s1 = w
+  delocal int s1 = w
+  delocal int w = n - m + 1

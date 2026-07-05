@@ -1,0 +1,15 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus parsing error
+  message: Expecting identifier
+  legacy: File "/tmp/tmpj07czru7.jan" in line 49, column 47:
+              Expecting identifier
+  location: /tmp/tmpj07czru7.jan:49:47
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    48 |                       if diff = 0 then
+  > 49 |                         local int v1 = s1, v2 = s2, v3 = s3
+       |                                               ^
+    50 |                           push(v1, r)

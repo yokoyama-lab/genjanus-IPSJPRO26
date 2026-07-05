@@ -1,0 +1,129 @@
+procedure planeval(int C[][][], int s1, int s2, int c, int m, int d, int pv)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      pv *= d
+      pv += C[s1 + i][s2 + j][c]
+      j += 1
+    loop skip until j = m
+    delocal int j = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure builddepth(int C[][][], int s1, int s2, int s3, int m, int d, int WH)
+  local int k = 0
+  from k = 0 do
+    WH *= d
+    local int pv = 0
+      call planeval(C, s1, s2, s3 + k, m, d, pv)
+      WH += pv
+      uncall planeval(C, s1, s2, s3 + k, m, d, pv)
+    delocal int pv = 0
+    k += 1
+  loop skip until k = m
+  delocal int k = m
+
+procedure powraw(int d, int e, int p)
+  p += 1
+  local int t = 0
+  from t = 0 do
+    skip
+  loop
+    p *= d
+    t += 1
+  until t = e
+  delocal int t = e
+
+procedure rollfwd(int C[][][], int s1, int s2, int s3, int m, int d, int Braw, int WH)
+  local int pvdrop = 0
+    call planeval(C, s1, s2, s3, m, d, pvdrop)
+    local int pvadd = 0
+      call planeval(C, s1, s2, s3 + m, m, d, pvadd)
+      local int delta = (WH - pvdrop * Braw) * d + pvadd - WH
+        WH += delta
+      delocal int delta = WH - ((WH - pvadd) / d + pvdrop * Braw)
+      uncall planeval(C, s1, s2, s3 + m, m, d, pvadd)
+    delocal int pvadd = 0
+    uncall planeval(C, s1, s2, s3, m, d, pvdrop)
+  delocal int pvdrop = 0
+
+procedure countmismatch(int T[][][], int s1, int s2, int s3, int P[][][], int m, int mism)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          mism += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop skip until k = m
+      delocal int k = m
+      j += 1
+    loop skip until j = m
+    delocal int j = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int Braw = 0
+    call powraw(d, m - 1, Braw)
+    local int Hx = 0
+      call builddepth(P, 0, 0, 0, m, d, Hx)
+      local int hp = Hx % q
+        local int s1 = 0
+        from s1 = 0 do
+          local int s2 = 0
+          from s2 = 0 do
+            local int WH = 0
+              call builddepth(T, s1, s2, 0, m, d, WH)
+              local int s3 = 0
+              from s3 = 0 do
+                if (WH % q) = hp then
+                  local int mism = 0
+                    call countmismatch(T, s1, s2, s3, P, m, mism)
+                    if mism = 0 then
+                      local int a = s1
+                        push(a, r)
+                      delocal int a = 0
+                      local int b = s2
+                        push(b, r)
+                      delocal int b = 0
+                      local int c = s3
+                        push(c, r)
+                      delocal int c = 0
+                    else
+                      skip
+                    fi mism = 0
+                    uncall countmismatch(T, s1, s2, s3, P, m, mism)
+                  delocal int mism = 0
+                else
+                  skip
+                fi (WH % q) = hp
+                if s3 < n - m then
+                  call rollfwd(T, s1, s2, s3, m, d, Braw, WH)
+                else
+                  skip
+                fi s3 < n - m
+                s3 += 1
+              loop skip until s3 = n - m + 1
+              delocal int s3 = n - m + 1
+              uncall builddepth(T, s1, s2, n - m, m, d, WH)
+            delocal int WH = 0
+            s2 += 1
+          loop skip until s2 = n - m + 1
+          delocal int s2 = n - m + 1
+          s1 += 1
+        loop skip until s1 = n - m + 1
+        delocal int s1 = n - m + 1
+      delocal int hp = Hx % q
+      uncall builddepth(P, 0, 0, 0, m, d, Hx)
+    delocal int Hx = 0
+    uncall powraw(d, m - 1, Braw)
+  delocal int Braw = 0

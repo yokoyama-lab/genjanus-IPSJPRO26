@@ -1,0 +1,72 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 52
+  ✅ 成功: 22
+  ⚠️ 構文エラー: 6
+  ❌ 実行エラー: 24
+
+✅ 成功したファイル（正しい出力） (4件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out007_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out030_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out038_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out040_gpt4_1_260703_013518.janus
+
+❌ 成功したファイル（誤った出力） (18件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out001_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out002_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out005_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out006_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out009_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out012_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out013_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out014_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out019_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out020_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out023_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out035_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out037_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out039_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out044_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out046_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out047_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out052_gpt4_1_260703_013518.janus
+
+⚠️ 構文エラーのあったファイル (6件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out008_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out015_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out022_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out029_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out032_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out051_gpt4_1_260703_013518.janus
+
+❌ 実行エラーのあったファイル (24件)
+------------------------------------------------------------
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out003_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out004_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out010_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out011_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out016_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out017_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out018_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out021_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out024_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out025_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out026_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out027_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out028_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out031_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out033_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out034_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out036_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out041_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out042_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out043_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out045_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out048_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out049_gpt4_1_260703_013518.janus
+  p11factorial_topup2_gpt4_1_260703_013518_2611206/p11factorial_out050_gpt4_1_260703_013518.janus
+
+📄 CSV出力: p11factorial_topup2_gpt4_1_260703_013518_2611206/jana_check_results_p11factorial_topup2_gpt4_1_260703_013518_2611206_summary.csv

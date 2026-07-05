@@ -1,0 +1,15 @@
+Looking at this problem, I need `i` to end at 0 for the delocal. The test cases all have `a = b` initially, so `(a - b) / 2` will equal `orig_n` after the work.
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    local int i = 0
+    from i = 0 do
+        skip
+    loop
+        a += 1
+        b -= 1
+        n -= 1
+        i += 1
+    until n = 0
+    delocal int i = (a - b) / 2
+```

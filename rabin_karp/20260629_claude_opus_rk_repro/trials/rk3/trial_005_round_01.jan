@@ -1,0 +1,100 @@
+procedure buildhash(int C[][][], int s1, int s2, int s3, int m, int d, int q, int h, int g)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        h *= d
+        h += C[s1 + i][s2 + j][s3 + k]
+        local int Q = h / q
+          h -= Q * q
+          g *= q * d
+          g += Q
+        delocal int Q = g % (q * d)
+        k += 1
+      loop skip until k = m
+      delocal int k = m
+      j += 1
+    loop skip until j = m
+    delocal int j = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure hashcube(int C[][][], int s1, int s2, int s3, int m, int d, int q, int h)
+  local int hh = 0
+  local int g = 0
+    call buildhash(C, s1, s2, s3, m, d, q, hh, g)
+    h += hh
+    uncall buildhash(C, s1, s2, s3, m, d, q, hh, g)
+  delocal int g = 0
+  delocal int hh = 0
+
+procedure countmismatch(int T[][][], int s1, int s2, int s3, int P[][][], int m, int mism)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          mism += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop skip until k = m
+      delocal int k = m
+      j += 1
+    loop skip until j = m
+    delocal int j = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int hp = 0
+  call hashcube(P, 0, 0, 0, m, d, q, hp)
+  local int s1 = 0
+  from s1 = 0 do
+    local int s2 = 0
+    from s2 = 0 do
+      local int s3 = 0
+      from s3 = 0 do
+        local int hw = 0
+        call hashcube(T, s1, s2, s3, m, d, q, hw)
+        if hw = hp then
+          local int mism = 0
+          call countmismatch(T, s1, s2, s3, P, m, mism)
+          if mism = 0 then
+            local int a = s1
+            push(a, r)
+            delocal int a = 0
+            local int b = s2
+            push(b, r)
+            delocal int b = 0
+            local int c = s3
+            push(c, r)
+            delocal int c = 0
+          else
+            skip
+          fi mism = 0
+          uncall countmismatch(T, s1, s2, s3, P, m, mism)
+          delocal int mism = 0
+        else
+          skip
+        fi hw = hp
+        uncall hashcube(T, s1, s2, s3, m, d, q, hw)
+        delocal int hw = 0
+        s3 += 1
+      loop skip until s3 = n - m + 1
+      delocal int s3 = n - m + 1
+      s2 += 1
+    loop skip until s2 = n - m + 1
+    delocal int s2 = n - m + 1
+    s1 += 1
+  loop skip until s1 = n - m + 1
+  delocal int s1 = n - m + 1
+  uncall hashcube(P, 0, 0, 0, m, d, q, hp)
+  delocal int hp = 0

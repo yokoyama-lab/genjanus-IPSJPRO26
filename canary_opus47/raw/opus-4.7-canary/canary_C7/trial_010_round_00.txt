@@ -1,0 +1,17 @@
+Looking at this problem, I need a loop where the entry test is true only on the first entry. A bare `n != 0` would be true on every re-entry (violating the loop rule), so I use a local mirror `i = n` as the distinguishing entry assertion while decrementing `n` down to 0.
+
+```
+procedure sum_skip_three(int n, int s)
+    local int i = n
+    from i = n do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+    delocal int i = 0
+```

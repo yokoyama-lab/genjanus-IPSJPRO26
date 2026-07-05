@@ -1,0 +1,138 @@
+procedure computeHm(int d, int m, int q, int hm)
+  local int e = 1
+  local int i = 0
+  from i = 0 do
+    skip
+  loop
+    e *= d
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+  hm += e % q
+  local int j = 0
+  from j = 0 do
+    skip
+  loop
+    e /= d
+    j += 1
+  until j = m - 1
+  delocal int j = m - 1
+  delocal int e = 1
+
+procedure modinv(int d, int q, int di)
+  from di = 0 do
+    skip
+  loop
+    di += 1
+  until (d * di) % q = 1
+
+procedure computeModHash(int A[], int off, int len, int d, int q, int h)
+  local int V = 0
+  local int i = 0
+  from i = 0 do
+    skip
+  loop
+    V *= d
+    V += A[off + i]
+    i += 1
+  until i = len
+  delocal int i = len
+  h += V % q
+  local int j = 0
+  from j = 0 do
+    skip
+  loop
+    j += 1
+    V -= A[off + (len - j)]
+    V /= d
+  until j = len
+  delocal int j = len
+  delocal int V = 0
+
+procedure windowEqual(int T[], int s, int P[], int m, int eq)
+  local int diff = 0
+  local int i = 0
+  from i = 0 do
+    if T[s + i] != P[i] then
+      diff += 1
+    else
+      skip
+    fi T[s + i] != P[i]
+    i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+  if diff = 0 then
+    eq += 1
+  else
+    skip
+  fi eq = 1
+  local int k = 0
+  from k = 0 do
+    if T[s + k] != P[k] then
+      diff -= 1
+    else
+      skip
+    fi T[s + k] != P[k]
+    k += 1
+  loop skip
+  until k = m
+  delocal int k = m
+  delocal int diff = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int hm = 0
+  call computeHm(d, m, q, hm)
+  local int di = 0
+  call modinv(d, q, di)
+  local int p = 0
+  call computeModHash(P, 0, m, d, q, p)
+  local int t = 0
+  call computeModHash(T, 0, m, d, q, t)
+  local int s = 0
+  from s = 0 do
+    if t = p then
+      local int eq = 0
+      call windowEqual(T, s, P, m, eq)
+      if eq = 1 then
+        local int val = 0
+        val += s
+        push(val, r)
+        delocal int val = 0
+      else
+        skip
+      fi eq = 1
+      uncall windowEqual(T, s, P, m, eq)
+      delocal int eq = 0
+    else
+      skip
+    fi t = p
+  loop
+    local int tn = 0
+    tn += (d * (t - T[s] * hm) + T[s + m] + q * d * d) % q
+    t <=> tn
+    tn -= (di * (t - T[s + m]) + T[s] * hm + q * d * d) % q
+    delocal int tn = 0
+    s += 1
+  until s = n - m
+  delocal int s = n - m
+  local int w = n - m
+  from w = n - m do
+    skip
+  loop
+    w -= 1
+    local int tp = 0
+    tp += (di * (t - T[w + m]) + T[w] * hm + q * d * d) % q
+    t <=> tp
+    tp -= (d * (t - T[w] * hm) + T[w + m] + q * d * d) % q
+    delocal int tp = 0
+  until w = 0
+  delocal int w = 0
+  uncall computeModHash(T, 0, m, d, q, t)
+  delocal int t = 0
+  uncall computeModHash(P, 0, m, d, q, p)
+  delocal int p = 0
+  uncall modinv(d, q, di)
+  delocal int di = 0
+  uncall computeHm(d, m, q, hm)
+  delocal int hm = 0

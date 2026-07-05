@@ -1,0 +1,121 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 1
+  ⚠️ 構文エラー: 22
+  ❌ 実行エラー: 77
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (1件)
+------------------------------------------------------------
+  p18fib/p18fib_out042_gpt4_1_251228_144831.janus
+
+⚠️ 構文エラーのあったファイル (22件)
+------------------------------------------------------------
+  p18fib/p18fib_out003_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out005_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out006_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out009_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out012_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out015_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out029_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out041_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out044_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out061_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out065_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out066_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out068_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out071_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out074_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out077_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out081_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out086_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out090_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out092_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out095_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out099_gpt4_1_251228_144831.janus
+
+❌ 実行エラーのあったファイル (77件)
+------------------------------------------------------------
+  p18fib/p18fib_out001_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out002_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out004_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out007_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out008_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out010_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out011_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out013_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out014_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out016_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out017_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out018_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out019_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out020_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out021_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out022_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out023_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out024_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out025_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out026_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out027_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out028_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out030_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out031_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out032_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out033_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out034_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out035_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out036_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out037_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out038_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out039_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out040_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out043_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out045_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out046_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out047_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out048_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out049_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out050_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out051_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out052_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out053_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out054_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out055_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out056_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out057_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out058_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out059_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out060_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out062_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out063_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out064_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out067_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out069_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out070_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out072_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out073_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out075_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out076_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out078_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out079_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out080_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out082_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out083_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out084_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out085_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out087_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out088_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out089_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out091_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out093_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out094_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out096_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out097_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out098_gpt4_1_251228_144831.janus
+  p18fib/p18fib_out100_gpt4_1_251228_144831.janus
+
+📄 CSV出力: p18fib/jana_check_results_p18fib_251228_144831_summary.csv

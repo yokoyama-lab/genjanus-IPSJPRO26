@@ -1,0 +1,10 @@
+STATUS: RUNTIME_ERROR
+RETURN_CODE: 1
+STDOUT:
+[ERROR (line 12)]
+[Assertion failed: should be false]
+
+STDERR:
+
+ERROR: [ERROR (line 12)]
+[Assertion failed: should be false]

@@ -1,0 +1,8 @@
+procedure swap_neg_pair(int x, int y)
+    x += y
+    y -= x
+    x += y
+    y -= x
+    x += y
+    y -= x
+    x <=> y

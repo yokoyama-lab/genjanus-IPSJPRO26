@@ -1,0 +1,166 @@
+# 抜粋: 260607/src/genjanus/tasks.py のカナリア課題定義（C1-C9）
+# (a) 識別子難読化 / (b) 新規合成・逆方向 / (c) イディオム禁止 の3系統
+
+# ============================================================
+    # Canary tasks for pretraining-leakage detection (2026-05-23)
+    # ------------------------------------------------------------
+    # Each canary breaks at least one of:
+    #   A. name obfuscation       (proc/var names not used in Janus literature)
+    #   B. functional composition (semantics not appearing as a single proc in
+    #      Yokoyama et al. Janus papers or known public Janus codebases)
+    #   C. constraint reversal    (forbids the textbook reversible operator)
+    # The intent is to distinguish "model truly writes Janus" from
+    # "model regurgitates Janus solutions seen in pretraining".
+    # ============================================================
+
+    "canary_C1": {  # A: name-obfuscated swap
+        "difficulty": 1,
+        "proc_name": "proc_7a3f",
+        "params": ["int q_alpha", "int q_beta"],
+        "description": (
+            "Exchange the values held by q_alpha and q_beta. After execution, the value "
+            "originally in q_alpha is in q_beta and vice versa."
+        ),
+        "test_cases": [
+            {"inputs": {"q_alpha": 3, "q_beta": 5}, "expected": {"q_alpha": 5, "q_beta": 3}},
+            {"inputs": {"q_alpha": -2, "q_beta": 8}, "expected": {"q_alpha": 8, "q_beta": -2}},
+        ],
+    },
+
+    "canary_C2": {  # C: swap with <=> forbidden
+        "difficulty": 2,
+        "proc_name": "swap_xor",
+        "params": ["int x", "int y"],
+        "description": (
+            "Swap x and y. CONSTRAINT: you MUST NOT use the swap operator <=>. "
+            "Use bitwise XOR (^=) only. The standard XOR-swap sequence is "
+            "'x ^= y; y ^= x; x ^= y'. Assume x, y >= 0."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 3, "y": 5}, "expected": {"x": 5, "y": 3}},
+            {"inputs": {"x": 0, "y": 7}, "expected": {"x": 7, "y": 0}},
+        ],
+    },
+
+    "canary_C3": {  # C: negate without *=
+        "difficulty": 3,
+        "proc_name": "negate_wo_muleq",
+        "params": ["int x"],
+        "description": (
+            "Negate the value of x (set x to -x). CONSTRAINT: you MUST NOT use the "
+            "multiplication operator *=. You may use loops and local variables. "
+            "Assume |x| <= 100."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 5}, "expected": {"x": -5}},
+            {"inputs": {"x": -3}, "expected": {"x": 3}},
+        ],
+    },
+
+    "canary_C4": {  # B: swap composed with double negation
+        "difficulty": 2,
+        "proc_name": "swap_neg_pair",
+        "params": ["int x", "int y"],
+        "description": (
+            "First exchange the values of x and y, then negate both. "
+            "Final state: x holds the negation of y's original value, y holds the "
+            "negation of x's original value."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 3, "y": 5}, "expected": {"x": -5, "y": -3}},
+            {"inputs": {"x": -2, "y": 8}, "expected": {"x": -8, "y": 2}},
+        ],
+    },
+
+    "canary_C5": {  # B: reverse-direction cycle3
+        "difficulty": 1,
+        "proc_name": "cycle3_rev",
+        "params": ["int x", "int y", "int z"],
+        "description": (
+            "Cyclically rotate three variables in the reverse direction of the standard "
+            "cycle3: x gets z's old value, y gets x's old value, z gets y's old value."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 1, "y": 2, "z": 3}, "expected": {"x": 3, "y": 1, "z": 2}},
+            {"inputs": {"x": 5, "y": 10, "z": 15}, "expected": {"x": 15, "y": 5, "z": 10}},
+        ],
+    },
+
+    "canary_C6": {  # B: novel composition - sum of squares
+        "difficulty": 4,
+        "proc_name": "sum_squares",
+        "params": ["int x", "int y", "int z"],
+        "description": (
+            "Compute z = x*x + y*y (sum of squares). x and y must remain unchanged. "
+            "z starts at 0. Assume x, y >= 0 and x, y <= 50."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 3, "y": 4, "z": 0}, "expected": {"x": 3, "y": 4, "z": 25}},
+            {"inputs": {"x": 5, "y": 2, "z": 0}, "expected": {"x": 5, "y": 2, "z": 29}},
+        ],
+    },
+
+    "canary_C7": {  # B+C: sum of 1..n skipping multiples of 3
+        "difficulty": 4,
+        "proc_name": "sum_skip_three",
+        "params": ["int n", "int s"],
+        # 一般の n では f(5)=f(6)=12 のように写像が衝突して非単射となり
+        # 「実行後 n = 0」が可逆関数にならないため、n は3の正の倍数を仮定
+        # （その定義域では f は狭義単調増加 = 単射）(2026-06-08)。
+        "description": (
+            "Compute s = sum of integers from 1 to n that are NOT multiples of 3. "
+            "For example, for n=6 the sum is 1+2+4+5 = 12 (skipping 3 and 6). "
+            "s starts at 0. After execution, n should be 0. "
+            "Assume n is a positive multiple of 3."
+        ),
+        "test_cases": [
+            {"inputs": {"n": 6, "s": 0}, "expected": {"n": 0, "s": 12}},
+            {"inputs": {"n": 9, "s": 0}, "expected": {"n": 0, "s": 27}},
+        ],
+    },
+
+    "canary_C8": {  # B: count subtractions until x < y
+        "difficulty": 4,
+        "proc_name": "count_subtract",
+        "params": ["int x", "int y", "int q"],
+        "description": (
+            "Repeatedly subtract y from x while x >= y. Count the number of "
+            "subtractions performed in q (q starts at 0). After execution, x is the "
+            "remainder (0 <= x < y) and q is the quotient. y is unchanged. "
+            "Assume x >= 0 and y > 0."
+        ),
+        "test_cases": [
+            {"inputs": {"x": 17, "y": 5, "q": 0}, "expected": {"x": 2, "y": 5, "q": 3}},
+            {"inputs": {"x": 20, "y": 4, "q": 0}, "expected": {"x": 0, "y": 4, "q": 5}},
+        ],
+    },
+
+    "canary_C9": {  # A+B: random-named linear-counter pair update
+        "difficulty": 3,
+        "proc_name": "xJk2Q9_step",
+        "params": ["int n", "int a", "int b"],
+        # 旧仕様「実行後 n = 0」は (n,a,b) -> (0,a+n,b-n) が非単射となり
+        # 可逆関数として実装不能だったため、「n は不変」に修正 (2026-06-08)。
+        "description": (
+            "Repeat n times: increment a by 1 and decrement b by 1. "
+            "After execution, n must be unchanged, a should be incremented by n, "
+            "and b should be decremented by n. Assume n >= 0."
+        ),
+        "test_cases": [
+            {"inputs": {"n": 5, "a": 0, "b": 0}, "expected": {"n": 5, "a": 5, "b": -5}},
+            {"inputs": {"n": 3, "a": 10, "b": 10}, "expected": {"n": 3, "a": 13, "b": 7}},
+        ],
+    },
+}
+
+# ============================================================
+# Paper taskset (IPSJ PRO 2026, 論文本体の19プロンプト = 15タスク)
+# ------------------------------------------------------------
+# `v1/results/gpt55_paper_prompts_20260525/source_prompts/p01..p19` を v2 に
+# 正式移植したもの。原本は swap×2・cycle3×4 の詳細度バリアントを含み合計19
+# プロンプトだが、異なるタスクは15個。詳細度は v2 ではレシピ（L0..L3）で表現する
+# （対応は PAPER_PROMPTS 台帳）。test_cases の期待値は原本プロンプト記載の例から。
+# 命名は `p_*`（既存60タスクと衝突しない独立 taskset）。
+# ============================================================
+
+PAPER_TASKS = {

@@ -1,0 +1,31 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Variable names does not match in local declaration:
+               `hw' in `local'
+               `match' in `delocal'
+           `delocal' statements must come in reverse order of the `local' statments
+  legacy: Error at line 120:
+            Variable names does not match in local declaration:
+              `hw' in `local'
+              `match' in `delocal'
+          `delocal' statements must come in reverse order of the `local' statments
+            In statement:
+              local int hw
+              ...
+              delocal int match
+  location: /tmp/tmp_h0dmr71.jan:120:17
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    119 |         delocal int hw2 = 0
+  > 120 |         delocal int match = 0
+        |                 ^
+    121 |         s3 += 1
+
+Context:
+  In statement:
+      local int hw
+      ...
+      delocal int match

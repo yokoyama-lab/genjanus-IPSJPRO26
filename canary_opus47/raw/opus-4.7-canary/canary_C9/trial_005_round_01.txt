@@ -1,0 +1,4 @@
+procedure xJk2Q9_step(int n, int a, int b)
+    a += n
+    b -= n
+    n -= a

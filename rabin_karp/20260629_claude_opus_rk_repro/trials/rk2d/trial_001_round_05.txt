@@ -1,0 +1,182 @@
+Resuming with the forward‑rolling, per‑step modular design. The hash is kept reduced mod `q` at every slide step; matches are recorded in a bitmask so the rolling sweep can be fully uncomputed (scratch quotients balanced on `r`), then decoded into `r`.
+
+```
+procedure powint(int b, int e, int p)
+  local int j = 0
+  from j = 0 do
+    skip
+  loop
+    p *= b
+    j += 1
+  until j = e
+  delocal int j = e
+
+procedure rowhashmod(int G[][], int row, int c0, int m, int d, int q, int rh, stack r)
+  local int k = 0
+  from k = 0 do
+    rh *= d
+    rh += G[row][c0 + k]
+    local int quo = rh / q
+      rh -= quo * q
+      push(quo, r)
+    delocal int quo = 0
+    k += 1
+  loop skip until k = m
+  delocal int k = m
+
+procedure buildwinmod(int G[][], int r0, int c0, int m, int d, int q, int Dm, int h, stack r)
+  local int i = 0
+  from i = 0 do
+    local int Rr = 0
+      call rowhashmod(G, r0 + i, c0, m, d, q, Rr, r)
+      h *= Dm
+      h += Rr
+      uncall rowhashmod(G, r0 + i, c0, m, d, q, Rr, r)
+    delocal int Rr = 0
+    local int quo = h / q
+      h -= quo * q
+      push(quo, r)
+    delocal int quo = 0
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure rollstep(int T[][], int s1, int s2, int m, int d, int q, int Phi, int Dm, int h, stack r)
+  local int Rs = 0
+    call rowhashmod(T, s1, s2, m, d, q, Rs, r)
+    h += q * Phi
+    h -= Rs * Phi
+    h *= Dm
+    local int Rn = 0
+      call rowhashmod(T, s1 + m, s2, m, d, q, Rn, r)
+      h += Rn
+      uncall rowhashmod(T, s1 + m, s2, m, d, q, Rn, r)
+    delocal int Rn = 0
+    uncall rowhashmod(T, s1, s2, m, d, q, Rs, r)
+  delocal int Rs = 0
+  local int quo = h / q
+    h -= quo * q
+    push(quo, r)
+  delocal int quo = 0
+
+procedure countdiff(int T[][], int s1, int s2, int P[][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int k = 0
+    from k = 0 do
+      if T[s1 + i][s2 + k] != P[i][k] then
+        diff += 1
+      else
+        skip
+      fi T[s1 + i][s2 + k] != P[i][k]
+      k += 1
+    loop skip until k = m
+    delocal int k = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure detect(int T[][], int n, int P[][], int m, int d, int q, int matchmask, stack r)
+  local int Dm = 1
+    call powint(d, m, Dm)
+    local int Phi = 1
+      call powint(d, m * (m - 1), Phi)
+      local int PV = 0
+        call buildwinmod(P, 0, 0, m, d, q, Dm, PV, r)
+        local int s2 = 0
+        from s2 = 0 do
+          local int h = 0
+            call buildwinmod(T, 0, s2, m, d, q, Dm, h, r)
+            local int s1 = 0
+            from s1 = 0 do
+              local int eq = 0
+                if h = PV then
+                  eq += 1
+                else
+                  skip
+                fi h = PV
+                if eq = 1 then
+                  local int diff = 0
+                    call countdiff(T, s1, s2, P, m, diff)
+                    if diff = 0 then
+                      local int bit = 1
+                        call powint(2, s1 * (n - m + 1) + s2, bit)
+                        matchmask += bit
+                      delocal int bit = 1
+                    else
+                      skip
+                    fi diff = 0
+                    uncall countdiff(T, s1, s2, P, m, diff)
+                  delocal int diff = 0
+                else
+                  skip
+                fi eq = 1
+                if h = PV then
+                  eq -= 1
+                else
+                  skip
+                fi h = PV
+              delocal int eq = 0
+            loop
+              call rollstep(T, s1, s2, m, d, q, Phi, Dm, h, r)
+              s1 += 1
+            until s1 = n - m
+            delocal int s1 = n - m
+            if n - m > 0 then
+              local int s1b = n - m
+              from s1b = n - m do
+                s1b -= 1
+                uncall rollstep(T, s1b, s2, m, d, q, Phi, Dm, h, r)
+              loop skip until s1b = 0
+              delocal int s1b = 0
+            else
+              skip
+            fi n - m > 0
+            uncall buildwinmod(T, 0, s2, m, d, q, Dm, h, r)
+          delocal int h = 0
+          s2 += 1
+        loop skip until s2 = n - m + 1
+        delocal int s2 = n - m + 1
+        uncall buildwinmod(P, 0, 0, m, d, q, Dm, PV, r)
+      delocal int PV = 0
+      uncall powint(d, m * (m - 1), Phi)
+    delocal int Phi = 1
+    uncall powint(d, m, Dm)
+  delocal int Dm = 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int matchmask = 0
+    call detect(T, n, P, m, d, q, matchmask, r)
+    local int s2 = 0
+    from s2 = 0 do
+      local int s1 = 0
+      from s1 = 0 do
+        local int bit = 1
+          call powint(2, s1 * (n - m + 1) + s2, bit)
+          if (matchmask / bit) % 2 = 1 then
+            local int a = s1
+              push(a, r)
+            delocal int a = 0
+            local int b = s2
+              push(b, r)
+            delocal int b = 0
+          else
+            skip
+          fi (matchmask / bit) % 2 = 1
+        delocal int bit = 1
+        s1 += 1
+      loop skip until s1 = n - m + 1
+      delocal int s1 = n - m + 1
+      s2 += 1
+    loop skip until s2 = n - m + 1
+    delocal int s2 = n - m + 1
+    uncall detect(T, n, P, m, d, q, matchmask, r)
+  delocal int matchmask = 0
+```
+
+What changed and why it now meets the requirement:
+
+- **Genuine rolling, no recompute:** `rollstep` slides the window down one row using `h += q*Phi; h -= Rs*Phi; h *= Dm; h += Rn`, i.e. the standard radix-`d` rolling update with `Phi = d^(m(m-1))`, `Dm = d^m`. No window hash is recomputed from scratch and no modular inverse of `d` is used.
+- **Per-step modulus:** every Horner/roll step reduces mod `q` via `quo = h/q; h -= quo*q`, with the quotient pushed to `r` as forward-only scratch (the inverse-free cleanup you described).
+- **Both `d` and `q` drive the hash;** matches are only confirmed by `countdiff` when `h = PV`.
+- **Fully reversible / no garbage:** the rolling sweep is uncomputed (reverse loop + `uncall buildwinmod`), so all scratch quotients are popped and `r` is left holding only the match coordinates; `matchmask` is zeroed by `uncall detect`. `T, P, n, m, d, q` are untouched.

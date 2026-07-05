@@ -1,0 +1,3 @@
+STATUS: WRONG_OUTPUT
+CASES: ['WRONG_OUTPUT', 'SUCCESS']
+ERROR: Expected r=[1, 1, 1, 0, 0, 1], got r=[0, 0, 1]

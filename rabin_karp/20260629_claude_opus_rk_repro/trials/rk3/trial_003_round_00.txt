@@ -1,0 +1,74 @@
+procedure cubehash(int X[][][], int a, int b, int c, int m, int d, int q, int acc)
+  local int L = m * m * m
+    local int pw = 1
+      local int p = 0
+        from p = 0 do
+          acc += (X[a + p/(m*m)][b + (p/m)%m][c + p%m] * pw) % q
+          pw *= d
+        loop p += 1
+        until p = L - 1
+      delocal int p = L - 1
+      local int p2 = 0
+        from p2 = 0 do
+          pw /= d
+        loop p2 += 1
+        until p2 = L - 1
+      delocal int p2 = L - 1
+    delocal int pw = 1
+  delocal int L = m * m * m
+
+procedure countdiff(int T[][][], int a, int b, int c, int P[][][], int m, int diff)
+  local int L = m * m * m
+    local int p = 0
+      from p = 0 do
+        if T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m] then
+          diff += 1
+        else
+          skip
+        fi T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m]
+      loop p += 1
+      until p = L - 1
+    delocal int p = L - 1
+  delocal int L = m * m * m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int ph = 0
+    call cubehash(P, 0, 0, 0, m, d, q, ph)
+    local int s1 = 0
+      from s1 = 0 do
+        local int s2 = 0
+          from s2 = 0 do
+            local int s3 = 0
+              from s3 = 0 do
+                local int h = 0
+                  call cubehash(T, s1, s2, s3, m, d, q, h)
+                  if h = ph then
+                    local int diff = 0
+                      call countdiff(T, s1, s2, s3, P, m, diff)
+                      if diff = 0 then
+                        local int v1 = s1, v2 = s2, v3 = s3
+                          push(v1, r)
+                          push(v2, r)
+                          push(v3, r)
+                        delocal int v1 = 0, v2 = 0, v3 = 0
+                      else
+                        skip
+                      fi diff = 0
+                      uncall countdiff(T, s1, s2, s3, P, m, diff)
+                    delocal int diff = 0
+                  else
+                    skip
+                  fi h = ph
+                  uncall cubehash(T, s1, s2, s3, m, d, q, h)
+                delocal int h = 0
+              loop s3 += 1
+              until s3 = n - m
+            delocal int s3 = n - m
+          loop s2 += 1
+          until s2 = n - m
+        delocal int s2 = n - m
+      loop s1 += 1
+      until s1 = n - m
+    delocal int s1 = n - m
+    uncall cubehash(P, 0, 0, 0, m, d, q, ph)
+  delocal int ph = 0

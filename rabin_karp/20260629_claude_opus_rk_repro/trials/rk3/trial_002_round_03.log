@@ -1,0 +1,22 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Assertion failed: should be false
+  legacy: Error at line 107:
+            Assertion failed: should be false
+            actual: match = 0, 0 = 0
+  location: /tmp/tmpp04ajuwb.jan:107:18
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    106 |           skip
+  > 107 |         fi match = 0
+        |                  ^
+    108 |         delocal int match = 0
+
+Context:
+  actual: match = 0, 0 = 0
+
+Fix hints:
+  - The reversible control-flow assertion did not hold; check the matching entry/exit condition.

@@ -1,0 +1,103 @@
+procedure computeFull(int A[], int off, int len, int d, int v)
+  local int i = 0
+  from i = 0 do
+    v *= d
+    v += A[off + i]
+    i += 1
+  loop skip
+  until i = len
+  delocal int i = len
+
+procedure windowEqual(int T[], int s, int P[], int m, int eq)
+  local int diff = 0
+  local int i = 0
+  from i = 0 do
+    if T[s + i] != P[i] then
+      diff += 1
+    else
+      skip
+    fi T[s + i] != P[i]
+    i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+  if diff = 0 then
+    eq += 1
+  else
+    skip
+  fi eq = 1
+  local int k = 0
+  from k = 0 do
+    if T[s + k] != P[k] then
+      diff -= 1
+    else
+      skip
+    fi T[s + k] != P[k]
+    k += 1
+  loop skip
+  until k = m
+  delocal int k = m
+  delocal int diff = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int p = 0
+  call computeFull(P, 0, m, d, p)
+  local int t = 0
+  call computeFull(T, 0, m, d, t)
+  local int pw = 1
+  local int j = 0
+  from j = 0 do
+    pw *= d
+    j += 1
+  loop skip
+  until j = m
+  delocal int j = m
+  local int phash = p % q
+  local int s = 0
+  from s = 0 do
+    local int thash = t % q
+    if thash = phash then
+      local int eq = 0
+      call windowEqual(T, s, P, m, eq)
+      if eq = 1 then
+        local int val = 0
+        val += s
+        push(val, r)
+        delocal int val = 0
+      else
+        skip
+      fi eq = 1
+      uncall windowEqual(T, s, P, m, eq)
+      delocal int eq = 0
+    else
+      skip
+    fi thash = phash
+    delocal int thash = t % q
+  loop
+    t *= d
+    t += T[s + m] - (T[s] * pw)
+    s += 1
+  until s = n - m
+  delocal int s = n - m
+  delocal int phash = p % q
+  local int w = n - m
+  from w = n - m do
+    skip
+  loop
+    w -= 1
+    t -= T[w + m] - (T[w] * pw)
+    t /= d
+  until w = 0
+  delocal int w = 0
+  uncall computeFull(T, 0, m, d, t)
+  local int jj = 0
+  from jj = 0 do
+    pw /= d
+    jj += 1
+  loop skip
+  until jj = m
+  delocal int jj = m
+  delocal int pw = 1
+  delocal int t = 0
+  uncall computeFull(P, 0, m, d, p)
+  delocal int p = 0

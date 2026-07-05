@@ -1,0 +1,173 @@
+Looking at the failing check: my rolling update (`rollf`) never reduces modulo `q` — it only takes `% q` at comparison time. The detector wants the hash genuinely reduced mod `q` at each rolling step. The obstacle is doing reduced-mod-`q` rolling reversibly without a modular inverse and without local arrays (which Janus forbids). I solve this with **recursion**: each recursive frame holds one window's reduced hash (the recursion plays the role of the forward hash array), the previous reduced hash is retained in the parent frame, and each new reduced hash is built into a fresh cell and cleaned up by re-subtracting — no inverse of `d` needed.
+
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure buildfirst(int T[][][], int s1, int s2, int m, int d, int q, int D, int H)
+  local int c = 0
+  from c = 0 do
+    H *= D
+    local int sl = 0
+      call addslicehash(T, s1, s2, c, m, d, q, sl)
+      H += sl
+      uncall addslicehash(T, s1, s2, c, m, d, q, sl)
+    delocal int sl = 0
+    c += 1
+  loop
+    skip
+  until c = m
+  delocal int c = m
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure scanline(int T[][][], int s1, int s2, int s3, int lim, int P[][][], int m, int d, int q, int D, int DT, int HPr, int prevH, stack r)
+  if prevH = HPr then
+    local int diff = 0
+      call countdiff(T, s1, s2, s3, P, m, diff)
+      if diff = 0 then
+        call pushpos(s1, s2, s3, r)
+      else
+        skip
+      fi diff = 0
+      uncall countdiff(T, s1, s2, s3, P, m, diff)
+    delocal int diff = 0
+  else
+    skip
+  fi prevH = HPr
+  if s3 < lim then
+    local int so = 0
+      call addslicehash(T, s1, s2, s3, m, d, q, so)
+      local int si = 0
+        call addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+        local int curH = 0
+          curH += (prevH * (D % q)) % q
+          curH += si % q
+          curH += q
+          curH -= ((so % q) * (DT % q)) % q
+          local int qt = curH / q
+            curH -= qt * q
+            call scanline(T, s1, s2, s3 + 1, lim, P, m, d, q, D, DT, HPr, curH, r)
+            curH += qt * q
+          delocal int qt = curH / q
+          curH += ((so % q) * (DT % q)) % q
+          curH -= q
+          curH -= si % q
+          curH -= (prevH * (D % q)) % q
+        delocal int curH = 0
+        uncall addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+      delocal int si = 0
+      uncall addslicehash(T, s1, s2, s3, m, d, q, so)
+    delocal int so = 0
+  else
+    skip
+  fi s3 < lim
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int lim = n - m
+            local int HPexact = 0
+              call buildfirst(P, 0, 0, m, d, q, D, HPexact)
+              local int HPr = HPexact % q
+                local int s1 = 0
+                from s1 = 0 do
+                  local int s2 = 0
+                  from s2 = 0 do
+                    local int H0exact = 0
+                      call buildfirst(T, s1, s2, m, d, q, D, H0exact)
+                      local int qt0 = H0exact / q
+                        H0exact -= qt0 * q
+                        call scanline(T, s1, s2, 0, lim, P, m, d, q, D, DT, HPr, H0exact, r)
+                        H0exact += qt0 * q
+                      delocal int qt0 = H0exact / q
+                      uncall buildfirst(T, s1, s2, m, d, q, D, H0exact)
+                    delocal int H0exact = 0
+                  loop
+                    s2 += 1
+                  until s2 = lim
+                  delocal int s2 = lim
+                loop
+                  s1 += 1
+                until s1 = lim
+                delocal int s1 = lim
+              delocal int HPr = HPexact % q
+              uncall buildfirst(P, 0, 0, m, d, q, D, HPexact)
+            delocal int HPexact = 0
+          delocal int lim = n - m
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m

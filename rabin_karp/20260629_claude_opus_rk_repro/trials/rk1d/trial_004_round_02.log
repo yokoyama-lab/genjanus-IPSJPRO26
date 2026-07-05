@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR', 'RUNTIME_ERROR', 'SUCCESS']
+ERROR: PyJanus execution error
+  message: Expected value to be `0' for local variable `phq'
+            but actual value is `2'
+  legacy: Error at line 111:
+            Expected value to be `0' for local variable `phq'
+           but actual value is `2'
+            In statement:
+              local int phq
+              skip
+              delocal int phq
+  location: /tmp/tmp_bkw7ez3.jan:111:11
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    110 |     delocal int dm = 1
+  > 111 |   delocal int phq = 0
+        |           ^
+    112 | 
+
+Context:
+  In statement:
+      local int phq
+      skip
+      delocal int phq

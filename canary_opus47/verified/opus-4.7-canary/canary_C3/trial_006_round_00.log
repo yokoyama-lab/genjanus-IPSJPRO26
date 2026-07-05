@@ -1,0 +1,12 @@
+STATUS: SYNTAX_ERROR
+RETURN_CODE: 1
+STDOUT:
+File "/tmp/tmpmgj9cppp.jan" in line 11, column 22:
+    Unexpected "x"
+    Expecting digit
+
+STDERR:
+
+ERROR: File "/tmp/tmpmgj9cppp.jan" in line 11, column 22:
+    Unexpected "x"
+    Expecting digit

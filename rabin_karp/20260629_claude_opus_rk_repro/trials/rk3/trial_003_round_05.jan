@@ -1,0 +1,149 @@
+procedure addPowD(int d, int e, int q, int acc)
+  local int pw = 1
+    local int i = 0
+      from i = 0 do
+        skip
+      loop
+        pw *= d
+        i += 1
+      until i = e
+    delocal int i = e
+    acc += pw % q
+    local int k = 0
+      from k = 0 do
+        skip
+      loop
+        pw /= d
+        k += 1
+      until k = e
+    delocal int k = e
+  delocal int pw = 1
+
+procedure planehash(int X[][][], int a, int b, int dep, int m, int d, int q, int acc)
+  local int pw = 1
+    local int t = 0
+      from t = 0 do
+        acc += (X[a + t/m][b + t%m][dep] * pw) % q
+        pw *= d
+      loop t += 1
+      until t = m*m - 1
+    delocal int t = m*m - 1
+    local int t2 = 0
+      from t2 = 0 do
+        pw /= d
+      loop t2 += 1
+      until t2 = m*m - 1
+    delocal int t2 = m*m - 1
+  delocal int pw = 1
+
+procedure inithash(int X[][][], int a, int b, int c, int m, int d, int q, int W, int h)
+  local int j = 0
+    from j = 0 do
+      h *= W
+      local int pv = 0
+        call planehash(X, a, b, c + j, m, d, q, pv)
+        h += pv % q
+        uncall planehash(X, a, b, c + j, m, d, q, pv)
+      delocal int pv = 0
+    loop j += 1
+    until j = m - 1
+  delocal int j = m - 1
+
+procedure roll(int T[][][], int s1, int s2, int s, int m, int d, int q, int h)
+  local int W = 0
+    call addPowD(d, m*m, q, W)
+    local int Wp = 0
+      call addPowD(d, m*m*(m-1), q, Wp)
+      local int pv0 = 0
+        call planehash(T, s1, s2, s, m, d, q, pv0)
+        h -= (pv0 % q) * Wp
+        uncall planehash(T, s1, s2, s, m, d, q, pv0)
+      delocal int pv0 = 0
+      h *= W
+      local int pvm = 0
+        call planehash(T, s1, s2, s + m, m, d, q, pvm)
+        h += pvm % q
+        uncall planehash(T, s1, s2, s + m, m, d, q, pvm)
+      delocal int pvm = 0
+      uncall addPowD(d, m*m*(m-1), q, Wp)
+    delocal int Wp = 0
+    uncall addPowD(d, m*m, q, W)
+  delocal int W = 0
+
+procedure countdiff(int T[][][], int a, int b, int c, int P[][][], int m, int diff)
+  local int L = m * m * m
+    local int p = 0
+      from p = 0 do
+        if T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m] then
+          diff += 1
+        else
+          skip
+        fi T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m]
+      loop p += 1
+      until p = L - 1
+    delocal int p = L - 1
+  delocal int L = m * m * m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int W = 0
+    call addPowD(d, m*m, q, W)
+    local int ph = 0
+      call inithash(P, 0, 0, 0, m, d, q, W, ph)
+      local int s1 = 0
+        from s1 = 0 do
+          local int s2 = 0
+            from s2 = 0 do
+              local int h = 0
+                call inithash(T, s1, s2, 0, m, d, q, W, h)
+                local int s3 = 0
+                  from s3 = 0 do
+                    local int hq = h % q
+                      local int phq = ph % q
+                        if hq = phq then
+                          local int diff = 0
+                            call countdiff(T, s1, s2, s3, P, m, diff)
+                            if diff = 0 then
+                              local int v1 = s1
+                                local int v2 = s2
+                                  local int v3 = s3
+                                    push(v1, r)
+                                    push(v2, r)
+                                    push(v3, r)
+                                  delocal int v3 = 0
+                                delocal int v2 = 0
+                              delocal int v1 = 0
+                            else
+                              skip
+                            fi diff = 0
+                            uncall countdiff(T, s1, s2, s3, P, m, diff)
+                          delocal int diff = 0
+                        else
+                          skip
+                        fi hq = phq
+                      delocal int phq = ph % q
+                    delocal int hq = h % q
+                  loop
+                    call roll(T, s1, s2, s3, m, d, q, h)
+                    s3 += 1
+                  until s3 = n - m
+                delocal int s3 = n - m
+                local int s3b = n - m
+                  from s3b = n - m do
+                    skip
+                  loop
+                    s3b -= 1
+                    uncall roll(T, s1, s2, s3b, m, d, q, h)
+                  until s3b = 0
+                delocal int s3b = 0
+                uncall inithash(T, s1, s2, 0, m, d, q, W, h)
+              delocal int h = 0
+            loop s2 += 1
+            until s2 = n - m
+          delocal int s2 = n - m
+        loop s1 += 1
+        until s1 = n - m
+      delocal int s1 = n - m
+      uncall inithash(P, 0, 0, 0, m, d, q, W, ph)
+    delocal int ph = 0
+    uncall addPowD(d, m*m, q, W)
+  delocal int W = 0

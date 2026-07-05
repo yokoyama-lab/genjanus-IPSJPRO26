@@ -1,0 +1,120 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 19
+  ⚠️ 構文エラー: 8
+  ❌ 実行エラー: 73
+
+✅ 成功したファイル（正しい出力） (8件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out001_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out006_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out008_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out010_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out012_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out059_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out083_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out087_gpt5_2_251227_183058.janus
+
+❌ 成功したファイル（誤った出力） (11件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out014_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out019_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out021_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out029_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out030_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out031_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out033_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out035_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out041_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out085_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out097_gpt5_2_251227_183058.janus
+
+⚠️ 構文エラーのあったファイル (8件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out007_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out015_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out032_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out053_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out060_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out069_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out074_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out081_gpt5_2_251227_183058.janus
+
+❌ 実行エラーのあったファイル (73件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out002_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out003_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out004_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out005_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out009_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out011_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out013_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out016_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out017_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out018_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out020_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out022_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out023_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out024_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out025_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out026_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out027_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out028_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out034_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out036_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out037_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out038_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out039_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out040_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out042_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out043_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out044_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out045_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out046_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out047_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out048_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out049_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out050_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out051_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out052_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out054_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out055_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out056_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out057_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out058_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out061_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out062_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out063_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out064_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out065_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out066_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out067_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out068_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out070_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out071_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out072_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out073_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out075_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out076_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out077_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out078_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out079_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out080_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out082_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out084_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out086_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out088_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out089_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out090_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out091_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out092_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out093_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out094_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out095_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out096_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out098_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out099_gpt5_2_251227_183058.janus
+  p04cycle3/p04cycle3_out100_gpt5_2_251227_183058.janus
+
+📄 CSV出力: p04cycle3/jana_check_results_p04cycle3_251227_183058_summary.csv

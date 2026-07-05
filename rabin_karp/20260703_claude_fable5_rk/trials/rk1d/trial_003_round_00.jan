@@ -1,0 +1,85 @@
+procedure hcalc(int A[], int off, int i, int m, int d, int q, int acc, int out)
+  if i < m then
+    local int a2 = ((acc * d + A[off + i]) % q + q) % q
+      call hcalc(A, off, i + 1, m, d, q, a2, out)
+    delocal int a2 = ((acc * d + A[off + i]) % q + q) % q
+  else
+    out += acc
+  fi i < m
+
+procedure pcalc(int d, int q, int i, int e, int acc, int out)
+  if i < e then
+    local int a2 = ((acc * d) % q + q) % q
+      call pcalc(d, q, i + 1, e, a2, out)
+    delocal int a2 = ((acc * d) % q + q) % q
+  else
+    out += acc
+  fi i < e
+
+procedure winok(int T[], int s, int P[], int m, int eq)
+  local int c = 0
+    local int i = 0
+      from i = 0 do
+        if T[s + i] != P[i] then
+          c += 1
+        else
+          skip
+        fi T[s + i] != P[i]
+        i += 1
+      loop
+        skip
+      until i = m
+    delocal int i = m
+    if c = 0 then
+      eq += 1
+    else
+      skip
+    fi c = 0
+    local int i = 0
+      from i = 0 do
+        if T[s + i] != P[i] then
+          c -= 1
+        else
+          skip
+        fi T[s + i] != P[i]
+        i += 1
+      loop
+        skip
+      until i = m
+    delocal int i = m
+  delocal int c = 0
+
+procedure rksearch(int T[], int n, int P[], int m, int d, int q, int dm, int ph, int s, int h, stack r)
+  if h = ph then
+    local int eq = 0
+      call winok(T, s, P, m, eq)
+      if eq = 1 then
+        local int t = s
+          push(t, r)
+        delocal int t = 0
+      else
+        skip
+      fi eq = 1
+      uncall winok(T, s, P, m, eq)
+    delocal int eq = 0
+  else
+    skip
+  fi h = ph
+  if s < n - m then
+    local int h2 = ((d * (h - T[s] * dm) + T[s + m]) % q + q) % q
+      call rksearch(T, n, P, m, d, q, dm, ph, s + 1, h2, r)
+    delocal int h2 = ((d * (h - T[s] * dm) + T[s + m]) % q + q) % q
+  else
+    skip
+  fi s < n - m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int ph = 0, int th = 0, int dm = 0
+    call hcalc(P, 0, 0, m, d, q, 0, ph)
+    call hcalc(T, 0, 0, m, d, q, 0, th)
+    call pcalc(d, q, 0, m - 1, 1, dm)
+    call rksearch(T, n, P, m, d, q, dm, ph, 0, th, r)
+    uncall pcalc(d, q, 0, m - 1, 1, dm)
+    uncall hcalc(T, 0, 0, m, d, q, 0, th)
+    uncall hcalc(P, 0, 0, m, d, q, 0, ph)
+  delocal int ph = 0, int th = 0, int dm = 0

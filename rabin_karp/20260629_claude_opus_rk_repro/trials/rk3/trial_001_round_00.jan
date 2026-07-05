@@ -1,0 +1,118 @@
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addwinhash(int T[][][], int s1, int s2, int s3, int m, int d, int q, int h)
+  local int mm = m * m
+    local int total = mm * m
+      local int fl = 0
+      from fl = 0 do
+        local int i = fl / mm
+          local int j = (fl / m) % m
+            local int k = fl % m
+              local int pw = 1
+                call power(d, fl, pw)
+                h += ((T[s1 + i][s2 + j][s3 + k] % q) * (pw % q)) % q
+                uncall power(d, fl, pw)
+              delocal int pw = 1
+            delocal int k = fl % m
+          delocal int j = (fl / m) % m
+        delocal int i = fl / mm
+        fl += 1
+      loop
+        skip
+      until fl = total
+      delocal int fl = total
+    delocal int total = mm * m
+  delocal int mm = m * m
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int hp = 0
+    call addwinhash(P, 0, 0, 0, m, d, q, hp)
+    local int lim = n - m
+      local int s1 = 0
+      from s1 = 0 do
+        local int s2 = 0
+        from s2 = 0 do
+          local int s3 = 0
+          from s3 = 0 do
+            local int hw = 0
+              call addwinhash(T, s1, s2, s3, m, d, q, hw)
+              if (hw % q) = (hp % q) then
+                local int diff = 0
+                  call countdiff(T, s1, s2, s3, P, m, diff)
+                  if diff = 0 then
+                    call pushpos(s1, s2, s3, r)
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, s1, s2, s3, P, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi (hw % q) = (hp % q)
+              uncall addwinhash(T, s1, s2, s3, m, d, q, hw)
+            delocal int hw = 0
+            s3 += 1
+          loop
+            skip
+          until s3 = lim + 1
+          delocal int s3 = lim + 1
+          s2 += 1
+        loop
+          skip
+        until s2 = lim + 1
+        delocal int s2 = lim + 1
+        s1 += 1
+      loop
+        skip
+      until s1 = lim + 1
+      delocal int s1 = lim + 1
+    delocal int lim = n - m
+    uncall addwinhash(P, 0, 0, 0, m, d, q, hp)
+  delocal int hp = 0

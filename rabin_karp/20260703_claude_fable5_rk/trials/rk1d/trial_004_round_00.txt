@@ -1,0 +1,62 @@
+```janus
+procedure mkhash(int A[], int s, int j, int len, int d, int q, int acc, int res)
+    if j < len then
+        local int a2 = ((acc * d) + A[s + j]) % q, int j2 = j + 1
+            call mkhash(A, s, j2, len, d, q, a2, res)
+        delocal int a2 = ((acc * d) + A[s + j]) % q, int j2 = j + 1
+    else
+        res += acc
+    fi j < len
+
+procedure mkpow(int j, int m, int d, int q, int acc, int res)
+    if j < m - 1 then
+        local int a2 = (acc * d) % q, int j2 = j + 1
+            call mkpow(j2, m, d, q, a2, res)
+        delocal int a2 = (acc * d) % q, int j2 = j + 1
+    else
+        res += acc
+    fi j < m - 1
+
+procedure slide(int T[], int n, int P[], int m, int d, int q, int ph, int hp, int s, int cur, stack r)
+    if cur = ph then
+        local int diff = 0, int j = 0
+            from j = 0 do
+                diff += (T[s + j] != P[j])
+                j += 1
+            loop skip
+            until j = m
+            if diff = 0 then
+                local int v = s
+                    push(v, r)
+                delocal int v = 0
+            else
+                skip
+            fi diff = 0
+            from j = m do
+                j -= 1
+                diff -= (T[s + j] != P[j])
+            loop skip
+            until j = 0
+        delocal int diff = 0, int j = 0
+    else
+        skip
+    fi cur = ph
+    if s < n - m then
+        local int nx = ((((cur - ((T[s] * hp) % q)) + q) % q) * d + T[s + m]) % q, int s2 = s + 1
+            call slide(T, n, P, m, d, q, ph, hp, s2, nx, r)
+        delocal int nx = ((((cur - ((T[s] * hp) % q)) + q) % q) * d + T[s + m]) % q, int s2 = s + 1
+    else
+        skip
+    fi s < n - m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int ph = 0, int hp = 0, int h0 = 0, int za = 0, int zb = 0, int zc = 0, int zd = 0, int ze = 0, int zf = 0, int zg = 0, int one = 1, int s0 = 0
+        call mkhash(P, za, zb, m, d, q, zc, ph)
+        call mkhash(T, zd, ze, m, d, q, zf, h0)
+        call mkpow(zg, m, d, q, one, hp)
+        call slide(T, n, P, m, d, q, ph, hp, s0, h0, r)
+        uncall mkpow(zg, m, d, q, one, hp)
+        uncall mkhash(T, zd, ze, m, d, q, zf, h0)
+        uncall mkhash(P, za, zb, m, d, q, zc, ph)
+    delocal int ph = 0, int hp = 0, int h0 = 0, int za = 0, int zb = 0, int zc = 0, int zd = 0, int ze = 0, int zf = 0, int zg = 0, int one = 1, int s0 = 0
+```

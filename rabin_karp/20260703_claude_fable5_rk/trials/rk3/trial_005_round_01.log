@@ -1,0 +1,3 @@
+STATUS: WRONG_OUTPUT
+CASES: ['SUCCESS', 'WRONG_OUTPUT']
+ERROR: Passed case(s) 1..1 but failed case 2: with inputs {'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'n': 2, 'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'm': 2, 'd': 10, 'q': 101}, expected {'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'd': 10, 'm': 2, 'n': 2, 'q': 101, 'r': [0, 0, 0]}. Expected r=[0, 0, 0], got r=nil

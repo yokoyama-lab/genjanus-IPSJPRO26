@@ -1,0 +1,71 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 49
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 27
+  ❌ 実行エラー: 22
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (27件)
+------------------------------------------------------------
+  p12gcd/p12gcd_out002_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out004_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out013_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out019_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out021_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out022_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out028_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out030_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out031_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out044_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out047_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out060_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out064_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out083_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out085_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out086_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out088_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out089_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out090_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out091_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out092_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out094_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out095_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out096_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out097_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out099_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out100_gpt4_1_251227_214949.janus
+
+❌ 実行エラーのあったファイル (22件)
+------------------------------------------------------------
+  p12gcd/p12gcd_out001_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out003_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out005_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out010_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out014_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out034_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out035_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out038_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out039_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out050_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out052_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out055_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out057_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out059_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out061_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out076_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out077_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out078_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out082_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out087_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out093_gpt4_1_251227_214949.janus
+  p12gcd/p12gcd_out098_gpt4_1_251227_214949.janus
+
+📄 CSV出力: p12gcd/jana_check_results_p12gcd_251227_214949_summary.csv

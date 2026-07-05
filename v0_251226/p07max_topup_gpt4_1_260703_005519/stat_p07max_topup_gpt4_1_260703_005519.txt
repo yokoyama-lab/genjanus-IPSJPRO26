@@ -1,0 +1,59 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 39
+  ✅ 成功: 14
+  ⚠️ 構文エラー: 3
+  ❌ 実行エラー: 22
+
+✅ 成功したファイル（正しい出力） (11件)
+------------------------------------------------------------
+  p07max_topup_gpt4_1_260703_005519/p07max_out001_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out007_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out013_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out017_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out019_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out020_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out021_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out022_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out027_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out036_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out039_gpt4_1_260703_005519.janus
+
+❌ 成功したファイル（誤った出力） (3件)
+------------------------------------------------------------
+  p07max_topup_gpt4_1_260703_005519/p07max_out012_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out030_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out031_gpt4_1_260703_005519.janus
+
+⚠️ 構文エラーのあったファイル (3件)
+------------------------------------------------------------
+  p07max_topup_gpt4_1_260703_005519/p07max_out009_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out023_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out032_gpt4_1_260703_005519.janus
+
+❌ 実行エラーのあったファイル (22件)
+------------------------------------------------------------
+  p07max_topup_gpt4_1_260703_005519/p07max_out002_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out003_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out004_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out005_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out006_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out008_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out010_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out011_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out014_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out015_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out016_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out018_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out024_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out025_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out026_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out028_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out029_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out033_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out034_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out035_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out037_gpt4_1_260703_005519.janus
+  p07max_topup_gpt4_1_260703_005519/p07max_out038_gpt4_1_260703_005519.janus
+
+📄 CSV出力: p07max_topup_gpt4_1_260703_005519/jana_check_results_p07max_topup_gpt4_1_260703_005519_summary.csv

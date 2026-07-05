@@ -1,0 +1,112 @@
+procedure rowhashmod(int A[][], int row, int col, int len, int d, int q, int rh, stack g)
+   local int k = 0
+      from k = 0 do
+         rh *= d
+         rh += A[row][col + k]
+         local int Q = rh / q
+            rh -= Q * q
+            push(Q, g)
+         delocal int Q = 0
+      loop
+         k += 1
+      until k = len - 1
+      delocal int k = len - 1
+
+procedure modhash(int A[][], int s1, int s2, int m, int d, int q, int h, stack g)
+   local int i = 0
+      from i = 0 do
+         local int rh = 0
+            call rowhashmod(A, s1 + i, s2, m, d, q, rh, g)
+            h *= d
+            h += rh
+            uncall rowhashmod(A, s1 + i, s2, m, d, q, rh, g)
+         delocal int rh = 0
+         local int Q = h / q
+            h -= Q * q
+            push(Q, g)
+         delocal int Q = 0
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure countmism(int T[][], int s1, int s2, int P[][], int m, int mism)
+   local int i = 0
+      from i = 0 do
+         local int j = 0
+            from j = 0 do
+               if T[s1 + i][s2 + j] != P[i][j] then
+                  mism += 1
+               else
+                  skip
+               fi T[s1 + i][s2 + j] != P[i][j]
+            loop
+               j += 1
+            until j = m - 1
+            delocal int j = m - 1
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+   local int PHmod = 0
+      local int PH = 0
+         call modhash(P, 0, 0, m, d, q, PH, r)
+         PHmod += PH
+         uncall modhash(P, 0, 0, m, d, q, PH, r)
+      delocal int PH = 0
+      local int s2 = 0
+         from s2 = 0 do
+            local int s1 = 0
+               from s1 = 0 do
+                  local int WH = 0
+                     local int eq = 0
+                        call modhash(T, s1, s2, m, d, q, WH, r)
+                        if WH = PHmod then
+                           eq += 1
+                        else
+                           skip
+                        fi WH = PHmod
+                        uncall modhash(T, s1, s2, m, d, q, WH, r)
+                        if eq = 1 then
+                           local int mism = 0
+                              call countmism(T, s1, s2, P, m, mism)
+                              if mism = 0 then
+                                 local int a = s1
+                                    push(a, r)
+                                 delocal int a = 0
+                                 local int b = s2
+                                    push(b, r)
+                                 delocal int b = 0
+                              else
+                                 skip
+                              fi mism = 0
+                              uncall countmism(T, s1, s2, P, m, mism)
+                           delocal int mism = 0
+                        else
+                           skip
+                        fi eq = 1
+                        call modhash(T, s1, s2, m, d, q, WH, r)
+                        if WH = PHmod then
+                           eq -= 1
+                        else
+                           skip
+                        fi WH = PHmod
+                        uncall modhash(T, s1, s2, m, d, q, WH, r)
+                     delocal int eq = 0
+                  delocal int WH = 0
+               loop
+                  s1 += 1
+               until s1 = n - m
+               delocal int s1 = n - m
+         loop
+            s2 += 1
+         until s2 = n - m
+         delocal int s2 = n - m
+      local int PH2 = 0
+         call modhash(P, 0, 0, m, d, q, PH2, r)
+         PHmod -= PH2
+         uncall modhash(P, 0, 0, m, d, q, PH2, r)
+      delocal int PH2 = 0
+   delocal int PHmod = 0

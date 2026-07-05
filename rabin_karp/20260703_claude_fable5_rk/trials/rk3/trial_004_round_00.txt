@@ -1,0 +1,233 @@
+```janus
+procedure fillpow(int DP[], int m, int d, int q)
+    DP[0] += 1
+    local int k = 0
+    from k = 0 do
+        local int t = (DP[k] * d) % q
+        DP[k + 1] += t
+        delocal int t = DP[k + 1]
+        k += 1
+    loop skip until k = m
+    delocal int k = m
+
+procedure wseed3(int A[][][], int i, int j, int m, int d, int q, int W[])
+    local int k = 0
+    from k = 0 do
+        local int t = (W[k] * d + A[i][j][k]) % q
+        W[k + 1] += t
+        delocal int t = W[k + 1]
+        k += 1
+    loop skip until k = m
+    delocal int k = m
+
+procedure wseed1(int A[], int off, int step, int m, int d, int q, int W[])
+    local int k = 0
+    from k = 0 do
+        local int t = (W[k] * d + A[off + k * step]) % q
+        W[k + 1] += t
+        delocal int t = W[k + 1]
+        k += 1
+    loop skip until k = m
+    delocal int k = m
+
+procedure phash(int P[][][], int m, int d, int q, int W[], int PZ[], int PY[], int PH[])
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            call wseed3(P, i, j, m, d, q, W)
+            PZ[i * m + j] += W[m]
+            uncall wseed3(P, i, j, m, d, q, W)
+            j += 1
+        loop skip until j = m
+        delocal int j = m
+        i += 1
+    loop skip until i = m
+    delocal int i = m
+    local int i = 0
+    from i = 0 do
+        call wseed1(PZ, i * m, 1, m, d, q, W)
+        PY[i] += W[m]
+        uncall wseed1(PZ, i * m, 1, m, d, q, W)
+        i += 1
+    loop skip until i = m
+    delocal int i = m
+    call wseed1(PY, 0, 1, m, d, q, W)
+    PH[0] += W[m]
+    uncall wseed1(PY, 0, 1, m, d, q, W)
+
+procedure zhash(int T[][][], int n, int m, int d, int q, int dm, int W[], int HZ[])
+    local int L = n - m
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            call wseed3(T, i, j, m, d, q, W)
+            HZ[(i * n + j) * (L + 1)] += W[m]
+            uncall wseed3(T, i, j, m, d, q, W)
+            if L > 0 then
+                local int s = 0
+                from s = 0 do
+                    local int t = (HZ[(i * n + j) * (L + 1) + s] * d + T[i][j][s + m] + (q - (T[i][j][s] * dm) % q)) % q
+                    HZ[(i * n + j) * (L + 1) + s + 1] += t
+                    delocal int t = HZ[(i * n + j) * (L + 1) + s + 1]
+                    s += 1
+                loop skip until s = L
+                delocal int s = L
+            else
+                skip
+            fi L > 0
+            j += 1
+        loop skip until j = n
+        delocal int j = n
+        i += 1
+    loop skip until i = n
+    delocal int i = n
+    delocal int L = n - m
+
+procedure yhash(int n, int m, int d, int q, int dm, int W[], int HZ[], int HY[])
+    local int L = n - m
+    local int i = 0
+    from i = 0 do
+        local int s3 = 0
+        from s3 = 0 do
+            call wseed1(HZ, i * n * (L + 1) + s3, L + 1, m, d, q, W)
+            HY[i * (L + 1) * (L + 1) + s3] += W[m]
+            uncall wseed1(HZ, i * n * (L + 1) + s3, L + 1, m, d, q, W)
+            if L > 0 then
+                local int s2 = 0
+                from s2 = 0 do
+                    local int t = (HY[(i * (L + 1) + s2) * (L + 1) + s3] * d + HZ[(i * n + s2 + m) * (L + 1) + s3] + (q - (HZ[(i * n + s2) * (L + 1) + s3] * dm) % q)) % q
+                    HY[(i * (L + 1) + s2 + 1) * (L + 1) + s3] += t
+                    delocal int t = HY[(i * (L + 1) + s2 + 1) * (L + 1) + s3]
+                    s2 += 1
+                loop skip until s2 = L
+                delocal int s2 = L
+            else
+                skip
+            fi L > 0
+            s3 += 1
+        loop skip until s3 = L + 1
+        delocal int s3 = L + 1
+        i += 1
+    loop skip until i = n
+    delocal int i = n
+    delocal int L = n - m
+
+procedure xhash(int n, int m, int d, int q, int dm, int W[], int HY[], int HX[])
+    local int L = n - m
+    local int s2 = 0
+    from s2 = 0 do
+        local int s3 = 0
+        from s3 = 0 do
+            call wseed1(HY, s2 * (L + 1) + s3, (L + 1) * (L + 1), m, d, q, W)
+            HX[s2 * (L + 1) + s3] += W[m]
+            uncall wseed1(HY, s2 * (L + 1) + s3, (L + 1) * (L + 1), m, d, q, W)
+            if L > 0 then
+                local int s1 = 0
+                from s1 = 0 do
+                    local int t = (HX[(s1 * (L + 1) + s2) * (L + 1) + s3] * d + HY[((s1 + m) * (L + 1) + s2) * (L + 1) + s3] + (q - (HY[(s1 * (L + 1) + s2) * (L + 1) + s3] * dm) % q)) % q
+                    HX[((s1 + 1) * (L + 1) + s2) * (L + 1) + s3] += t
+                    delocal int t = HX[((s1 + 1) * (L + 1) + s2) * (L + 1) + s3]
+                    s1 += 1
+                loop skip until s1 = L
+                delocal int s1 = L
+            else
+                skip
+            fi L > 0
+            s3 += 1
+        loop skip until s3 = L + 1
+        delocal int s3 = L + 1
+        s2 += 1
+    loop skip until s2 = L + 1
+    delocal int s2 = L + 1
+    delocal int L = n - m
+
+procedure diff(int T[][][], int P[][][], int s1, int s2, int s3, int m, int DF[])
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            local int k = 0
+            from k = 0 do
+                if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+                    DF[0] += 1
+                else
+                    skip
+                fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+                k += 1
+            loop skip until k = m
+            delocal int k = m
+            j += 1
+        loop skip until j = m
+        delocal int j = m
+        i += 1
+    loop skip until i = m
+    delocal int i = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int L = n - m
+    local int DP[m + 1]
+    local int W[m + 1]
+    local int PZ[m * m]
+    local int PY[m]
+    local int PH[1]
+    local int HZ[n * n * (L + 1)]
+    local int HY[n * (L + 1) * (L + 1)]
+    local int HX[(L + 1) * (L + 1) * (L + 1)]
+    local int DF[1]
+    call fillpow(DP, m, d, q)
+    call phash(P, m, d, q, W, PZ, PY, PH)
+    call zhash(T, n, m, d, q, DP[m], W, HZ)
+    call yhash(n, m, d, q, DP[m], W, HZ, HY)
+    call xhash(n, m, d, q, DP[m], W, HY, HX)
+    local int s1 = 0
+    from s1 = 0 do
+        local int s2 = 0
+        from s2 = 0 do
+            local int s3 = 0
+            from s3 = 0 do
+                if HX[(s1 * (L + 1) + s2) * (L + 1) + s3] = PH[0] then
+                    call diff(T, P, s1, s2, s3, m, DF)
+                    if DF[0] = 0 then
+                        local int a = s1
+                        push(a, r)
+                        delocal int a = 0
+                        local int b = s2
+                        push(b, r)
+                        delocal int b = 0
+                        local int c = s3
+                        push(c, r)
+                        delocal int c = 0
+                    else
+                        skip
+                    fi DF[0] = 0
+                    uncall diff(T, P, s1, s2, s3, m, DF)
+                else
+                    skip
+                fi HX[(s1 * (L + 1) + s2) * (L + 1) + s3] = PH[0]
+                s3 += 1
+            loop skip until s3 = L + 1
+            delocal int s3 = L + 1
+            s2 += 1
+        loop skip until s2 = L + 1
+        delocal int s2 = L + 1
+        s1 += 1
+    loop skip until s1 = L + 1
+    delocal int s1 = L + 1
+    uncall xhash(n, m, d, q, DP[m], W, HY, HX)
+    uncall yhash(n, m, d, q, DP[m], W, HZ, HY)
+    uncall zhash(T, n, m, d, q, DP[m], W, HZ)
+    uncall phash(P, m, d, q, W, PZ, PY, PH)
+    uncall fillpow(DP, m, d, q)
+    delocal int DF[1]
+    delocal int HX[(L + 1) * (L + 1) * (L + 1)]
+    delocal int HY[n * (L + 1) * (L + 1)]
+    delocal int HZ[n * n * (L + 1)]
+    delocal int PH[1]
+    delocal int PY[m]
+    delocal int PZ[m * m]
+    delocal int W[m + 1]
+    delocal int DP[m + 1]
+    delocal int L = n - m
+```

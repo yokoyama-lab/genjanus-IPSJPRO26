@@ -1,0 +1,235 @@
+//////////////////////////////////////////////////////////////////
+// 3D Reversible Rabin-Karp Algorithm, last updated: March 6, 2026
+// (c) Tetsuo Yokoyama
+//
+// Tested on Jana interpreter of the branch multeq:
+// https://github.com/kirkedal/Jana-JanusInterp/tree/mult_eq
+//
+// no dummy elements
+//
+// Constraints:
+//   - q must be prime (Fermat's little theorem: d^(q-1) = 1 mod q)
+//   - gcd(d, q) = 1  (i.e., q must not divide d)
+//   - The -m (modular) flag may fail when d^dexp overflows the bit width
+//     (dexp = -m^2 mod (q-1); e.g., q=101, m=2 gives dexp=96)
+//   - The -p (GF) flag is incompatible (iterate uncall uses negative step)
+//////////////////////////////////////////////////////////////////
+
+procedure nm1(int T[], int n, int P[], int m, int s, int i, int f)
+    from i = 0 do
+        if T[s+i] != P[i] then
+            f ^= 1
+        fi f = 0
+        i += 1
+    until f = 0 || i = m
+    if f!=0 then
+       i -= m
+    fi f!=0
+
+procedure nm2(int T[][], int n, int P[][], int m, int s1, int s2, int i1, int i2, int f)
+    from i1 = 0 do
+        call nm1(T[i1+s1], n, P[i1], m, s2, i2, f)
+        i1 += 1
+    until f = 0 || i1 = m
+    if f!=0 then
+       i1 -= m
+    fi f!=0
+
+procedure nm3(int T[][][], int n, int P[][][], int m, int s1, int s2, int s3, int i1, int i2, int i3, int f)
+    from i1 = 0 do
+        call nm2(T[i1+s1], n, P[i1], m, s2, s3, i2, i3, f)
+        i1 += 1
+    until f = 0 || i1 = m
+    if f!=0 then
+       i1 -= m
+    fi f!=0
+
+// 0D: 要素 x の「ハッシュ素材」を h に入れる（初期 h=0 を仮定）
+procedure hashfunc0(int x, int h)
+  h += x
+
+// 0D: 要素 x のハッシュ（x % q）をゼロクリアされた u にセットする
+procedure sethash0(int x, int u, int q)
+  local int h = 0
+    call hashfunc0(x, h)
+    u ^= h % q
+    uncall hashfunc0(x, h)  // zero clear h
+  delocal int h = 0
+
+procedure hashfunc1(int P[], int m, int d, int u, int s)
+  iterate int i = 0 to m-1
+    u *= d
+    u += P[i+s] // ここのみをmodではできない。どれくらいoverしているかわからないから
+  end
+
+// P[s..s+m-1]のハッシュをゼロクリアされたpにセットする
+procedure sethash1(int P[], int m, int d, int u, int q, int s)
+  local int hash = 0
+  call hashfunc1(P, m, d, hash, s)
+  u ^= hash % q
+  uncall hashfunc1(P, m, d, hash, s) // zero clear hash
+  delocal int hash = 0
+
+procedure sethash2(int P[][], int m, int d, int u, int q, int s1, int s2)
+  local int hash = 0
+  call hashfunc2(P, m, d, hash, s1, s2)
+  u ^= hash % q
+  uncall hashfunc2(P, m, d, hash, s1, s2) // zero clear tmp
+  delocal int hash = 0
+
+procedure sethash3(int P[][][], int m, int d, int u, int q, int s1, int s2, int s3)
+  local int hash = 0
+  call hashfunc3(P, m, d, hash, s1, s2, s3)
+  u ^= hash % q
+  uncall hashfunc3(P, m, d, hash, s1, s2, s3) // zero clear tmp
+  delocal int hash = 0
+
+procedure ipush(int s, stack r)
+  local int tmp = s
+  push(tmp,r)
+  delocal int tmp
+
+procedure naivematch1(int T[], int n, int P[], int m, int s, stack r)
+  local int i = 0, int f = 1
+    call nm1(T, n, P, m, s, i, f)   // 1.call
+    if f = 1 then
+      call ipush(s, r)             // 2.copy
+    fi f = 1
+    uncall nm1(T, n, P, m, s, i, f) // 3.uncall
+  delocal int i = 0, int f = 1
+
+// 2Dの素朴な照合
+procedure naivematch2(int T[][], int n, int P[][], int m, int s1, int s2, stack r)
+    local int i1, int i2, int f = 1
+    call nm2(T, n, P, m, s1, s2, i1, i2, f) // 1.call
+    if f = 1 then
+        call ipush(s1,r)
+        call ipush(s2,r)
+    fi f = 1
+    uncall nm2(T, n, P, m, s1, s2, i1, i2, f) // 3.uncall
+    delocal int i1, int i2, int f = 1
+
+procedure naivematch3(int T[][][], int n, int P[][][], int m, int s1, int s2, int s3, stack r)
+    local int i1, int i2, int i3, int f = 1
+    call nm3(T, n, P, m, s1, s2, s3, i1, i2, i3, f) // 1.call
+    if f = 1 then
+        call ipush(s1,r)
+        call ipush(s2,r)
+        call ipush(s3,r)
+    fi f = 1
+    uncall nm3(T, n, P, m, s1, s2, s3, i1, i2, i3, f) // 3.uncall
+    delocal int i1, int i2, int i3, int f = 1
+
+procedure naivesearch3(int T[][][], int n, int P[][][], int m, stack r)
+    iterate int s3=0 to n-m
+        iterate int s2=0 to n-m
+            iterate int s1=0 to n-m
+                call naivematch3(T, n, P, m, s1, s2, s3, r)
+            end
+        end
+    end
+
+// P[s1..s1+m-1][s2..s2+m-1]のハッシュを求める
+procedure hashfunc2(int P[][], int m, int d, int u, int s1, int s2)
+  iterate int i1 = 0 to m-1
+    call hashfunc1(P[i1+s1], m, d, u, s2)
+  end
+
+// P[s1..s1+m-1][s2..s2+m-1][s3..s3+m-1]のハッシュを求める
+procedure hashfunc3(int P[][][], int m, int d, int u, int s1, int s2, int s3)
+  iterate int i1 = 0 to m-1
+    call hashfunc2(P[i1+s1], m, d, u, s2, s3)
+  end
+
+// 負整数mの法qの代表元を求める
+procedure init_dexp(int m, int dexp, int q)
+  assert(dexp=0)
+  dexp -= m
+  from dexp = 0-m do
+    dexp += q-1
+  until dexp >= 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int t = 0, int p = 0
+  call sethash3(P,m,d,p,q,0,0,0)
+
+  iterate int s3 = 0 to n-m
+  iterate int s2 = 0 to n-m
+    call sethash3(T,m,d,t,q,0,s2,s3)
+    local int s1 = 0
+    from s1 = 0 do
+      if p = t then // pseudo-match
+        call naivematch3(T,n,P,m,s1,s2,s3,r)
+      fi p = t
+    loop
+      local int u1, int u2
+      call sethash2(T[s1  ],m,d,u1,q,s2,s3)
+      call sethash2(T[s1+m],m,d,u2,q,s2,s3)
+      local int dexp
+      local   int phi = (d**(m*m)*(t - u1*d**(m*m*(m-1))) + u2) % q // calculate phi
+      phi <=> t
+      call init_dexp(m*m,dexp,q)
+      delocal int phi = (d**dexp*(t - u2) + u1*d**(m*m*(m-1))) % q // calculate phi^{-1}
+      uncall init_dexp(m*m,dexp,q)
+      delocal int dexp
+      uncall sethash2(T[s1  ],m,d,u1,q,s2,s3) // zero clear u1
+      uncall sethash2(T[s1+m],m,d,u2,q,s2,s3) // zero clear u2
+      delocal int u1, int u2
+      s1 += 1
+    until s1 = n-m
+    delocal int s1 = n-m
+    uncall sethash3(T,m,d,t,q,n-m,s2,s3) // zero clear t
+  end
+  end
+
+  uncall sethash3(P,m,d,p,q,0,0,0) // zero clear p
+  delocal int t = 0, int p = 0
+
+procedure main()
+// 配列のサイズ n を 4 と定義しているので、T も [4][4][4] である必要があります
+    int n = 4
+    int m = 2
+    
+    // T is 4 slices of 4x4
+    int T[][][] = {
+        {
+            {1,1,1,1}, 
+            {1,1,1,1}, 
+            {1,1,1,1},
+            {1,1,1,1}
+        }, 
+        {
+            {2,2,2,2}, 
+            {2,2,2,2}, 
+            {0,2,2,2},
+            {0,2,2,2}
+        }, 
+        {
+            {3,3,0,3}, 
+            {3,3,3,0}, 
+            {3,3,3,3},
+            {0,3,0,0}
+        },
+        {
+            {1,2,3,4}, 
+            {1,2,3,4}, 
+            {1,2,3,4},
+            {4,4,4,4}
+        }
+    }
+
+    // P is 2 slices of 2x2.
+    int P[][][] = {
+        {{2,2}, {2,2}}, 
+        {{3,3}, {3,3}}
+    }
+    
+    stack r
+    int q = 101 // Prime
+    int d = 10  // Radix
+
+    call rabinkarp3(T, n, P, m, d, q, r)
+    // call naivesearch3(T, n, P, m, r)
+
+    // Expected match at s1=1, s2=0, s3=0 and s1=s2=s3=1
+    // Result in r: <1, 1, 1, 0, 0, 1] (stack pushes s1, s2, s3, so pops s3, s2, s1)

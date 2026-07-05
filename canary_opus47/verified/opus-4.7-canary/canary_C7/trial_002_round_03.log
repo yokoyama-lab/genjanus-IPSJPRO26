@@ -1,0 +1,22 @@
+STATUS: RUNTIME_ERROR
+RETURN_CODE: 1
+STDOUT:
+[ERROR (line 15)]
+[Expected value to be `0' for local variable `orig'
+ but actual value is `5',In statement:
+    local int orig = 0
+    ...
+    delocal int orig = 0
+  where n = 0
+        s = 12]
+
+STDERR:
+
+ERROR: [ERROR (line 15)]
+[Expected value to be `0' for local variable `orig'
+ but actual value is `5',In statement:
+    local int orig = 0
+    ...
+    delocal int orig = 0
+  where n = 0
+        s = 12]

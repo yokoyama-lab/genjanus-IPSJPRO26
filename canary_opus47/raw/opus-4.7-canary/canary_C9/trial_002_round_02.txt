@@ -1,0 +1,15 @@
+Looking at this, the loop needs an entry assertion that's true only on first entry. I'll use a local counter, and recover its value via the (a-b)/2 invariant (since each iteration increases a-b by 2).
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    local int m = 0
+    from m = 0 do
+        skip
+    loop
+        n -= 1
+        a += 1
+        b -= 1
+        m += 1
+    until n = 0
+    delocal int m = (a - b) / 2
+```

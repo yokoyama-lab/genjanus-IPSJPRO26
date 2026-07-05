@@ -1,0 +1,30 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 8
+  ✅ 成功: 1
+  ⚠️ 構文エラー: 7
+  ❌ 実行エラー: 0
+
+✅ 成功したファイル（正しい出力） (1件)
+------------------------------------------------------------
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out002_gpt5-nano_260703_015135.janus
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (7件)
+------------------------------------------------------------
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out001_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out003_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out004_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out005_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out006_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out007_gpt5-nano_260703_015135.janus
+  p15fibpair_topup2_gpt5-nano_260703_015135_3032187/p15fibpair_out008_gpt5-nano_260703_015135.janus
+
+❌ 実行エラーのあったファイル (0件)
+------------------------------------------------------------
+(なし)
+
+📄 CSV出力: p15fibpair_topup2_gpt5-nano_260703_015135_3032187/jana_check_results_p15fibpair_topup2_gpt5-nano_260703_015135_3032187_summary.csv

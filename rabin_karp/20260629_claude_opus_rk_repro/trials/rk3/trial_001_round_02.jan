@@ -1,0 +1,163 @@
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure buildfirst(int T[][][], int s1, int s2, int m, int d, int q, int D, int H)
+  local int c = 0
+  from c = 0 do
+    H *= D
+    local int sl = 0
+      call addslicehash(T, s1, s2, c, m, d, q, sl)
+      H += sl
+      uncall addslicehash(T, s1, s2, c, m, d, q, sl)
+    delocal int sl = 0
+    c += 1
+  loop
+    skip
+  until c = m
+  delocal int c = m
+
+procedure rollf(int T[][][], int s1, int s2, int s3, int m, int d, int q, int D, int DT, int H)
+  H *= D
+  local int sl0 = 0
+    call addslicehash(T, s1, s2, s3, m, d, q, sl0)
+    H -= sl0 * DT
+    uncall addslicehash(T, s1, s2, s3, m, d, q, sl0)
+  delocal int sl0 = 0
+  local int slm = 0
+    call addslicehash(T, s1, s2, s3 + m, m, d, q, slm)
+    H += slm
+    uncall addslicehash(T, s1, s2, s3 + m, m, d, q, slm)
+  delocal int slm = 0
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int HP = 0
+            call buildfirst(P, 0, 0, m, d, q, D, HP)
+            local int lim = n - m
+              local int s1 = 0
+              from s1 = 0 do
+                local int s2 = 0
+                from s2 = 0 do
+                  local int H = 0
+                    call buildfirst(T, s1, s2, m, d, q, D, H)
+                    local int s3 = 0
+                    from s3 = 0 do
+                      if (H % q) = (HP % q) then
+                        local int diff = 0
+                          call countdiff(T, s1, s2, s3, P, m, diff)
+                          if diff = 0 then
+                            call pushpos(s1, s2, s3, r)
+                          else
+                            skip
+                          fi diff = 0
+                          uncall countdiff(T, s1, s2, s3, P, m, diff)
+                        delocal int diff = 0
+                      else
+                        skip
+                      fi (H % q) = (HP % q)
+                    loop
+                      call rollf(T, s1, s2, s3, m, d, q, D, DT, H)
+                      s3 += 1
+                    until s3 = lim
+                    delocal int s3 = lim
+                    local int s3b = lim
+                    from s3b = lim do
+                      skip
+                    loop
+                      s3b -= 1
+                      uncall rollf(T, s1, s2, s3b, m, d, q, D, DT, H)
+                    until s3b = 0
+                    delocal int s3b = 0
+                    uncall buildfirst(T, s1, s2, m, d, q, D, H)
+                  delocal int H = 0
+                loop
+                  s2 += 1
+                until s2 = lim
+                delocal int s2 = lim
+              loop
+                s1 += 1
+              until s1 = lim
+              delocal int s1 = lim
+            delocal int lim = n - m
+          uncall buildfirst(P, 0, 0, m, d, q, D, HP)
+          delocal int HP = 0
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m

@@ -1,0 +1,144 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int pow = 1
+    local int i = 0
+      from i = 0 do skip
+      loop pow *= d
+           i += 1
+      until i = m - 1
+    delocal int i = m - 1
+
+    local int PV = 0
+      local int j = 0
+        from j = 0 do skip
+        loop PV *= d
+             PV += P[j]
+             j += 1
+        until j = m
+      delocal int j = m
+
+      local int hp = PV % q
+        local int V = 0
+          local int j2 = 0
+            from j2 = 0 do skip
+            loop V *= d
+                 V += T[j2]
+                 j2 += 1
+            until j2 = m
+          delocal int j2 = m
+
+          local int s = 0
+            from s = 0 do
+              local int hv = V % q
+                if hv = hp then
+                  local int mis = 0
+                    local int j5 = 0
+                      from j5 = 0 do skip
+                      loop if T[s + j5] != P[j5] then mis += 1 else skip fi T[s + j5] != P[j5]
+                           j5 += 1
+                      until j5 = m
+                    delocal int j5 = m
+                    if mis = 0 then
+                      local int v = s
+                        push(v, r)
+                      delocal int v = 0
+                    else skip
+                    fi mis = 0
+                  delocal int mis = 0
+                else skip
+                fi hv = hp
+              delocal int hv = V % q
+            loop
+              V -= T[s]*pow
+              V *= d
+              V += T[s + m]
+              s += 1
+            until s = n - m
+          delocal int s = n - m
+
+          local int a = n - m
+            from a = n - m do skip
+            loop a -= 1
+                 V -= T[a + m]
+                 V /= d
+                 V += T[a]*pow
+            until a = 0
+          delocal int a = 0
+
+          local int j3 = m
+            from j3 = m do skip
+            loop j3 -= 1
+                 V -= T[j3]
+                 V /= d
+            until j3 = 0
+          delocal int j3 = 0
+        delocal int V = 0
+      delocal int hp = PV % q
+
+      local int j4 = m
+        from j4 = m do skip
+        loop j4 -= 1
+             PV -= P[j4]
+             PV /= d
+        until j4 = 0
+      delocal int j4 = 0
+    delocal int PV = 0
+
+    local int i2 = m - 1
+      from i2 = m - 1 do skip
+      loop pow /= d
+           i2 -= 1
+      until i2 = 0
+    delocal int i2 = 0
+  delocal int pow = 1
+
+procedure main()
+    int T[10] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
+    int n = 10
+    int P[4] = {1, 2, 1, 2}
+    int m = 4
+    int d = 26
+    int q = 3
+    stack r
+    call rabinkarp1(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+Passed case(s) 1..3 but failed case 4: with inputs {'T': [2, 1, 3, 2, 1], 'n': 5, 'P': [9], 'm': 1, 'd': 26, 'q': 3}, expected {'P': [9], 'T': [2, 1, 3, 2, 1], 'd': 26, 'm': 1, 'n': 5, 'q': 3, 'r': 'nil'}. PyJanus execution error
+  message: Expected value to be `0' for local variable `mis'
+            but actual value is `1'
+  legacy: Error at line 46:
+            Expected value to be `0' for local variable `mis'
+           but actual value is `1'
+            In statement:
+              local int mis
+              skip
+              delocal int mis
+  location: /tmp/tmptlunts6w.jan:46:27
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    45 |                     fi mis = 0
+  > 46 |                   delocal int mis = 0
+       |                           ^
+    47 |                 else skip
+
+Context:
+  In statement:
+      local int mis
+      skip
+      delocal int mis
+
+Please fix the procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r).
+Reminder: Implement the reversible 1D Rabin-Karp string matching algorithm. Given a text T (n symbols) and a pattern P (m symbols), find every start position s with 0 <= s <= n-m where the length-m window of T starting at s equals P, and push each such s onto the stack r in increasing order of s (so r ends holding all match positions). Use a modular polynomial rolling hash with radix d and prime modulus q: the hash of a window is its base-d value mod q; slide the window updating the hash incrementally, and on a hash match confirm with a direct (reversible) character comparison before pushing s. T, n, P, m, d and q must be unchanged; r starts empty. Compute and then uncompute every intermediate hash and temporary so that no garbage remains and the whole procedure is reversible. Signature: procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: T=[1,2,1,2,1,2,1,2,1,2], n=10, P=[1,2,1,2], m=4, d=26, q=3 -> r = <6, 4, 2, 0] (matches at 0,2,4,6).  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions. For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

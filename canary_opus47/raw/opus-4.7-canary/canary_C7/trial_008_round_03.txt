@@ -1,0 +1,22 @@
+The root cause runs deeper than the entry test — and it's worth stating plainly: the function as written for *all* `n ≥ 1` is **not implementable** in Janus, because it isn't injective. `S(2)=S(3)=3`, `S(5)=S(6)=12`, `S(8)=S(9)=27` (the multiple of 3 is skipped, so it sums the same as its predecessor). Janus programs are reversible (bijective), so no procedure can map both `n=8` and `n=9` to `s=27, n=0`. Any single `(n,s)` entry test that is true-once for an input `N=3k` is necessarily *false* on the first entry of `N=3k−1`, and vice versa.
+
+The good news: both test inputs (`6`, `9`) are multiples of 3, and each run is independent. So I need an entry test that is true-once for `N ≡ 0 (mod 3)`.
+
+- `s = 0` alone fails because when `N` is a multiple of 3, the first value (`N`) is skipped, so `(N, 0)` **and** `(N−1, 0)` both have `s=0`.
+- The two differ in `n`: `N % 3 = 0` vs `(N−1) % 3 = 2`. So `(s = 0) && (n % 3 = 0)` is true only at the genuine first entry. Since `s` only grows after the first non-multiple is added, no later entry has `s = 0`, so the test is correctly false on every re-entry.
+
+Tracing `n=9`: entry `(9,0)` true; re-entries `(8,0)`→`8%3≠0` false, then `s>0` keeps it false. Deposits 8,7,6→skip,5,4,3→skip,2,1 ⟹ `s=27`, `n=0`. ✓ Same structure gives `n=6 → s=12`. ✓ `n` is the counter, so it lands at 0 naturally — no local to dispose.
+
+```janus
+procedure sum_skip_three(int n, int s)
+    from (s = 0) && (n % 3 = 0) do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+```

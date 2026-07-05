@@ -1,0 +1,109 @@
+procedure polyval(int A[][][], int o1, int o2, int o3, int m, int d, int acc)
+  local int i = 0
+    from i = 0 do
+      local int j = 0
+        from j = 0 do
+          local int k = 0
+            from k = 0 do
+              acc *= d
+              acc += A[o1 + i][o2 + j][o3 + k]
+            loop k += 1
+            until k = m - 1
+          delocal int k = m - 1
+        loop j += 1
+        until j = m - 1
+      delocal int j = m - 1
+    loop i += 1
+    until i = m - 1
+  delocal int i = m - 1
+
+procedure subcubediff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+    from i = 0 do
+      local int j = 0
+        from j = 0 do
+          local int k = 0
+            from k = 0 do
+              if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+                diff += 1
+              else
+                skip
+              fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+            loop k += 1
+            until k = m - 1
+          delocal int k = m - 1
+        loop j += 1
+        until j = m - 1
+      delocal int j = m - 1
+    loop i += 1
+    until i = m - 1
+  delocal int i = m - 1
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int hp = 0
+    local int z1 = 0
+      local int z2 = 0
+        local int z3 = 0
+          local int pfull = 0
+            call polyval(P, z1, z2, z3, m, d, pfull)
+            hp += pfull % q
+            uncall polyval(P, z1, z2, z3, m, d, pfull)
+          delocal int pfull = 0
+        delocal int z3 = 0
+      delocal int z2 = 0
+    delocal int z1 = 0
+    local int s1 = 0
+      from s1 = 0 do
+        local int s2 = 0
+          from s2 = 0 do
+            local int s3 = 0
+              from s3 = 0 do
+                local int hw = 0
+                  local int wfull = 0
+                    call polyval(T, s1, s2, s3, m, d, wfull)
+                    hw += wfull % q
+                    uncall polyval(T, s1, s2, s3, m, d, wfull)
+                  delocal int wfull = 0
+                  if hw = hp then
+                    local int diff = 0
+                      call subcubediff(T, s1, s2, s3, P, m, diff)
+                      if diff = 0 then
+                        local int a = s1
+                          push(a, r)
+                        delocal int a = 0
+                        local int b = s2
+                          push(b, r)
+                        delocal int b = 0
+                        local int c = s3
+                          push(c, r)
+                        delocal int c = 0
+                      else
+                        skip
+                      fi diff = 0
+                      uncall subcubediff(T, s1, s2, s3, P, m, diff)
+                    delocal int diff = 0
+                  else
+                    skip
+                  fi hw = hp
+                delocal int hw = 0
+              loop s3 += 1
+              until s3 = n - m
+            delocal int s3 = n - m
+          loop s2 += 1
+          until s2 = n - m
+        delocal int s2 = n - m
+      loop s1 += 1
+      until s1 = n - m
+    delocal int s1 = n - m
+    local int z1 = 0
+      local int z2 = 0
+        local int z3 = 0
+          local int pfull = 0
+            call polyval(P, z1, z2, z3, m, d, pfull)
+            hp -= pfull % q
+            uncall polyval(P, z1, z2, z3, m, d, pfull)
+          delocal int pfull = 0
+        delocal int z3 = 0
+      delocal int z2 = 0
+    delocal int z1 = 0
+  delocal int hp = 0

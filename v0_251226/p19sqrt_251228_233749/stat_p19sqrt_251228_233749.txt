@@ -1,0 +1,121 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 15
+  ⚠️ 構文エラー: 74
+  ❌ 実行エラー: 11
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (15件)
+------------------------------------------------------------
+  p19sqrt/p19sqrt_out015_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out022_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out023_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out026_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out029_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out043_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out052_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out058_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out067_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out075_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out076_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out077_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out081_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out085_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out088_gpt5-nano_251228_233749.janus
+
+⚠️ 構文エラーのあったファイル (74件)
+------------------------------------------------------------
+  p19sqrt/p19sqrt_out001_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out002_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out003_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out004_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out005_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out006_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out007_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out009_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out010_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out011_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out012_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out014_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out016_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out017_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out019_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out020_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out021_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out024_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out025_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out028_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out031_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out032_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out033_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out034_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out035_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out036_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out037_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out038_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out039_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out040_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out044_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out045_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out046_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out047_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out048_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out049_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out050_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out051_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out053_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out054_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out055_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out056_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out057_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out059_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out060_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out061_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out062_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out064_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out065_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out066_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out068_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out069_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out070_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out071_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out072_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out073_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out074_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out079_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out080_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out082_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out083_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out084_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out086_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out087_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out090_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out091_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out092_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out093_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out094_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out095_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out096_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out097_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out098_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out099_gpt5-nano_251228_233749.janus
+
+❌ 実行エラーのあったファイル (11件)
+------------------------------------------------------------
+  p19sqrt/p19sqrt_out008_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out013_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out018_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out027_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out030_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out041_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out042_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out063_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out078_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out089_gpt5-nano_251228_233749.janus
+  p19sqrt/p19sqrt_out100_gpt5-nano_251228_233749.janus
+
+📄 CSV出力: p19sqrt/jana_check_results_p19sqrt_251228_233749_summary.csv

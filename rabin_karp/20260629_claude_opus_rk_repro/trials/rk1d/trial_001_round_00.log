@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['SUCCESS', 'SUCCESS', 'SUCCESS', 'RUNTIME_ERROR']
+ERROR: Passed case(s) 1..3 but failed case 4: with inputs {'T': [2, 1, 3, 2, 1], 'n': 5, 'P': [9], 'm': 1, 'd': 26, 'q': 3}, expected {'P': [9], 'T': [2, 1, 3, 2, 1], 'd': 26, 'm': 1, 'n': 5, 'q': 3, 'r': 'nil'}. PyJanus execution error
+  message: Expected value to be `0' for local variable `mis'
+            but actual value is `1'
+  legacy: Error at line 46:
+            Expected value to be `0' for local variable `mis'
+           but actual value is `1'
+            In statement:
+              local int mis
+              skip
+              delocal int mis
+  location: /tmp/tmptlunts6w.jan:46:27
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    45 |                     fi mis = 0
+  > 46 |                   delocal int mis = 0
+       |                           ^
+    47 |                 else skip
+
+Context:
+  In statement:
+      local int mis
+      skip
+      delocal int mis

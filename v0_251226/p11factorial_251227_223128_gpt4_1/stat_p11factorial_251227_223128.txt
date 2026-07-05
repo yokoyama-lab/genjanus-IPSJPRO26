@@ -1,0 +1,68 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 48
+  ✅ 成功: 23
+  ⚠️ 構文エラー: 7
+  ❌ 実行エラー: 18
+
+✅ 成功したファイル（正しい出力） (9件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out006_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out014_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out024_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out028_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out030_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out063_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out076_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out078_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out084_gpt4_1_251227_223128.janus
+
+❌ 成功したファイル（誤った出力） (14件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out002_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out008_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out009_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out010_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out023_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out033_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out046_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out058_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out073_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out085_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out088_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out090_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out094_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out097_gpt4_1_251227_223128.janus
+
+⚠️ 構文エラーのあったファイル (7件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out003_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out004_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out007_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out025_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out036_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out037_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out079_gpt4_1_251227_223128.janus
+
+❌ 実行エラーのあったファイル (18件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out001_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out005_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out018_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out039_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out041_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out044_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out045_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out055_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out059_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out061_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out065_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out070_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out075_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out091_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out092_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out098_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out099_gpt4_1_251227_223128.janus
+  p11factorial/p11factorial_out100_gpt4_1_251227_223128.janus
+
+📄 CSV出力: p11factorial/jana_check_results_p11factorial_251227_223128_summary.csv

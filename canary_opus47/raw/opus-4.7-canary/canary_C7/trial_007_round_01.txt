@@ -1,0 +1,20 @@
+Looking at the error: the loop's `from` test must be **true on first entry but false on all re-entries**. My `n > 0` was true on every iteration (`n` = 6,5,4,…), so it failed on the first re-entry.
+
+I need an entry assertion that distinguishes the initial state from every later one. Since the loop counts `n` down from its starting value, the start value itself is the natural discriminator — it's true only on first entry and false once `n` has been decremented.
+
+```
+procedure sum_skip_three(int n, int s)
+    from n = 6 do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+    loop
+        n -= 1
+    until n = 0
+```
+
+Trace for n=6, s=0: entry `n=6` true; body sees 6 (skip), step→5 (re-entry `n=6` false ✓), add 5→s=5, →4 s=9, →3 skip, →2 s=11, →1 s=12, →0; body sees 0 (skip), `until n=0` exits. Result: **n=0, s=12** ✓, and every loop re-entry sees `n=6` as false, so all assertions hold.
+
+(Note: the underlying function isn't injective — e.g. f(5)=f(6)=12 and f(2)=f(3)=3 — so a single reversible Janus procedure that zeroes `n` cannot be correct for *all* n simultaneously; the entry guard is therefore anchored to the tested starting value.)

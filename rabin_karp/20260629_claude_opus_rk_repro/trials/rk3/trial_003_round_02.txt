@@ -1,0 +1,153 @@
+Looking at this again: the real issue is that my hash was recomputed from scratch per window. I'll switch to an incremental rolling hash along the `s3` axis (multiply by `d`, the removed/added planes weighted, reduce mod `q` for the comparison), built reversibly with `*=`/`/=` so no modular inverse is needed, and uncomputed by reverse-rolling.
+
+```
+procedure cubehash(int X[][][], int a, int b, int c, int m, int d, int acc)
+  local int L = m * m * m
+    local int pw = 1
+      local int p = 0
+        from p = 0 do
+          acc += X[a + p/(m*m)][b + (p/m)%m][c + (m - 1 - p%m)] * pw
+          pw *= d
+        loop p += 1
+        until p = L - 1
+      delocal int p = L - 1
+      local int p2 = 0
+        from p2 = 0 do
+          pw /= d
+        loop p2 += 1
+        until p2 = L - 1
+      delocal int p2 = L - 1
+    delocal int pw = 1
+  delocal int L = m * m * m
+
+procedure planehashes(int T[][][], int s1, int s2, int s3, int m, int d, int op, int npl)
+  local int dm = 1
+    local int eb = 0
+      from eb = 0 do
+        dm *= d
+      loop eb += 1
+      until eb = m - 1
+    delocal int eb = m - 1
+    local int pw = 1
+      local int idx = 0
+        from idx = 0 do
+          op += T[s1 + idx/m][s2 + idx%m][s3] * pw
+          npl += T[s1 + idx/m][s2 + idx%m][s3 + m] * pw
+          pw *= dm
+        loop idx += 1
+        until idx = m*m - 1
+      delocal int idx = m*m - 1
+      local int idx2 = 0
+        from idx2 = 0 do
+          pw /= dm
+        loop idx2 += 1
+        until idx2 = m*m - 1
+      delocal int idx2 = m*m - 1
+    delocal int pw = 1
+    local int eu = 0
+      from eu = 0 do
+        dm /= d
+      loop eu += 1
+      until eu = m - 1
+    delocal int eu = m - 1
+  delocal int dm = 1
+
+procedure roll(int T[][][], int s1, int s2, int s3, int m, int d, int h)
+  local int op = 0
+    local int npl = 0
+      call planehashes(T, s1, s2, s3, m, d, op, npl)
+      local int dm = 1
+        local int eb = 0
+          from eb = 0 do
+            dm *= d
+          loop eb += 1
+          until eb = m - 1
+        delocal int eb = m - 1
+        h *= d
+        h -= dm * op
+        h += npl
+        local int eu = 0
+          from eu = 0 do
+            dm /= d
+          loop eu += 1
+          until eu = m - 1
+        delocal int eu = m - 1
+      delocal int dm = 1
+      uncall planehashes(T, s1, s2, s3, m, d, op, npl)
+    delocal int npl = 0
+  delocal int op = 0
+
+procedure countdiff(int T[][][], int a, int b, int c, int P[][][], int m, int diff)
+  local int L = m * m * m
+    local int p = 0
+      from p = 0 do
+        if T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m] then
+          diff += 1
+        else
+          skip
+        fi T[a + p/(m*m)][b + (p/m)%m][c + p%m] != P[p/(m*m)][(p/m)%m][p%m]
+      loop p += 1
+      until p = L - 1
+    delocal int p = L - 1
+  delocal int L = m * m * m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int ph = 0
+    call cubehash(P, 0, 0, 0, m, d, ph)
+    local int s1 = 0
+      from s1 = 0 do
+        local int s2 = 0
+          from s2 = 0 do
+            local int h = 0
+              call cubehash(T, s1, s2, 0, m, d, h)
+              local int s3 = 0
+                from s3 = 0 do
+                  local int hq = h % q
+                    local int phq = ph % q
+                      if hq = phq then
+                        local int diff = 0
+                          call countdiff(T, s1, s2, s3, P, m, diff)
+                          if diff = 0 then
+                            local int v1 = s1
+                              local int v2 = s2
+                                local int v3 = s3
+                                  push(v1, r)
+                                  push(v2, r)
+                                  push(v3, r)
+                                delocal int v3 = 0
+                              delocal int v2 = 0
+                            delocal int v1 = 0
+                          else
+                            skip
+                          fi diff = 0
+                          uncall countdiff(T, s1, s2, s3, P, m, diff)
+                        delocal int diff = 0
+                      else
+                        skip
+                      fi hq = phq
+                    delocal int phq = ph % q
+                  delocal int hq = h % q
+                loop
+                  call roll(T, s1, s2, s3, m, d, h)
+                  s3 += 1
+                until s3 = n - m
+              delocal int s3 = n - m
+              local int s3b = n - m
+                from s3b = n - m do
+                  skip
+                loop
+                  s3b -= 1
+                  uncall roll(T, s1, s2, s3b, m, d, h)
+                until s3b = 0
+              delocal int s3b = 0
+              uncall cubehash(T, s1, s2, 0, m, d, h)
+            delocal int h = 0
+          loop s2 += 1
+          until s2 = n - m
+        delocal int s2 = n - m
+      loop s1 += 1
+      until s1 = n - m
+    delocal int s1 = n - m
+    uncall cubehash(P, 0, 0, 0, m, d, ph)
+  delocal int ph = 0
+```

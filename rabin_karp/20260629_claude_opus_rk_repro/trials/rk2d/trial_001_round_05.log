@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR', 'SUCCESS']
+ERROR: PyJanus execution error
+  message: Expected value to be `1' for local variable `bit'
+            but actual value is `512'
+  legacy: Error at line 102:
+            Expected value to be `1' for local variable `bit'
+           but actual value is `512'
+            In statement:
+              local int bit = 1
+              skip
+              delocal int bit = 1
+  location: /tmp/tmpcsg737_l.jan:102:31
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    101 |                         matchmask += bit
+  > 102 |                       delocal int bit = 1
+        |                               ^
+    103 |                     else
+
+Context:
+  In statement:
+      local int bit = 1
+      skip
+      delocal int bit = 1

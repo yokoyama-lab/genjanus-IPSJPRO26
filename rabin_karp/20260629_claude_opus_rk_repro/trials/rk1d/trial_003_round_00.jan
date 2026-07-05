@@ -1,0 +1,73 @@
+procedure hashfill(int A[], int m, int d, int q, int j, int hcur, int result)
+   if j = m then
+      result += hcur
+   else
+      local int hnext = 0
+      hnext += (hcur * d + A[j]) % q
+      call hashfill(A, m, d, q, j + 1, hnext, result)
+      hnext -= (hcur * d + A[j]) % q
+      delocal int hnext = 0
+   fi j = m
+
+procedure powfill(int d, int q, int e, int cur, int result)
+   if e = 0 then
+      result += cur
+   else
+      local int nxt = 0
+      nxt += (cur * d) % q
+      call powfill(d, q, e - 1, nxt, result)
+      nxt -= (cur * d) % q
+      delocal int nxt = 0
+   fi e = 0
+
+procedure rkscan(int T[], int n, int P[], int m, int d, int q, stack r, int pw, int ph, int s, int h)
+   if h = ph then
+      local int j = 0, int diff = 0
+      from j = 0 do
+         if T[s + j] != P[j] then diff += 1 else skip fi T[s + j] != P[j]
+         j += 1
+      loop
+         skip
+      until j = m
+      if diff = 0 then
+         local int sc = 0
+         sc += s
+         push(sc, r)
+         delocal int sc = 0
+      else
+         skip
+      fi diff = 0
+      from j = m do
+         j -= 1
+         if T[s + j] != P[j] then diff -= 1 else skip fi T[s + j] != P[j]
+      loop
+         skip
+      until j = 0
+      delocal int j = 0, int diff = 0
+   else
+      skip
+   fi h = ph
+   if s < n - m then
+      local int h2 = 0
+      h2 += (d * (h - (T[s] % q) * pw + q * q) + T[s + m]) % q
+      call rkscan(T, n, P, m, d, q, r, pw, ph, s + 1, h2)
+      h2 -= (d * (h - (T[s] % q) * pw + q * q) + T[s + m]) % q
+      delocal int h2 = 0
+   else
+      skip
+   fi s < n - m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+   local int ph = 0
+   call hashfill(P, m, d, q, 0, 0, ph)
+   local int h0 = 0
+   call hashfill(T, m, d, q, 0, 0, h0)
+   local int pw = 0
+   call powfill(d, q, m - 1, 1, pw)
+   call rkscan(T, n, P, m, d, q, r, pw, ph, 0, h0)
+   uncall powfill(d, q, m - 1, 1, pw)
+   delocal int pw = 0
+   uncall hashfill(T, m, d, q, 0, 0, h0)
+   delocal int h0 = 0
+   uncall hashfill(P, m, d, q, 0, 0, ph)
+   delocal int ph = 0

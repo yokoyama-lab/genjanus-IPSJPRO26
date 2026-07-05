@@ -1,0 +1,44 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 23
+  ✅ 成功: 15
+  ⚠️ 構文エラー: 2
+  ❌ 実行エラー: 6
+
+✅ 成功したファイル（正しい出力） (15件)
+------------------------------------------------------------
+  p09even/p09even_out002_gpt4_1_251227_214949.janus
+  p09even/p09even_out003_gpt4_1_251227_214949.janus
+  p09even/p09even_out013_gpt4_1_251227_214949.janus
+  p09even/p09even_out018_gpt4_1_251227_214949.janus
+  p09even/p09even_out027_gpt4_1_251227_214949.janus
+  p09even/p09even_out031_gpt4_1_251227_214949.janus
+  p09even/p09even_out039_gpt4_1_251227_214949.janus
+  p09even/p09even_out061_gpt4_1_251227_214949.janus
+  p09even/p09even_out071_gpt4_1_251227_214949.janus
+  p09even/p09even_out078_gpt4_1_251227_214949.janus
+  p09even/p09even_out081_gpt4_1_251227_214949.janus
+  p09even/p09even_out090_gpt4_1_251227_214949.janus
+  p09even/p09even_out091_gpt4_1_251227_214949.janus
+  p09even/p09even_out093_gpt4_1_251227_214949.janus
+  p09even/p09even_out094_gpt4_1_251227_214949.janus
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (2件)
+------------------------------------------------------------
+  p09even/p09even_out001_gpt4_1_251227_214949.janus
+  p09even/p09even_out051_gpt4_1_251227_214949.janus
+
+❌ 実行エラーのあったファイル (6件)
+------------------------------------------------------------
+  p09even/p09even_out004_gpt4_1_251227_214949.janus
+  p09even/p09even_out026_gpt4_1_251227_214949.janus
+  p09even/p09even_out048_gpt4_1_251227_214949.janus
+  p09even/p09even_out054_gpt4_1_251227_214949.janus
+  p09even/p09even_out055_gpt4_1_251227_214949.janus
+  p09even/p09even_out076_gpt4_1_251227_214949.janus
+
+📄 CSV出力: p09even/jana_check_results_p09even_251227_214949_summary.csv

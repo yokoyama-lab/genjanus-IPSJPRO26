@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['SUCCESS', 'RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: Passed case(s) 1..1 but failed case 2: with inputs {'T': [[1, 2, 1], [2, 1, 2], [1, 2, 1]], 'n': 3, 'P': [[1, 2], [2, 1]], 'm': 2, 'd': 8, 'q': 3}, expected {'P': [[1, 2], [2, 1]], 'T': [[1, 2, 1], [2, 1, 2], [1, 2, 1]], 'd': 8, 'm': 2, 'n': 3, 'q': 3, 'r': [1, 1, 0, 0]}. PyJanus execution error
+  message: Expected value to be `0' for local variable `PHmod'
+            but actual value is `1'
+  legacy: Error at line 164:
+            Expected value to be `0' for local variable `PHmod'
+           but actual value is `1'
+            In statement:
+              local int PHmod
+              skip
+              delocal int PHmod
+  location: /tmp/tmpu6fps0l3.jan:164:15
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    163 |          delocal int RH[n * nm1]
+  > 164 |       delocal int PHmod = 0
+        |               ^
+    165 |    delocal int nm1 = n - m + 1
+
+Context:
+  In statement:
+      local int PHmod
+      skip
+      delocal int PHmod

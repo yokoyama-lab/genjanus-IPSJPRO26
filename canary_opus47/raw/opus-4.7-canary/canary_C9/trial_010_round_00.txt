@@ -1,0 +1,24 @@
+Looking at this, I need a loop that runs `n` times, and crucially leaves `n` at 0 (so it must decrement `n`), while shifting `a` up and `b` down by the original `n`.
+
+I'll use a local counter `i` to make the loop's entry assertion valid (`i = 0` is true only on the very first entry), do the work in the loop step, and exit when `n` reaches 0:
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    local int i = 0
+    from i = 0 do
+        skip
+    loop
+        a += 1
+        b -= 1
+        n -= 1
+        i += 1
+    until n = 0
+    delocal int i = 0
+```
+
+Trace for `n=5, a=0, b=0`:
+- Entry: `i=0` → assertion true. Body `skip`. `n=0`? No (n=5).
+- Step runs: `a=1,b=-1,n=4,i=1`. Re-entry `i=0`? false ✓.
+- ... repeats until step makes `a=5,b=-5,n=0,i=5`. Now `n=0` → exit.
+
+Result: `n=0, a=5, b=-5`, matching the expected output. The `until n = 0` test also handles `n=0` correctly (exits immediately, doing zero iterations).

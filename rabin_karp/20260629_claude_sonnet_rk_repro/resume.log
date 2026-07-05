@@ -1,0 +1,2 @@
+2026-06-30T02:11:48.686029 .venv/bin/genjanus --backend claude-cli --model sonnet --reasoning-effort medium --task rk2d --taskset rk --recipe L4_full --trials 5 --max-repairs 5 --run-id 20260629_claude_sonnet_rk_repro --resume
+2026-06-30T04:41:49.392439 .venv/bin/genjanus --backend claude-cli --model sonnet --reasoning-effort medium --task rk3 --taskset rk --recipe L4_full --trials 5 --max-repairs 5 --run-id 20260629_claude_sonnet_rk_repro --resume

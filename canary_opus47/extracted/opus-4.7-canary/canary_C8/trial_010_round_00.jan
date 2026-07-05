@@ -1,0 +1,7 @@
+procedure count_subtract(int x, int y, int q)
+    from q = 0 do
+        skip
+    loop
+        x -= y
+        q += 1
+    until x < y

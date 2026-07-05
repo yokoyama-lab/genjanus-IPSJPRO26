@@ -1,0 +1,10 @@
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    from n = 0 do
+        a += 1
+        b -= 1
+        n -= 1
+    loop
+        skip
+    until n = 0
+```

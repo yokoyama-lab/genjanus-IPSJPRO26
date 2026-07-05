@@ -1,0 +1,119 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 99
+  ✅ 成功: 77
+  ⚠️ 構文エラー: 15
+  ❌ 実行エラー: 7
+
+✅ 成功したファイル（正しい出力） (76件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out002_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out003_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out004_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out005_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out006_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out007_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out008_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out011_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out012_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out013_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out015_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out016_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out017_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out018_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out019_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out020_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out021_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out023_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out024_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out025_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out026_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out028_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out029_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out030_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out031_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out032_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out034_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out035_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out037_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out039_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out040_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out041_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out042_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out043_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out044_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out045_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out046_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out047_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out048_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out049_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out051_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out052_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out053_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out054_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out056_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out057_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out058_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out060_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out063_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out064_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out066_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out067_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out068_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out069_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out071_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out073_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out076_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out077_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out079_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out080_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out081_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out082_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out083_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out086_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out087_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out088_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out090_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out091_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out092_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out093_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out094_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out095_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out096_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out098_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out099_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out100_gpt5-nano_251228_003804.janus
+
+❌ 成功したファイル（誤った出力） (1件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out059_gpt5-nano_251228_003804.janus
+
+⚠️ 構文エラーのあったファイル (15件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out001_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out010_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out014_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out022_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out027_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out036_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out050_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out055_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out062_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out070_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out072_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out074_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out078_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out084_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out085_gpt5-nano_251228_003804.janus
+
+❌ 実行エラーのあったファイル (7件)
+------------------------------------------------------------
+  p04cycle3/p04cycle3_out009_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out033_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out038_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out061_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out075_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out089_gpt5-nano_251228_003804.janus
+  p04cycle3/p04cycle3_out097_gpt5-nano_251228_003804.janus
+
+📄 CSV出力: p04cycle3/jana_check_results_p04cycle3_251228_003804_summary.csv

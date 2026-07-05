@@ -1,0 +1,69 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 49
+  ✅ 成功: 4
+  ⚠️ 構文エラー: 6
+  ❌ 実行エラー: 39
+
+✅ 成功したファイル（正しい出力） (3件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out010_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out049_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out092_gpt4_1_251227_223128.janus
+
+❌ 成功したファイル（誤った出力） (1件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out028_gpt4_1_251227_223128.janus
+
+⚠️ 構文エラーのあったファイル (6件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out012_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out022_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out074_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out086_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out097_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out098_gpt4_1_251227_223128.janus
+
+❌ 実行エラーのあったファイル (39件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out001_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out002_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out003_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out004_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out005_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out006_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out007_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out008_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out016_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out019_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out030_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out031_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out033_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out034_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out040_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out043_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out045_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out048_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out050_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out052_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out053_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out062_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out063_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out065_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out068_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out070_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out078_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out079_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out083_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out085_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out087_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out088_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out089_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out093_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out094_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out095_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out096_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out099_gpt4_1_251227_223128.janus
+  p08flipsign/p08flipsign_out100_gpt4_1_251227_223128.janus
+
+📄 CSV出力: p08flipsign/jana_check_results_p08flipsign_251227_223128_summary.csv

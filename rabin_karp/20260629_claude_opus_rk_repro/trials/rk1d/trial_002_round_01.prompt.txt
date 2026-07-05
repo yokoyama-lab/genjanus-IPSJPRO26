@@ -1,0 +1,157 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure countmism(int T[], int P[], int s, int m, int mism)
+    local int j = 0
+    from j = 0 do
+        if T[s + j] != P[j] then
+            mism += 1
+        else
+            skip
+        fi T[s + j] != P[j]
+        j += 1
+    loop
+        skip
+    until j = m
+    delocal int j = m
+
+procedure horner(int A[], int off, int m, int d, int q, int h, int Q[])
+    local int i = 0
+    from i = 0 do
+        h *= d
+        h += A[off + i]
+        Q[i] += h / q
+        h -= Q[i] * q
+        i += 1
+    loop
+        skip
+    until i = m
+    delocal int i = m
+
+procedure powmod(int d, int m, int q, int dm, int Qp[])
+    dm += 1
+    local int k = 0
+    from k = 0 do
+        dm *= d
+        Qp[k] += dm / q
+        dm -= Qp[k] * q
+        k += 1
+    loop
+        skip
+    until k = m
+    delocal int k = m
+
+procedure build(int A[], int n, int m, int d, int q, int dm, int H[], int Qb[], int Q1[])
+    local int cur = 0
+    local int j = 0
+    from j = 0 do
+        cur *= d
+        cur += A[j]
+        Qb[j] += cur / q
+        cur -= Qb[j] * q
+        j += 1
+    loop
+        skip
+    until j = m
+    delocal int j = m
+    local int s = 0
+    from s = 0 do
+        H[s] += cur
+        if s + 1 < n - m + 1 then
+            local int lr = 0
+            lr += A[s] * dm
+            local int ql = 0
+            ql += lr / q
+            lr -= ql * q
+            local int nx = 0
+            nx += cur * d
+            nx += A[s + m]
+            nx += q
+            nx -= lr
+            Q1[s] += nx / q
+            nx -= Q1[s] * q
+            cur <=> nx
+            nx -= H[s]
+            delocal int nx = 0
+            lr += ql * q
+            ql -= lr / q
+            lr -= A[s] * dm
+            delocal int ql = 0
+            delocal int lr = 0
+        else
+            skip
+        fi s + 1 < n - m + 1
+        s += 1
+    loop
+        skip
+    until s = n - m + 1
+    delocal int s = n - m + 1
+    cur -= H[n - m]
+    delocal int cur = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int dm = 0
+    local int Qpow[m] = 0
+    call powmod(d, m, q, dm, Qpow)
+    local int hp = 0
+    local int Qp[m] = 0
+    call horner(P, 0, m, d, q, hp, Qp)
+    local int H[n - m + 1] = 0
+    local int Qb[m] = 0
+    local int Q1[n - m + 1] = 0
+    call build(T, n, m, d, q, dm, H, Qb, Q1)
+    local int s = 0
+    from s = 0 do
+        if H[s] = hp then
+            local int mism = 0
+            call countmism(T, P, s, m, mism)
+            if mism = 0 then
+                push(s, r)
+            else
+                skip
+            fi mism = 0
+            uncall countmism(T, P, s, m, mism)
+            delocal int mism = 0
+        else
+            skip
+        fi H[s] = hp
+        s += 1
+    loop
+        skip
+    until s = n - m + 1
+    delocal int s = n - m + 1
+    uncall build(T, n, m, d, q, dm, H, Qb, Q1)
+    delocal int Q1[n - m + 1] = 0
+    delocal int Qb[m] = 0
+    delocal int H[n - m + 1] = 0
+    uncall horner(P, 0, m, d, q, hp, Qp)
+    delocal int Qp[m] = 0
+    delocal int hp = 0
+    uncall powmod(d, m, q, dm, Qpow)
+    delocal int Qpow[m] = 0
+    delocal int dm = 0
+
+procedure main()
+    int T[10] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
+    int n = 10
+    int P[4] = {1, 2, 1, 2}
+    int m = 4
+    int d = 26
+    int q = 3
+    stack r
+    call rabinkarp1(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+
+
+Please fix the procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r).
+Reminder: Implement the reversible 1D Rabin-Karp string matching algorithm. Given a text T (n symbols) and a pattern P (m symbols), find every start position s with 0 <= s <= n-m where the length-m window of T starting at s equals P, and push each such s onto the stack r in increasing order of s (so r ends holding all match positions). Use a modular polynomial rolling hash with radix d and prime modulus q: the hash of a window is its base-d value mod q; slide the window updating the hash incrementally, and on a hash match confirm with a direct (reversible) character comparison before pushing s. T, n, P, m, d and q must be unchanged; r starts empty. Compute and then uncompute every intermediate hash and temporary so that no garbage remains and the whole procedure is reversible. Signature: procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: T=[1,2,1,2,1,2,1,2,1,2], n=10, P=[1,2,1,2], m=4, d=26, q=3 -> r = <6, 4, 2, 0] (matches at 0,2,4,6).  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions. For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

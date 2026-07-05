@@ -1,0 +1,37 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 15
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 14
+  ❌ 実行エラー: 1
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (14件)
+------------------------------------------------------------
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out002_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out003_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out004_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out005_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out006_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out007_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out008_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out009_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out010_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out011_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out012_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out013_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out014_gpt5-nano_260703_020403.janus
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out015_gpt5-nano_260703_020403.janus
+
+❌ 実行エラーのあったファイル (1件)
+------------------------------------------------------------
+  p17fib_topup2_gpt5-nano_260703_020403_3350269/p17fib_out001_gpt5-nano_260703_020403.janus
+
+📄 CSV出力: p17fib_topup2_gpt5-nano_260703_020403_3350269/jana_check_results_p17fib_topup2_gpt5-nano_260703_020403_3350269_summary.csv

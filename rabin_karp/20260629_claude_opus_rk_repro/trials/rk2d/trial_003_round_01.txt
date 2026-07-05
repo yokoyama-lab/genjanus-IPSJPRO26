@@ -1,0 +1,120 @@
+procedure rowsum(int A[][], int s1, int s2, int i, int m, int d, int rs)
+  local int k = 0
+  from k = 0 do
+    rs *= d
+    rs += A[s1+i][s2+k]
+    k += 1
+  loop skip
+  until k = m
+  delocal int k = m
+
+procedure windowhash(int A[][], int s1, int s2, int m, int d, int q, int wh)
+  local int ws = 0
+    local int i = 0
+    from i = 0 do
+      ws *= d
+      local int rs = 0
+        call rowsum(A, s1, s2, i, m, d, rs)
+        local int rh = 0
+          rh += rs % q
+          ws += rh
+          rh -= rs % q
+        delocal int rh = 0
+        uncall rowsum(A, s1, s2, i, m, d, rs)
+      delocal int rs = 0
+      i += 1
+    loop skip
+    until i = m
+    delocal int i = m
+    wh += ws % q
+    local int i2 = m
+    from i2 = m do
+      i2 -= 1
+      local int rs = 0
+        call rowsum(A, s1, s2, i2, m, d, rs)
+        local int rh = 0
+          rh += rs % q
+          ws -= rh
+          rh -= rs % q
+        delocal int rh = 0
+        uncall rowsum(A, s1, s2, i2, m, d, rs)
+      delocal int rs = 0
+      ws /= d
+    loop skip
+    until i2 = 0
+    delocal int i2 = 0
+  delocal int ws = 0
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int ph = 0
+    call windowhash(P, 0, 0, m, d, q, ph)
+    local int s2 = 0
+    from s2 = 0 do
+      local int s1 = 0
+      from s1 = 0 do
+        local int wh = 0
+          call windowhash(T, s1, s2, m, d, q, wh)
+          if wh = ph then
+            local int diff = 0
+              local int ci = 0
+              from ci = 0 do
+                local int ck = 0
+                from ck = 0 do
+                  if T[s1+ci][s2+ck] != P[ci][ck] then
+                    diff += 1
+                  else
+                    skip
+                  fi T[s1+ci][s2+ck] != P[ci][ck]
+                  ck += 1
+                loop skip
+                until ck = m
+                delocal int ck = m
+                ci += 1
+              loop skip
+              until ci = m
+              delocal int ci = m
+              if diff = 0 then
+                local int v1 = 0
+                  local int v2 = 0
+                    v1 += s1
+                    v2 += s2
+                    push(v1, r)
+                    push(v2, r)
+                  delocal int v2 = 0
+                delocal int v1 = 0
+              else
+                skip
+              fi diff = 0
+              local int ci2 = m
+              from ci2 = m do
+                ci2 -= 1
+                local int ck2 = m
+                from ck2 = m do
+                  ck2 -= 1
+                  if T[s1+ci2][s2+ck2] != P[ci2][ck2] then
+                    diff -= 1
+                  else
+                    skip
+                  fi T[s1+ci2][s2+ck2] != P[ci2][ck2]
+                loop skip
+                until ck2 = 0
+                delocal int ck2 = 0
+              loop skip
+              until ci2 = 0
+              delocal int ci2 = 0
+            delocal int diff = 0
+          else
+            skip
+          fi wh = ph
+          uncall windowhash(T, s1, s2, m, d, q, wh)
+        delocal int wh = 0
+        s1 += 1
+      loop skip
+      until s1 = n - m + 1
+      delocal int s1 = n - m + 1
+      s2 += 1
+    loop skip
+    until s2 = n - m + 1
+    delocal int s2 = n - m + 1
+    uncall windowhash(P, 0, 0, m, d, q, ph)
+  delocal int ph = 0

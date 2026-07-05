@@ -1,0 +1,69 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 47
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 16
+  ❌ 実行エラー: 31
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (16件)
+------------------------------------------------------------
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out002_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out005_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out011_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out015_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out016_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out017_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out021_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out023_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out029_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out033_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out036_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out039_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out040_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out042_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out043_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out044_gpt4_1_260703_005753.janus
+
+❌ 実行エラーのあったファイル (31件)
+------------------------------------------------------------
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out001_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out003_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out004_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out006_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out007_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out008_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out009_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out010_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out012_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out013_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out014_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out018_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out019_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out020_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out022_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out024_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out025_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out026_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out027_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out028_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out030_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out031_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out032_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out034_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out035_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out037_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out038_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out041_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out045_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out046_gpt4_1_260703_005753.janus
+  p10arrayreverse_topup_gpt4_1_260703_005753/p10arrayreverse_out047_gpt4_1_260703_005753.janus
+
+📄 CSV出力: p10arrayreverse_topup_gpt4_1_260703_005753/jana_check_results_p10arrayreverse_topup_gpt4_1_260703_005753_summary.csv

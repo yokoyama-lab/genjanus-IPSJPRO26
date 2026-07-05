@@ -1,0 +1,12 @@
+procedure sum_skip_three(int n, int s)
+    if n = 0 then
+        skip
+    else
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+        call sum_skip_three(n, s)
+    fi n = 0

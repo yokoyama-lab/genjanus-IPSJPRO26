@@ -1,0 +1,54 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 34
+  ✅ 成功: 14
+  ⚠️ 構文エラー: 4
+  ❌ 実行エラー: 16
+
+✅ 成功したファイル（正しい出力） (8件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out012_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out013_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out016_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out028_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out035_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out042_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out058_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out091_gpt4_1_251227_213017.janus
+
+❌ 成功したファイル（誤った出力） (6件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out006_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out024_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out027_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out050_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out068_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out089_gpt4_1_251227_213017.janus
+
+⚠️ 構文エラーのあったファイル (4件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out021_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out034_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out054_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out099_gpt4_1_251227_213017.janus
+
+❌ 実行エラーのあったファイル (16件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out004_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out008_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out009_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out010_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out023_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out025_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out029_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out031_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out033_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out045_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out049_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out066_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out074_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out079_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out083_gpt4_1_251227_213017.janus
+  p06cycle3/p06cycle3_out087_gpt4_1_251227_213017.janus
+
+📄 CSV出力: p06cycle3/jana_check_results_p06cycle3_251227_213017_summary.csv

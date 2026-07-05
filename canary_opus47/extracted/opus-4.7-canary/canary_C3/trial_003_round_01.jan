@@ -1,0 +1,7 @@
+procedure negate_via_loop(int x)
+    local int t = 0
+    t += x
+    x -= t
+    x -= t
+    t += x
+    delocal int t = 0

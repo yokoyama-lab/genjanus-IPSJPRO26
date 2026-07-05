@@ -1,0 +1,217 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure rowfull(int A[][], int row, int col, int m, int d, int h)
+   local int j = 0
+      from j = 0 do
+         h *= d
+         h += A[row][col + j]
+      loop
+         j += 1
+      until j = m - 1
+      delocal int j = m - 1
+
+procedure rhcombine(int RH[], int nm1, int s2, int s1, int m, int d, int g)
+   local int i = 0
+      from i = 0 do
+         g *= d
+         g += RH[(s1 + i) * nm1 + s2]
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure pcombine(int A[][], int m, int d, int q, int g)
+   local int i = 0
+      from i = 0 do
+         g *= d
+         local int h = 0
+            call rowfull(A, i, 0, m, d, h)
+            g += h % q
+            uncall rowfull(A, i, 0, m, d, h)
+         delocal int h = 0
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure buildRH(int A[][], int n, int nm1, int m, int d, int q, int RH[])
+   local int r = 0
+      from r = 0 do
+         local int c = 0
+            from c = 0 do
+               local int h = 0
+                  call rowfull(A, r, c, m, d, h)
+                  RH[r * nm1 + c] += h % q
+                  uncall rowfull(A, r, c, m, d, h)
+               delocal int h = 0
+            loop
+               c += 1
+            until c = nm1 - 1
+            delocal int c = nm1 - 1
+      loop
+         r += 1
+      until r = n - 1
+      delocal int r = n - 1
+
+procedure buildWH(int RH[], int nm1, int m, int d, int q, int WH[])
+   local int pw = 1
+      local int e = 0
+         from e = 0 do
+            skip
+         loop
+            pw *= d
+            e += 1
+         until e = m - 1
+         delocal int e = m - 1
+      local int s2 = 0
+         from s2 = 0 do
+            local int s1 = 0
+               from s1 = 0 do
+                  if s1 = 0 then
+                     local int g = 0
+                        call rhcombine(RH, nm1, s2, 0, m, d, g)
+                        WH[s1 * nm1 + s2] += g % q
+                        uncall rhcombine(RH, nm1, s2, 0, m, d, g)
+                     delocal int g = 0
+                  else
+                     local int prev = 0
+                        prev += WH[(s1 - 1) * nm1 + s2]
+                        WH[s1 * nm1 + s2] += (((prev - (RH[(s1 - 1) * nm1 + s2] * (pw % q)) % q + q) % q) * d + RH[(s1 - 1 + m) * nm1 + s2]) % q
+                        prev -= WH[(s1 - 1) * nm1 + s2]
+                     delocal int prev = 0
+                  fi s1 = 0
+               loop
+                  s1 += 1
+               until s1 = nm1 - 1
+               delocal int s1 = nm1 - 1
+         loop
+            s2 += 1
+         until s2 = nm1 - 1
+         delocal int s2 = nm1 - 1
+      local int e2 = 0
+         from e2 = 0 do
+            skip
+         loop
+            pw /= d
+            e2 += 1
+         until e2 = m - 1
+         delocal int e2 = m - 1
+   delocal int pw = 1
+
+procedure countmism(int T[][], int s1, int s2, int P[][], int m, int mism)
+   local int i = 0
+      from i = 0 do
+         local int j = 0
+            from j = 0 do
+               if T[s1 + i][s2 + j] != P[i][j] then
+                  mism += 1
+               else
+                  skip
+               fi T[s1 + i][s2 + j] != P[i][j]
+            loop
+               j += 1
+            until j = m - 1
+            delocal int j = m - 1
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+   local int nm1 = n - m + 1
+      local int PHmod = 0
+         local int g = 0
+            call pcombine(P, m, d, q, g)
+            PHmod += g % q
+            uncall pcombine(P, m, d, q, g)
+         delocal int g = 0
+         local int RH[n * nm1]
+            call buildRH(T, n, nm1, m, d, q, RH)
+            local int WH[nm1 * nm1]
+               call buildWH(RH, nm1, m, d, q, WH)
+               local int s2 = 0
+                  from s2 = 0 do
+                     local int s1 = 0
+                        from s1 = 0 do
+                           if WH[s1 * nm1 + s2] = PHmod then
+                              local int mism = 0
+                                 call countmism(T, s1, s2, P, m, mism)
+                                 if mism = 0 then
+                                    local int a = s1
+                                       push(a, r)
+                                    delocal int a = 0
+                                    local int b = s2
+                                       push(b, r)
+                                    delocal int b = 0
+                                 else
+                                    skip
+                                 fi mism = 0
+                                 uncall countmism(T, s1, s2, P, m, mism)
+                              delocal int mism = 0
+                           else
+                              skip
+                           fi WH[s1 * nm1 + s2] = PHmod
+                        loop
+                           s1 += 1
+                        until s1 = nm1 - 1
+                        delocal int s1 = nm1 - 1
+                  loop
+                     s2 += 1
+                  until s2 = nm1 - 1
+                  delocal int s2 = nm1 - 1
+               uncall buildWH(RH, nm1, m, d, q, WH)
+            delocal int WH[nm1 * nm1]
+            uncall buildRH(T, n, nm1, m, d, q, RH)
+         delocal int RH[n * nm1]
+      delocal int PHmod = 0
+   delocal int nm1 = n - m + 1
+
+procedure main()
+    int T[5][5] = {{1, 2, 3, 1, 2}, {4, 1, 2, 4, 3}, {5, 4, 3, 2, 1}, {6, 2, 1, 4, 3}, {7, 2, 3, 2, 1}}
+    int n = 5
+    int P[2][2] = {{4, 3}, {2, 1}}
+    int m = 2
+    int d = 8
+    int q = 3
+    stack r
+    call rabinkarp2(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+Passed case(s) 1..1 but failed case 2: with inputs {'T': [[1, 2, 1], [2, 1, 2], [1, 2, 1]], 'n': 3, 'P': [[1, 2], [2, 1]], 'm': 2, 'd': 8, 'q': 3}, expected {'P': [[1, 2], [2, 1]], 'T': [[1, 2, 1], [2, 1, 2], [1, 2, 1]], 'd': 8, 'm': 2, 'n': 3, 'q': 3, 'r': [1, 1, 0, 0]}. PyJanus execution error
+  message: Expected value to be `0' for local variable `PHmod'
+            but actual value is `1'
+  legacy: Error at line 164:
+            Expected value to be `0' for local variable `PHmod'
+           but actual value is `1'
+            In statement:
+              local int PHmod
+              skip
+              delocal int PHmod
+  location: /tmp/tmpu6fps0l3.jan:164:15
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    163 |          delocal int RH[n * nm1]
+  > 164 |       delocal int PHmod = 0
+        |               ^
+    165 |    delocal int nm1 = n - m + 1
+
+Context:
+  In statement:
+      local int PHmod
+      skip
+      delocal int PHmod
+
+Please fix the procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 2D Rabin-Karp pattern matching algorithm. Given an n-by-n text grid T (int T[][]) and an m-by-m pattern grid P (int P[][]), find every top-left position (s1,s2) with 0 <= s1,s2 <= n-m where the m-by-m subgrid of T anchored at (s1,s2) equals P, and push the matches onto the stack r. Use a two-level modular rolling hash with radix d and prime modulus q (hash rows, then combine columns), confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: the 5-by-5 text and 2-by-2 pattern below give r = <3, 3, 3, 1, 1, 2].  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

@@ -1,0 +1,115 @@
+Looking at this, I realize the rolling value must clearly be driven by the radix-`d` Horner build and incremental slide, with the modulo reduction applied to form the hash that gates the comparison. Here is a cleaned version that builds hashes via explicit `* d` Horner steps and slides incrementally.
+
+```
+procedure horner(int A[], int base, int start, int len, int acc)
+  local int k = 0
+    from k = 0 do
+      acc *= base
+      acc += A[start + k]
+      k += 1
+    loop
+      skip
+    until k = len
+  delocal int k = len
+
+procedure countdiff(int T[], int P[], int s, int m, int diff)
+  local int j = 0
+    from j = 0 do
+      if T[s + j] != P[j] then
+        diff += 1
+      else
+        skip
+      fi T[s + j] != P[j]
+      j += 1
+    loop
+      skip
+    until j = m
+  delocal int j = m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int ph = 0
+    local int praw = 0
+      call horner(P, d, 0, m, praw)
+      ph += praw % q
+      uncall horner(P, d, 0, m, praw)
+    delocal int praw = 0
+    local int dm1 = 1
+      if m >= 2 then
+        local int i = 0
+          from i = 0 do
+            dm1 *= d
+            i += 1
+          loop
+            skip
+          until i = m - 1
+        delocal int i = m - 1
+      else
+        skip
+      fi m >= 2
+      local int run = 0
+        call horner(T, d, 0, m, run)
+        local int s = 0
+          from s = 0 do
+            local int hq = 0
+              hq += run % q
+              if hq = ph then
+                local int diff = 0
+                  call countdiff(T, P, s, m, diff)
+                  if diff = 0 then
+                    local int v = 0
+                      v += s
+                      push(v, r)
+                    delocal int v = 0
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, P, s, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi hq = ph
+              hq -= run % q
+            delocal int hq = 0
+            s += 1
+            if s <= n - m then
+              run -= T[s - 1] * dm1
+              run *= d
+              run += T[s - 1 + m]
+            else
+              skip
+            fi s <= n - m
+          loop
+            skip
+          until s = n - m + 1
+        delocal int s = n - m + 1
+        local int s2 = n - m + 1
+          from s2 = n - m + 1 do
+            s2 -= 1
+            if s2 >= 1 then
+              run -= T[s2 - 1 + m]
+              run /= d
+              run += T[s2 - 1] * dm1
+            else
+              skip
+            fi s2 >= 1
+          loop
+            skip
+          until s2 = 0
+        delocal int s2 = 0
+        uncall horner(T, d, 0, m, run)
+      delocal int run = 0
+      if m >= 2 then
+        local int i = m - 1
+          from i = m - 1 do
+            dm1 /= d
+            i -= 1
+          loop
+            skip
+          until i = 0
+        delocal int i = 0
+      else
+        skip
+      fi m >= 2
+    delocal int dm1 = 1
+  delocal int ph = 0
+```

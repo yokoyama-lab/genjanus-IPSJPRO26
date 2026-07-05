@@ -1,0 +1,10 @@
+STATUS: SUCCESS
+RETURN_CODE: 0
+STDOUT:
+x = 3
+y = 4
+z = 25
+
+STDERR:
+
+ERROR: 

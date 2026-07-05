@@ -1,0 +1,60 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 40
+  ✅ 成功: 16
+  ⚠️ 構文エラー: 5
+  ❌ 実行エラー: 19
+
+✅ 成功したファイル（正しい出力） (9件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out003_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out005_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out021_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out037_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out058_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out078_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out086_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out091_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out098_gpt4_1_251227_222036.janus
+
+❌ 成功したファイル（誤った出力） (7件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out006_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out007_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out008_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out012_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out027_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out052_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out096_gpt4_1_251227_222036.janus
+
+⚠️ 構文エラーのあったファイル (5件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out040_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out046_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out048_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out068_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out072_gpt4_1_251227_222036.janus
+
+❌ 実行エラーのあったファイル (19件)
+------------------------------------------------------------
+  p06cycle3/p06cycle3_out001_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out002_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out004_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out009_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out010_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out011_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out013_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out014_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out016_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out024_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out031_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out036_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out041_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out051_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out063_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out081_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out083_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out092_gpt4_1_251227_222036.janus
+  p06cycle3/p06cycle3_out094_gpt4_1_251227_222036.janus
+
+📄 CSV出力: p06cycle3/jana_check_results_p06cycle3_251227_222036_summary.csv

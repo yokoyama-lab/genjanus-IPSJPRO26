@@ -1,0 +1,185 @@
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+    local int w = n - m + 1
+    local int DM[m + 1], int PRS[m], int PR[m], int phs = 0, int RS[n], int RH[n][n], int CS[n], int CH[n][n]
+
+    DM[0] += 1
+    local int k = 0
+    from k = 0 do skip loop
+        DM[k + 1] += (DM[k] * d) % q
+        k += 1
+    until k = m
+    delocal int k = m
+
+    local int i = 0
+    from i = 0 do skip loop
+        local int j = 0
+        from j = 0 do skip loop
+            PRS[i] += P[i][j] * DM[m - 1 - j]
+            j += 1
+        until j = m
+        delocal int j = m
+        PR[i] += PRS[i] % q
+        phs += PR[i] * DM[m - 1 - i]
+        i += 1
+    until i = m
+    delocal int i = m
+
+    local int i = 0
+    from i = 0 do skip loop
+        local int j = 0
+        from j = 0 do skip loop
+            RS[i] += T[i][j] * DM[m - 1 - j]
+            j += 1
+        until j = m
+        delocal int j = m
+        RH[i][0] += RS[i] % q
+        local int j = 0
+        from j = 0 do skip loop
+            RH[i][j + 1] += (d * RH[i][j] + T[i][j + m] + (q - (DM[m] * T[i][j]) % q)) % q
+            j += 1
+        until j = w - 1
+        delocal int j = w - 1
+        i += 1
+    until i = n
+    delocal int i = n
+
+    local int s2 = 0
+    from s2 = 0 do skip loop
+        local int i = 0
+        from i = 0 do skip loop
+            CS[s2] += RH[i][s2] * DM[m - 1 - i]
+            i += 1
+        until i = m
+        delocal int i = m
+        CH[0][s2] += CS[s2] % q
+        local int s1 = 0
+        from s1 = 0 do skip loop
+            CH[s1 + 1][s2] += (d * CH[s1][s2] + RH[s1 + m][s2] + (q - (DM[m] * RH[s1][s2]) % q)) % q
+            s1 += 1
+        until s1 = w - 1
+        delocal int s1 = w - 1
+        s2 += 1
+    until s2 = w
+    delocal int s2 = w
+
+    local int ph = phs % q
+    local int s2 = 0
+    from s2 = 0 do skip loop
+        local int s1 = 0
+        from s1 = 0 do skip loop
+            if CH[s1][s2] = ph then
+                local int eq = 0
+                local int i = 0
+                from i = 0 do skip loop
+                    local int j = 0
+                    from j = 0 do skip loop
+                        if T[s1 + i][s2 + j] != P[i][j] then
+                            eq += 1
+                        else
+                            skip
+                        fi T[s1 + i][s2 + j] != P[i][j]
+                        j += 1
+                    until j = m
+                    delocal int j = m
+                    i += 1
+                until i = m
+                delocal int i = m
+                if eq = 0 then
+                    local int a = s1
+                    push(a, r)
+                    delocal int a = 0
+                    local int b = s2
+                    push(b, r)
+                    delocal int b = 0
+                else
+                    skip
+                fi eq = 0
+                local int i = 0
+                from i = 0 do skip loop
+                    local int j = 0
+                    from j = 0 do skip loop
+                        if T[s1 + i][s2 + j] != P[i][j] then
+                            eq -= 1
+                        else
+                            skip
+                        fi T[s1 + i][s2 + j] != P[i][j]
+                        j += 1
+                    until j = m
+                    delocal int j = m
+                    i += 1
+                until i = m
+                delocal int i = m
+                delocal int eq = 0
+            else
+                skip
+            fi CH[s1][s2] = ph
+            s1 += 1
+        until s1 = w
+        delocal int s1 = w
+        s2 += 1
+    until s2 = w
+    delocal int s2 = w
+    delocal int ph = phs % q
+
+    local int s2 = 0
+    from s2 = 0 do skip loop
+        local int s1 = w - 1
+        from s1 = w - 1 do skip loop
+            s1 -= 1
+            CH[s1 + 1][s2] -= (d * CH[s1][s2] + RH[s1 + m][s2] + (q - (DM[m] * RH[s1][s2]) % q)) % q
+        until s1 = 0
+        delocal int s1 = 0
+        CH[0][s2] -= CS[s2] % q
+        local int i = 0
+        from i = 0 do skip loop
+            CS[s2] -= RH[i][s2] * DM[m - 1 - i]
+            i += 1
+        until i = m
+        delocal int i = m
+        s2 += 1
+    until s2 = w
+    delocal int s2 = w
+
+    local int i = 0
+    from i = 0 do skip loop
+        local int j = w - 1
+        from j = w - 1 do skip loop
+            j -= 1
+            RH[i][j + 1] -= (d * RH[i][j] + T[i][j + m] + (q - (DM[m] * T[i][j]) % q)) % q
+        until j = 0
+        delocal int j = 0
+        RH[i][0] -= RS[i] % q
+        local int j = 0
+        from j = 0 do skip loop
+            RS[i] -= T[i][j] * DM[m - 1 - j]
+            j += 1
+        until j = m
+        delocal int j = m
+        i += 1
+    until i = n
+    delocal int i = n
+
+    local int i = 0
+    from i = 0 do skip loop
+        phs -= PR[i] * DM[m - 1 - i]
+        PR[i] -= PRS[i] % q
+        local int j = 0
+        from j = 0 do skip loop
+            PRS[i] -= P[i][j] * DM[m - 1 - j]
+            j += 1
+        until j = m
+        delocal int j = m
+        i += 1
+    until i = m
+    delocal int i = m
+
+    local int k = m
+    from k = m do skip loop
+        k -= 1
+        DM[k + 1] -= (DM[k] * d) % q
+    until k = 0
+    delocal int k = 0
+    DM[0] -= 1
+
+    delocal int DM[m + 1], int PRS[m], int PR[m], int phs = 0, int RS[n], int RH[n][n], int CS[n], int CH[n][n]
+    delocal int w = n - m + 1

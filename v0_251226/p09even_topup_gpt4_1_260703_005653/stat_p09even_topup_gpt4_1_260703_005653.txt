@@ -1,0 +1,84 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 63
+  ✅ 成功: 56
+  ⚠️ 構文エラー: 0
+  ❌ 実行エラー: 7
+
+✅ 成功したファイル（正しい出力） (52件)
+------------------------------------------------------------
+  p09even_topup_gpt4_1_260703_005653/p09even_out001_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out002_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out003_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out004_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out005_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out006_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out007_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out008_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out010_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out011_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out012_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out013_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out015_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out016_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out017_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out018_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out019_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out020_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out021_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out022_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out023_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out024_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out027_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out028_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out029_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out030_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out031_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out032_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out033_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out035_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out036_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out037_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out038_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out040_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out041_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out042_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out044_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out045_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out046_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out047_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out049_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out050_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out051_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out054_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out055_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out057_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out058_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out059_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out060_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out061_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out062_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out063_gpt4_1_260703_005653.janus
+
+❌ 成功したファイル（誤った出力） (4件)
+------------------------------------------------------------
+  p09even_topup_gpt4_1_260703_005653/p09even_out009_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out025_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out026_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out053_gpt4_1_260703_005653.janus
+
+⚠️ 構文エラーのあったファイル (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 実行エラーのあったファイル (7件)
+------------------------------------------------------------
+  p09even_topup_gpt4_1_260703_005653/p09even_out014_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out034_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out039_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out043_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out048_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out052_gpt4_1_260703_005653.janus
+  p09even_topup_gpt4_1_260703_005653/p09even_out056_gpt4_1_260703_005653.janus
+
+📄 CSV出力: p09even_topup_gpt4_1_260703_005653/jana_check_results_p09even_topup_gpt4_1_260703_005653_summary.csv

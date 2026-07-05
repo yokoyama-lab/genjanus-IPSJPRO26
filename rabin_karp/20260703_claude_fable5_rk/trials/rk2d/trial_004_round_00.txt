@@ -1,0 +1,180 @@
+```janus
+procedure power(int pw[], int b, int cnt, int q)
+    pw[0] += 1
+    local int k = 0
+    from k = 0 do
+        local int t = (pw[k] * b) % q
+        pw[k+1] += t
+        delocal int t = (pw[k] * b) % q
+    loop
+        k += 1
+    until k = cnt - 1
+    delocal int k = cnt - 1
+
+procedure rowhashes(int rh[][], int A[][], int rows, int w, int m, int d, int q, int pw[])
+    local int i = 0
+    from i = 0 do
+        local int t = 0
+        local int j = 0
+        from j = 0 do
+            local int u = (A[i][j] * pw[m-1-j]) % q
+            t += u
+            delocal int u = (A[i][j] * pw[m-1-j]) % q
+        loop
+            j += 1
+        until j = m - 1
+        delocal int j = m - 1
+        local int t0 = t % q
+        rh[i][0] += t0
+        delocal int t0 = t % q
+        local int j = 0
+        from j = 0 do
+            local int u = (A[i][j] * pw[m-1-j]) % q
+            t -= u
+            delocal int u = (A[i][j] * pw[m-1-j]) % q
+        loop
+            j += 1
+        until j = m - 1
+        delocal int j = m - 1
+        delocal int t = 0
+        if w > 1 then
+            local int s = 0
+            from s = 0 do
+                local int v = ((d * ((rh[i][s] + q - ((A[i][s] * pw[m-1]) % q)) % q)) + (A[i][s+m] % q)) % q
+                rh[i][s+1] += v
+                delocal int v = ((d * ((rh[i][s] + q - ((A[i][s] * pw[m-1]) % q)) % q)) + (A[i][s+m] % q)) % q
+            loop
+                s += 1
+            until s = w - 2
+            delocal int s = w - 2
+        else
+            skip
+        fi w > 1
+    loop
+        i += 1
+    until i = rows - 1
+    delocal int i = rows - 1
+
+procedure colhashes(int ch[][], int rh[][], int w, int m, int dm, int q, int dpw[])
+    local int c = 0
+    from c = 0 do
+        local int t = 0
+        local int i = 0
+        from i = 0 do
+            local int u = (rh[i][c] * dpw[m-1-i]) % q
+            t += u
+            delocal int u = (rh[i][c] * dpw[m-1-i]) % q
+        loop
+            i += 1
+        until i = m - 1
+        delocal int i = m - 1
+        local int t0 = t % q
+        ch[0][c] += t0
+        delocal int t0 = t % q
+        local int i = 0
+        from i = 0 do
+            local int u = (rh[i][c] * dpw[m-1-i]) % q
+            t -= u
+            delocal int u = (rh[i][c] * dpw[m-1-i]) % q
+        loop
+            i += 1
+        until i = m - 1
+        delocal int i = m - 1
+        delocal int t = 0
+        if w > 1 then
+            local int s = 0
+            from s = 0 do
+                local int v = ((dm * ((ch[s][c] + q - ((rh[s][c] * dpw[m-1]) % q)) % q)) + (rh[s+m][c] % q)) % q
+                ch[s+1][c] += v
+                delocal int v = ((dm * ((ch[s][c] + q - ((rh[s][c] * dpw[m-1]) % q)) % q)) + (rh[s+m][c] % q)) % q
+            loop
+                s += 1
+            until s = w - 2
+            delocal int s = w - 2
+        else
+            skip
+        fi w > 1
+    loop
+        c += 1
+    until c = w - 1
+    delocal int c = w - 1
+
+procedure countmatch(int cnt, int T[][], int P[][], int s1, int s2, int m)
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            if T[s1+i][s2+j] = P[i][j] then
+                cnt += 1
+            else
+                skip
+            fi T[s1+i][s2+j] = P[i][j]
+        loop
+            j += 1
+        until j = m - 1
+        delocal int j = m - 1
+    loop
+        i += 1
+    until i = m - 1
+    delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+    local int w = n - m + 1
+    local int pw[m+1]
+    call power(pw, d, m, q)
+    local int dm = pw[m]
+    local int dpw[m+1]
+    call power(dpw, dm, m, q)
+    local int rh[n][w]
+    call rowhashes(rh, T, n, w, m, d, q, pw)
+    local int ch[w][w]
+    call colhashes(ch, rh, w, m, dm, q, dpw)
+    local int prh[m][1]
+    call rowhashes(prh, P, m, 1, m, d, q, pw)
+    local int pc[1][1]
+    call colhashes(pc, prh, 1, m, dm, q, dpw)
+    local int s2 = 0
+    from s2 = 0 do
+        local int s1 = 0
+        from s1 = 0 do
+            if ch[s1][s2] = pc[0][0] then
+                local int cnt = 0
+                call countmatch(cnt, T, P, s1, s2, m)
+                if cnt = m * m then
+                    local int a = s1
+                    push(a, r)
+                    local int b = s2
+                    push(b, r)
+                    delocal int b = 0
+                    delocal int a = 0
+                else
+                    skip
+                fi cnt = m * m
+                uncall countmatch(cnt, T, P, s1, s2, m)
+                delocal int cnt = 0
+            else
+                skip
+            fi ch[s1][s2] = pc[0][0]
+        loop
+            s1 += 1
+        until s1 = w - 1
+        delocal int s1 = w - 1
+    loop
+        s2 += 1
+    until s2 = w - 1
+    delocal int s2 = w - 1
+    uncall colhashes(pc, prh, 1, m, dm, q, dpw)
+    delocal int pc[1][1]
+    uncall rowhashes(prh, P, m, 1, m, d, q, pw)
+    delocal int prh[m][1]
+    uncall colhashes(ch, rh, w, m, dm, q, dpw)
+    delocal int ch[w][w]
+    uncall rowhashes(rh, T, n, w, m, d, q, pw)
+    delocal int rh[n][w]
+    uncall power(dpw, dm, m, q)
+    delocal int dpw[m+1]
+    delocal int dm = pw[m]
+    uncall power(pw, d, m, q)
+    delocal int pw[m+1]
+    delocal int w = n - m + 1
+```

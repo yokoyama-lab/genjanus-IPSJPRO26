@@ -1,0 +1,116 @@
+procedure powmod(int d, int e, int q, int out)
+  local int acc = 0
+  acc += 1
+  local int Pw[e + 1]
+  local int i = 0
+  from i = 0 do
+     Pw[i] += acc
+  loop
+     acc += (Pw[i] * d) % q - Pw[i]
+     i += 1
+  until i = e
+  out += acc
+  Pw[e] -= acc
+  from i = e do
+     skip
+  loop
+     i -= 1
+     acc -= (Pw[i] * d) % q - Pw[i]
+     Pw[i] -= acc
+  until i = 0
+  delocal int i = 0
+  delocal int Pw[e + 1]
+  acc -= 1
+  delocal int acc = 0
+
+procedure hash_of(int A[], int start, int len, int d, int q, int out)
+  local int acc = 0
+  local int B[len + 1]
+  local int i = 0
+  from i = 0 do
+     B[i] += acc
+  loop
+     acc += ((B[i] * d + A[start + i]) % q + q) % q - B[i]
+     i += 1
+  until i = len
+  out += acc
+  B[len] -= acc
+  from i = len do
+     skip
+  loop
+     i -= 1
+     acc -= ((B[i] * d + A[start + i]) % q + q) % q - B[i]
+     B[i] -= acc
+  until i = 0
+  delocal int i = 0
+  delocal int B[len + 1]
+  delocal int acc = 0
+
+procedure build_hashes(int T[], int n, int m, int d, int q, int dm, int H[])
+  local int h = 0
+  call hash_of(T, 0, m, d, q, h)
+  local int s = 0
+  from s = 0 do
+     H[s] += h
+  loop
+     h += (((d * H[s] + T[s + m] - T[s] * dm) % q + q) % q) - H[s]
+     s += 1
+  until s = n - m
+  from s = n - m do
+     skip
+  loop
+     s -= 1
+     h -= (((d * H[s] + T[s + m] - T[s] * dm) % q + q) % q) - H[s]
+  until s = 0
+  delocal int s = 0
+  uncall hash_of(T, 0, m, d, q, h)
+  delocal int h = 0
+
+procedure confirm_and_push(int T[], int s, int P[], int m, stack r)
+  local int diff = 0
+  local int i = 0
+  from i = 0 do
+     if T[s + i] != P[i] then
+        diff += 1
+     else
+        skip
+     fi T[s + i] != P[i]
+  loop
+     i += 1
+  until i = m - 1
+  delocal int i = m - 1
+  if diff = 0 then
+     local int v = s
+     push(v, r)
+     delocal int v = 0
+  else
+     skip
+  fi diff = 0
+  delocal int diff = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int dm = 0
+  call powmod(d, m, q, dm)
+  local int p = 0
+  call hash_of(P, 0, m, d, q, p)
+  local int W = n - m + 1
+  local int H[W]
+  call build_hashes(T, n, m, d, q, dm, H)
+  local int s = 0
+  from s = 0 do
+     if H[s] = p then
+        call confirm_and_push(T, s, P, m, r)
+     else
+        skip
+     fi H[s] = p
+  loop
+     s += 1
+  until s = n - m
+  delocal int s = n - m
+  uncall build_hashes(T, n, m, d, q, dm, H)
+  delocal int H[W]
+  delocal int W = n - m + 1
+  uncall hash_of(P, 0, m, d, q, p)
+  delocal int p = 0
+  uncall powmod(d, m, q, dm)
+  delocal int dm = 0

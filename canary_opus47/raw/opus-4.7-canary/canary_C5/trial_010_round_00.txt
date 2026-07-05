@@ -1,0 +1,3 @@
+procedure cycle3_rev(int x, int y, int z)
+    x <=> y
+    y <=> z

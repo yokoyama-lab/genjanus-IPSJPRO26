@@ -1,0 +1,100 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure windowhash(int G[][], int r0, int c0, int m, int d, int h)
+  local int i = 0
+  from i = 0 do
+    local int k = 0
+    from k = 0 do
+      h *= d
+      h += G[r0 + i][c0 + k]
+      k += 1
+    loop skip until k = m
+    delocal int k = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure countdiff(int T[][], int s1, int s2, int P[][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int k = 0
+    from k = 0 do
+      if T[s1 + i][s2 + k] != P[i][k] then
+        diff += 1
+      else
+        skip
+      fi T[s1 + i][s2 + k] != P[i][k]
+      k += 1
+    loop skip until k = m
+    delocal int k = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int s2 = 0
+  from s2 = 0 do
+    local int s1 = 0
+    from s1 = 0 do
+      local int ph = 0
+        call windowhash(P, 0, 0, m, d, ph)
+        local int th = 0
+          call windowhash(T, s1, s2, m, d, th)
+          local int phm = ph - (ph / q) * q
+            local int thm = th - (th / q) * q
+              if thm = phm then
+                local int diff = 0
+                  call countdiff(T, s1, s2, P, m, diff)
+                  if diff = 0 then
+                    local int a = s1
+                      push(a, r)
+                    delocal int a = 0
+                    local int b = s2
+                      push(b, r)
+                    delocal int b = 0
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, s1, s2, P, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi thm = phm
+            delocal int thm = th - (th / q) * q
+          delocal int phm = ph - (ph / q) * q
+          uncall windowhash(T, s1, s2, m, d, th)
+        delocal int th = 0
+        uncall windowhash(P, 0, 0, m, d, ph)
+      delocal int ph = 0
+      s1 += 1
+    loop skip until s1 = n - m + 1
+    delocal int s1 = n - m + 1
+    s2 += 1
+  loop skip until s2 = n - m + 1
+  delocal int s2 = n - m + 1
+
+procedure main()
+    int T[5][5] = {{1, 2, 3, 1, 2}, {4, 1, 2, 4, 3}, {5, 4, 3, 2, 1}, {6, 2, 1, 4, 3}, {7, 2, 3, 2, 1}}
+    int n = 5
+    int P[2][2] = {{4, 3}, {2, 1}}
+    int m = 2
+    int d = 8
+    int q = 3
+    stack r
+    call rabinkarp2(T, n, P, m, d, q, r)
+
+```
+
+The output is correct but the required algorithm is not used:
+The output is correct, but the required Rabin-Karp algorithm is not used: the procedure must compute a modular polynomial rolling hash (multiply by the radix d and reduce modulo the prime q), not a naive character-by-character comparison. Use BOTH d and q: hash the pattern and the first window, update the hash incrementally as the window slides (each step taking the result modulo q), and only confirm a candidate by direct comparison when the hashes are equal. Uncompute the hashes so the result stays reversible.
+
+Please fix the procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 2D Rabin-Karp pattern matching algorithm. Given an n-by-n text grid T (int T[][]) and an m-by-m pattern grid P (int P[][]), find every top-left position (s1,s2) with 0 <= s1,s2 <= n-m where the m-by-m subgrid of T anchored at (s1,s2) equals P, and push the matches onto the stack r. Use a two-level modular rolling hash with radix d and prime modulus q (hash rows, then combine columns), confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: the 5-by-5 text and 2-by-2 pattern below give r = <3, 3, 3, 1, 1, 2].  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

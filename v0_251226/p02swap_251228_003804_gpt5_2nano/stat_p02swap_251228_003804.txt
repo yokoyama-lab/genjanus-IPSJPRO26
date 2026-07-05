@@ -1,0 +1,121 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 94
+  ⚠️ 構文エラー: 5
+  ❌ 実行エラー: 1
+
+✅ 成功したファイル（正しい出力） (94件)
+------------------------------------------------------------
+  p02swap/p02swap_out001_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out002_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out003_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out004_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out005_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out006_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out007_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out008_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out009_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out010_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out011_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out013_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out014_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out015_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out016_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out017_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out018_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out019_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out020_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out021_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out022_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out023_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out024_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out026_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out027_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out028_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out029_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out030_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out031_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out032_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out033_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out034_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out035_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out036_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out037_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out038_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out039_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out040_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out041_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out043_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out044_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out045_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out046_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out047_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out048_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out049_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out050_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out051_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out052_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out053_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out054_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out055_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out056_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out057_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out058_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out059_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out060_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out061_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out062_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out063_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out064_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out065_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out066_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out067_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out068_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out070_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out071_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out072_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out073_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out074_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out075_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out076_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out077_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out078_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out079_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out080_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out081_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out082_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out083_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out084_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out085_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out086_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out087_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out088_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out089_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out090_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out091_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out092_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out093_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out094_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out096_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out098_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out099_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out100_gpt5-nano_251228_003804.janus
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (5件)
+------------------------------------------------------------
+  p02swap/p02swap_out012_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out042_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out069_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out095_gpt5-nano_251228_003804.janus
+  p02swap/p02swap_out097_gpt5-nano_251228_003804.janus
+
+❌ 実行エラーのあったファイル (1件)
+------------------------------------------------------------
+  p02swap/p02swap_out025_gpt5-nano_251228_003804.janus
+
+📄 CSV出力: p02swap/jana_check_results_p02swap_251228_003804_summary.csv

@@ -1,0 +1,75 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 53
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 6
+  ❌ 実行エラー: 47
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (6件)
+------------------------------------------------------------
+  p10arrayreverse/p10arrayreverse_out002_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out018_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out051_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out085_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out088_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out095_gpt4_1_251227_223128.janus
+
+❌ 実行エラーのあったファイル (47件)
+------------------------------------------------------------
+  p10arrayreverse/p10arrayreverse_out001_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out003_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out004_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out005_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out006_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out007_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out008_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out009_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out012_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out014_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out015_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out023_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out026_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out027_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out030_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out031_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out033_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out035_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out038_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out041_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out044_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out048_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out050_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out059_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out061_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out062_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out064_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out065_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out067_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out070_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out073_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out074_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out077_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out082_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out083_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out087_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out089_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out090_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out091_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out092_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out093_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out094_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out096_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out097_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out098_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out099_gpt4_1_251227_223128.janus
+  p10arrayreverse/p10arrayreverse_out100_gpt4_1_251227_223128.janus
+
+📄 CSV出力: p10arrayreverse/jana_check_results_p10arrayreverse_251227_223128_summary.csv

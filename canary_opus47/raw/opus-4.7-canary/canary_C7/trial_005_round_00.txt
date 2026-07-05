@@ -1,0 +1,19 @@
+Looking at this problem, the key Janus challenge is the loop's entry assertion: it must be true on first entry and false on every re-entry. I'll keep a local copy of `n`'s initial value to serve as that discriminator, then consume `n` down to 0 while accumulating non-multiples of 3 into `s` (sum order doesn't affect the result).
+
+```
+procedure sum_skip_three(int n, int s)
+    local int i = n
+    from n = i do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+    delocal int i = i
+```
+
+Trace for `n=6, s=0`: `i=6`. Entry `n=i` (6=6) true. Iterations process n = 6(skip),5(+5),4(+4),3(skip),2(+2),1(+1), decrementing n each time; on re-entry `n=i` is false since `n` shrank while `i` stays 6. When `n` reaches 0 the loop exits. Result: `n=0`, `s=5+4+2+1=12`.

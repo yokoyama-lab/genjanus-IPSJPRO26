@@ -1,0 +1,69 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 49
+  ✅ 成功: 10
+  ⚠️ 構文エラー: 7
+  ❌ 実行エラー: 32
+
+✅ 成功したファイル（正しい出力） (5件)
+------------------------------------------------------------
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out009_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out011_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out014_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out027_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out032_gpt4_1_260703_005559.janus
+
+❌ 成功したファイル（誤った出力） (5件)
+------------------------------------------------------------
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out020_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out023_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out024_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out038_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out042_gpt4_1_260703_005559.janus
+
+⚠️ 構文エラーのあったファイル (7件)
+------------------------------------------------------------
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out018_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out028_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out030_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out033_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out044_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out046_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out049_gpt4_1_260703_005559.janus
+
+❌ 実行エラーのあったファイル (32件)
+------------------------------------------------------------
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out001_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out002_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out003_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out004_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out005_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out006_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out007_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out008_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out010_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out012_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out013_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out015_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out016_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out017_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out019_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out021_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out022_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out025_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out026_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out029_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out031_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out034_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out035_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out036_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out037_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out039_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out040_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out041_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out043_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out045_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out047_gpt4_1_260703_005559.janus
+  p08flipsign_topup_gpt4_1_260703_005559/p08flipsign_out048_gpt4_1_260703_005559.janus
+
+📄 CSV出力: p08flipsign_topup_gpt4_1_260703_005559/jana_check_results_p08flipsign_topup_gpt4_1_260703_005559_summary.csv

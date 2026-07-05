@@ -1,0 +1,120 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 98
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 89
+  ❌ 実行エラー: 9
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (89件)
+------------------------------------------------------------
+  p14linearsearch/p14linearsearch_out001_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out002_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out003_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out004_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out005_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out006_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out007_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out008_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out009_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out010_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out011_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out012_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out013_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out014_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out015_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out017_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out018_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out019_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out020_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out021_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out022_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out023_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out024_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out025_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out026_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out028_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out030_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out031_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out032_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out033_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out034_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out035_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out036_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out037_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out038_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out039_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out040_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out042_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out043_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out044_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out045_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out046_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out047_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out048_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out050_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out051_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out052_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out053_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out054_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out055_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out057_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out058_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out059_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out060_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out061_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out062_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out063_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out064_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out065_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out066_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out067_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out068_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out069_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out070_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out071_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out072_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out073_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out074_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out075_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out076_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out078_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out079_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out080_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out081_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out082_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out083_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out084_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out085_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out087_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out088_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out090_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out092_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out093_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out094_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out095_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out096_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out097_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out098_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out099_gpt5-nano_251228_121610.janus
+
+❌ 実行エラーのあったファイル (9件)
+------------------------------------------------------------
+  p14linearsearch/p14linearsearch_out016_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out029_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out041_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out049_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out056_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out077_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out086_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out089_gpt5-nano_251228_121610.janus
+  p14linearsearch/p14linearsearch_out091_gpt5-nano_251228_121610.janus
+
+📄 CSV出力: p14linearsearch/jana_check_results_p14linearsearch_251228_121610_summary.csv

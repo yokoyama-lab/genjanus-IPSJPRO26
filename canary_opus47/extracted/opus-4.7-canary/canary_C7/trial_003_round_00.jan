@@ -1,0 +1,12 @@
+procedure sum_skip_three(int n, int s)
+    local int i = 0
+    from i = 0 do
+        i += 1
+        if i % 3 != 0 then
+            s += i
+        else
+            skip
+        fi i % 3 != 0
+        n -= 1
+    until n = 0
+    delocal int i = 0

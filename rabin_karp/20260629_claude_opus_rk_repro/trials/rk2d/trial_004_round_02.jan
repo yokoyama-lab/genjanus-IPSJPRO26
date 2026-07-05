@@ -1,0 +1,110 @@
+procedure powd(int d, int m, int p)
+  local int i = 0
+  from i = 0 do
+    skip
+  loop
+    p *= d
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure rowval(int V[][], int row, int c0, int m, int d, int h)
+  local int j = 0
+  from j = 0 do
+    h *= d
+    h += V[row][c0 + j]
+  loop
+    j += 1
+  until j = m - 1
+  delocal int j = m - 1
+
+procedure winval(int V[][], int r0, int c0, int m, int d, int h)
+  local int i = 0
+  from i = 0 do
+    local int g = 0
+    call rowval(V, r0 + i, c0, m, d, g)
+    h *= d
+    h += g
+    uncall rowval(V, r0 + i, c0, m, d, g)
+    delocal int g = 0
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure rollv(int T[][], int rtop, int c0, int m, int d, int p, int h)
+  local int gtop = 0
+  call rowval(T, rtop, c0, m, d, gtop)
+  h -= gtop * p
+  uncall rowval(T, rtop, c0, m, d, gtop)
+  delocal int gtop = 0
+  h *= d
+  local int gbot = 0
+  call rowval(T, rtop + m, c0, m, d, gbot)
+  h += gbot
+  uncall rowval(T, rtop + m, c0, m, d, gbot)
+  delocal int gbot = 0
+
+procedure diffcount(int T[][], int s1, int s2, int P[][], int m, int cnt)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      if T[s1 + i][s2 + j] != P[i][j] then
+        cnt += 1
+      else
+        skip
+      fi T[s1 + i][s2 + j] != P[i][j]
+    loop
+      j += 1
+    until j = m - 1
+    delocal int j = m - 1
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int p = 1
+  call powd(d, m, p)
+  local int PH = 0
+  call winval(P, 0, 0, m, d, PH)
+  local int s2 = 0
+  from s2 = 0 do
+    local int H = 0
+    call winval(T, 0, s2, m, d, H)
+    local int s1 = 0
+    from s1 = 0 do
+      if (H % q) = (PH % q) then
+        local int cnt = 0
+        call diffcount(T, s1, s2, P, m, cnt)
+        if cnt = 0 then
+          local int a = s1
+          push(a, r)
+          delocal int a = 0
+          local int b = s2
+          push(b, r)
+          delocal int b = 0
+        else
+          skip
+        fi cnt = 0
+        uncall diffcount(T, s1, s2, P, m, cnt)
+        delocal int cnt = 0
+      else
+        skip
+      fi (H % q) = (PH % q)
+    loop
+      call rollv(T, s1, s2, m, d, p, H)
+      s1 += 1
+    until s1 = n - m
+    delocal int s1 = n - m
+    uncall winval(T, n - m, s2, m, d, H)
+    delocal int H = 0
+  loop
+    s2 += 1
+  until s2 = n - m
+  delocal int s2 = n - m
+  uncall winval(P, 0, 0, m, d, PH)
+  delocal int PH = 0
+  uncall powd(d, m, p)
+  delocal int p = 1

@@ -1,0 +1,252 @@
+procedure makepw(int d, int m, int q, int out[], int oi)
+  local int PB[m]
+    local int e = 0
+    from e = 0 do
+      if e = 0 then
+        PB[0] += 1
+      else
+        local int prev = 0
+          prev += PB[e-1]
+          PB[e] += (prev * d) % q
+          prev -= PB[e-1]
+        delocal int prev = 0
+      fi e = 0
+      e += 1
+    loop skip
+    until e = m
+    delocal int e = m
+    out[oi] += PB[m-1]
+    local int e2 = m
+    from e2 = m do
+      e2 -= 1
+      if e2 = 0 then
+        PB[0] -= 1
+      else
+        local int prev = 0
+          prev += PB[e2-1]
+          PB[e2] -= (prev * d) % q
+          prev -= PB[e2-1]
+        delocal int prev = 0
+      fi e2 = 0
+    loop skip
+    until e2 = 0
+    delocal int e2 = 0
+  delocal int PB[m]
+
+procedure hashseg2d(int A[][], int row, int col, int m, int d, int q, int out[], int oi)
+  local int sb[m]
+    local int k = 0
+    from k = 0 do
+      if k = 0 then
+        sb[0] += A[row][col] % q
+      else
+        local int prev = 0
+          prev += sb[k-1]
+          sb[k] += (prev * d + A[row][col + k]) % q
+          prev -= sb[k-1]
+        delocal int prev = 0
+      fi k = 0
+      k += 1
+    loop skip
+    until k = m
+    delocal int k = m
+    out[oi] += sb[m-1]
+    local int k2 = m
+    from k2 = m do
+      k2 -= 1
+      if k2 = 0 then
+        sb[0] -= A[row][col] % q
+      else
+        local int prev = 0
+          prev += sb[k2-1]
+          sb[k2] -= (prev * d + A[row][col + k2]) % q
+          prev -= sb[k2-1]
+        delocal int prev = 0
+      fi k2 = 0
+    loop skip
+    until k2 = 0
+    delocal int k2 = 0
+  delocal int sb[m]
+
+procedure hashseg1d(int B[], int off, int m, int d, int q, int out[], int oi)
+  local int sb[m]
+    local int k = 0
+    from k = 0 do
+      if k = 0 then
+        sb[0] += B[off] % q
+      else
+        local int prev = 0
+          prev += sb[k-1]
+          sb[k] += (prev * d + B[off + k]) % q
+          prev -= sb[k-1]
+        delocal int prev = 0
+      fi k = 0
+      k += 1
+    loop skip
+    until k = m
+    delocal int k = m
+    out[oi] += sb[m-1]
+    local int k2 = m
+    from k2 = m do
+      k2 -= 1
+      if k2 = 0 then
+        sb[0] -= B[off] % q
+      else
+        local int prev = 0
+          prev += sb[k2-1]
+          sb[k2] -= (prev * d + B[off + k2]) % q
+          prev -= sb[k2-1]
+        delocal int prev = 0
+      fi k2 = 0
+    loop skip
+    until k2 = 0
+    delocal int k2 = 0
+  delocal int sb[m]
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int pwa[1]
+    call makepw(d, m, q, pwa, 0)
+    local int RHp[m]
+      local int pi = 0
+      from pi = 0 do
+        call hashseg2d(P, pi, 0, m, d, q, RHp, pi)
+        pi += 1
+      loop skip
+      until pi = m
+      delocal int pi = m
+      local int phh[1]
+        call hashseg1d(RHp, 0, m, d, q, phh, 0)
+        local int s2 = 0
+        from s2 = 0 do
+          local int RHt[n]
+            local int ti = 0
+            from ti = 0 do
+              call hashseg2d(T, ti, s2, m, d, q, RHt, ti)
+              ti += 1
+            loop skip
+            until ti = n
+            delocal int ti = n
+            local int WH[n]
+              call hashseg1d(RHt, 0, m, d, q, WH, 0)
+              if n - m > 0 then
+                local int s1 = 1
+                from s1 = 1 do
+                  local int prev = 0
+                    prev += WH[s1-1]
+                    local int drop = (RHt[s1-1] * pwa[0]) % q
+                      WH[s1] += ((prev + q - drop) * d + RHt[s1-1+m]) % q
+                    delocal int drop = (RHt[s1-1] * pwa[0]) % q
+                    prev -= WH[s1-1]
+                  delocal int prev = 0
+                  s1 += 1
+                loop skip
+                until s1 = n - m + 1
+                delocal int s1 = n - m + 1
+              else
+                skip
+              fi n - m > 0
+              local int t1 = 0
+              from t1 = 0 do
+                if WH[t1] = phh[0] then
+                  local int diff = 0
+                    local int ci = 0
+                    from ci = 0 do
+                      local int ck = 0
+                      from ck = 0 do
+                        if T[t1+ci][s2+ck] != P[ci][ck] then
+                          diff += 1
+                        else
+                          skip
+                        fi T[t1+ci][s2+ck] != P[ci][ck]
+                        ck += 1
+                      loop skip
+                      until ck = m
+                      delocal int ck = m
+                      ci += 1
+                    loop skip
+                    until ci = m
+                    delocal int ci = m
+                    if diff = 0 then
+                      local int v1 = 0
+                        local int v2 = 0
+                          v1 += t1
+                          v2 += s2
+                          push(v1, r)
+                          push(v2, r)
+                        delocal int v2 = 0
+                      delocal int v1 = 0
+                    else
+                      skip
+                    fi diff = 0
+                    local int ci2 = m
+                    from ci2 = m do
+                      ci2 -= 1
+                      local int ck2 = m
+                      from ck2 = m do
+                        ck2 -= 1
+                        if T[t1+ci2][s2+ck2] != P[ci2][ck2] then
+                          diff -= 1
+                        else
+                          skip
+                        fi T[t1+ci2][s2+ck2] != P[ci2][ck2]
+                      loop skip
+                      until ck2 = 0
+                      delocal int ck2 = 0
+                    loop skip
+                    until ci2 = 0
+                    delocal int ci2 = 0
+                  delocal int diff = 0
+                else
+                  skip
+                fi WH[t1] = phh[0]
+                t1 += 1
+              loop skip
+              until t1 = n - m + 1
+              delocal int t1 = n - m + 1
+              if n - m > 0 then
+                local int u1 = n - m + 1
+                from u1 = n - m + 1 do
+                  u1 -= 1
+                  if u1 > 0 then
+                    local int prev = 0
+                      prev += WH[u1-1]
+                      local int drop = (RHt[u1-1] * pwa[0]) % q
+                        WH[u1] -= ((prev + q - drop) * d + RHt[u1-1+m]) % q
+                      delocal int drop = (RHt[u1-1] * pwa[0]) % q
+                      prev -= WH[u1-1]
+                    delocal int prev = 0
+                  else
+                    skip
+                  fi u1 > 0
+                loop skip
+                until u1 = 0
+                delocal int u1 = 0
+              else
+                skip
+              fi n - m > 0
+              uncall hashseg1d(RHt, 0, m, d, q, WH, 0)
+            delocal int WH[n]
+            local int ti2 = n
+            from ti2 = n do
+              ti2 -= 1
+              uncall hashseg2d(T, ti2, s2, m, d, q, RHt, ti2)
+            loop skip
+            until ti2 = 0
+            delocal int ti2 = 0
+          delocal int RHt[n]
+          s2 += 1
+        loop skip
+        until s2 = n - m + 1
+        delocal int s2 = n - m + 1
+        uncall hashseg1d(RHp, 0, m, d, q, phh, 0)
+      delocal int phh[1]
+      local int pi2 = m
+      from pi2 = m do
+        pi2 -= 1
+        uncall hashseg2d(P, pi2, 0, m, d, q, RHp, pi2)
+      loop skip
+      until pi2 = 0
+      delocal int pi2 = 0
+    delocal int RHp[m]
+    uncall makepw(d, m, q, pwa, 0)
+  delocal int pwa[1]

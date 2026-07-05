@@ -1,0 +1,198 @@
+Looking at the repeated rejection: my hash math was hidden in helpers and (in the recursive version) buried away from the visible window scan, and the exact-roll versions never reduced mod q each step. I'm switching to the explicitly-requested FORWARD-ONLY array design: a local array holds the per-window modular hashes along the s3 axis, each new cell filled with a single reversible `+=` of the modular rolling update (`prev*D + entering - leaving*DT`, reduced `% q`, no inverse of d), and cleaned up by re-subtracting the identical forward expression.
+
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure basehash(int T[][][], int s1, int s2, int m, int d, int q, int mm, int acc)
+  local int c = 0
+  from c = 0 do
+    local int sl = 0
+      call addslicehash(T, s1, s2, c, m, d, q, sl)
+      local int e = mm * (m - 1 - c)
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((sl % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = mm * (m - 1 - c)
+      uncall addslicehash(T, s1, s2, c, m, d, q, sl)
+    delocal int sl = 0
+    c += 1
+  loop
+    skip
+  until c = m
+  delocal int c = m
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int lim = n - m
+            local int HPsum = 0
+              call basehash(P, 0, 0, m, d, q, mm, HPsum)
+              local int s1 = 0
+              from s1 = 0 do
+                local int s2 = 0
+                from s2 = 0 do
+                  local int W[n]
+                    local int base = 0
+                      call basehash(T, s1, s2, m, d, q, mm, base)
+                      W[0] += base
+                      uncall basehash(T, s1, s2, m, d, q, mm, base)
+                    delocal int base = 0
+                    if lim > 0 then
+                      local int sf = 0
+                      from sf = 0 do
+                        local int cout = 0
+                          call addslicehash(T, s1, s2, sf, m, d, q, cout)
+                          local int cin = 0
+                            call addslicehash(T, s1, s2, sf + m, m, d, q, cin)
+                            local int prev = W[sf]
+                              W[sf + 1] += ((((prev % q) * (D % q)) % q) + (cin % q) + q - (((cout % q) * (DT % q)) % q)) % q
+                            delocal int prev = W[sf]
+                            uncall addslicehash(T, s1, s2, sf + m, m, d, q, cin)
+                          delocal int cin = 0
+                          uncall addslicehash(T, s1, s2, sf, m, d, q, cout)
+                        delocal int cout = 0
+                      loop
+                        sf += 1
+                      until sf = lim - 1
+                      delocal int sf = lim - 1
+                    else
+                      skip
+                    fi lim > 0
+                    local int ss = 0
+                    from ss = 0 do
+                      if (W[ss] % q) = (HPsum % q) then
+                        local int diff = 0
+                          call countdiff(T, s1, s2, ss, P, m, diff)
+                          if diff = 0 then
+                            call pushpos(s1, s2, ss, r)
+                          else
+                            skip
+                          fi diff = 0
+                          uncall countdiff(T, s1, s2, ss, P, m, diff)
+                        delocal int diff = 0
+                      else
+                        skip
+                      fi (W[ss] % q) = (HPsum % q)
+                    loop
+                      ss += 1
+                    until ss = lim
+                    delocal int ss = lim
+                    if lim > 0 then
+                      local int sb = lim - 1
+                      from sb = lim - 1 do
+                        local int cout = 0
+                          call addslicehash(T, s1, s2, sb, m, d, q, cout)
+                          local int cin = 0
+                            call addslicehash(T, s1, s2, sb + m, m, d, q, cin)
+                            local int prev = W[sb]
+                              W[sb + 1] -= ((((prev % q) * (D % q)) % q) + (cin % q) + q - (((cout % q) * (DT % q)) % q)) % q
+                            delocal int prev = W[sb]
+                            uncall addslicehash(T, s1, s2, sb + m, m, d, q, cin)
+                          delocal int cin = 0
+                          uncall addslicehash(T, s1, s2, sb, m, d, q, cout)
+                        delocal int cout = 0
+                      loop
+                        sb -= 1
+                      until sb = 0
+                      delocal int sb = 0
+                    else
+                      skip
+                    fi lim > 0
+                    local int base2 = 0
+                      call basehash(T, s1, s2, m, d, q, mm, base2)
+                      W[0] -= base2
+                      uncall basehash(T, s1, s2, m, d, q, mm, base2)
+                    delocal int base2 = 0
+                  delocal int W[n]
+                loop
+                  s2 += 1
+                until s2 = lim
+                delocal int s2 = lim
+              loop
+                s1 += 1
+              until s1 = lim
+              delocal int s1 = lim
+              uncall basehash(P, 0, 0, m, d, q, mm, HPsum)
+            delocal int HPsum = 0
+          delocal int lim = n - m
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m

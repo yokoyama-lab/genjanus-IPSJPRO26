@@ -1,0 +1,17 @@
+procedure xJk2Q9_step(int n, int a, int b)
+    local int marker = 0
+    if n > 0 then
+        marker += 1
+        a += 1
+        b -= 1
+        n -= 1
+        call xJk2Q9_step(n, a, b)
+    else
+        skip
+    fi marker = 1
+    if marker = 1 then
+        marker -= 1
+    else
+        skip
+    fi marker = 0
+    delocal int marker = 0

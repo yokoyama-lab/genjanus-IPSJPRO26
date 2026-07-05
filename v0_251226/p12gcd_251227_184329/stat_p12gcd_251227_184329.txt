@@ -1,0 +1,120 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 99
+  ✅ 成功: 1
+  ⚠️ 構文エラー: 19
+  ❌ 実行エラー: 79
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (1件)
+------------------------------------------------------------
+  p12gcd/p12gcd_out009_gpt5_2_251227_184329.janus
+
+⚠️ 構文エラーのあったファイル (19件)
+------------------------------------------------------------
+  p12gcd/p12gcd_out008_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out011_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out014_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out017_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out019_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out021_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out027_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out028_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out039_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out040_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out045_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out046_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out051_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out059_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out066_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out070_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out073_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out076_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out090_gpt5_2_251227_184329.janus
+
+❌ 実行エラーのあったファイル (79件)
+------------------------------------------------------------
+  p12gcd/p12gcd_out001_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out002_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out003_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out004_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out005_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out006_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out007_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out010_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out012_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out013_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out015_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out016_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out018_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out020_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out022_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out023_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out024_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out025_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out026_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out029_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out030_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out031_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out032_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out033_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out034_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out035_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out036_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out037_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out038_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out041_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out042_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out043_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out044_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out047_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out048_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out049_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out050_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out052_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out053_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out054_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out055_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out056_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out057_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out058_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out060_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out061_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out062_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out063_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out064_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out065_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out067_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out068_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out069_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out071_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out072_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out074_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out075_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out077_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out078_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out079_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out080_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out081_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out082_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out083_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out084_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out085_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out086_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out087_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out088_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out089_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out091_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out092_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out093_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out094_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out095_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out096_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out097_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out098_gpt5_2_251227_184329.janus
+  p12gcd/p12gcd_out100_gpt5_2_251227_184329.janus
+
+📄 CSV出力: p12gcd/jana_check_results_p12gcd_251227_184329_summary.csv

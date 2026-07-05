@@ -1,0 +1,312 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure mpow(int b, int e, int q, int t, int acc, int h)
+    if t = e then
+        h += acc
+    else
+        local int a2 = (acc * b) % q
+            local int t2 = t + 1
+                call mpow(b, e, q, t2, a2, h)
+            delocal int t2 = t + 1
+        delocal int a2 = (acc * b) % q
+    fi t = e
+
+procedure cmpcube(int T[][][], int P[][][], int s1, int s2, int s3, int m, int c)
+    local int i = 0
+        from i = 0 do
+            local int j = 0
+                from j = 0 do
+                    local int k = 0
+                        from k = 0 do
+                            if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+                                c += 1
+                            else
+                                skip
+                            fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+                            k += 1
+                        loop
+                            skip
+                        until k = m
+                    delocal int k = m
+                    j += 1
+                loop
+                    skip
+                until j = m
+            delocal int j = m
+            i += 1
+        loop
+            skip
+        until i = m
+    delocal int i = m
+
+procedure phash(int A[][][], int m, int d, int q, int u, int acc, int h)
+    if u = m * m * m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (A[u / (m * m)][(u / m) % m][u % m] % q)) % q
+            local int u2 = u + 1
+                call phash(A, m, d, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * d) + (A[u / (m * m)][(u / m) % m][u % m] % q)) % q
+    fi u = m * m * m
+
+procedure ahash(int T[][][], int s1, int s2, int kk, int m, int dm, int q, int u, int acc, int h)
+    if u = m * m then
+        h += acc
+    else
+        local int a2 = ((acc * dm) + (T[s1 + (u / m)][s2 + (u % m)][kk] % q)) % q
+            local int u2 = u + 1
+                call ahash(T, s1, s2, kk, m, dm, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * dm) + (T[s1 + (u / m)][s2 + (u % m)][kk] % q)) % q
+    fi u = m * m
+
+procedure bline(int T[][][], int row, int col, int m, int d, int q, int t, int acc, int h)
+    if t = m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (T[row][col][t] % q)) % q
+            local int t2 = t + 1
+                call bline(T, row, col, m, d, q, t2, a2, h)
+            delocal int t2 = t + 1
+        delocal int a2 = ((acc * d) + (T[row][col][t] % q)) % q
+    fi t = m
+
+procedure bhash(int T[][][], int s1, int jj, int m, int d, int dm2, int q, int i, int acc, int h)
+    if i = m then
+        h += acc
+    else
+        local int lh = 0
+            local int row = s1 + i
+                local int t0 = 0, a0 = 0
+                    call bline(T, row, jj, m, d, q, t0, a0, lh)
+                delocal int t0 = 0, a0 = 0
+            delocal int row = s1 + i
+            local int a2 = ((acc * dm2) + lh) % q
+                local int i2 = i + 1
+                    call bhash(T, s1, jj, m, d, dm2, q, i2, a2, h)
+                delocal int i2 = i + 1
+            delocal int a2 = ((acc * dm2) + lh) % q
+            local int row = s1 + i
+                local int t0 = 0, a0 = 0
+                    uncall bline(T, row, jj, m, d, q, t0, a0, lh)
+                delocal int t0 = 0, a0 = 0
+            delocal int row = s1 + i
+        delocal int lh = 0
+    fi i = m
+
+procedure chash(int T[][][], int ii, int m, int d, int q, int u, int acc, int h)
+    if u = m * m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (T[ii][u / m][u % m] % q)) % q
+            local int u2 = u + 1
+                call chash(T, ii, m, d, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * d) + (T[ii][u / m][u % m] % q)) % q
+    fi u = m * m
+
+procedure scan3(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int pk1, int s1, int s2, int s3, int hK)
+    if hK = ph then
+        local int c = 0
+            call cmpcube(T, P, s1, s2, s3, m, c)
+            if c = 0 then
+                local int v1 = s1
+                    push(v1, r)
+                delocal int v1 = 0
+                local int v2 = s2
+                    push(v2, r)
+                delocal int v2 = 0
+                local int v3 = s3
+                    push(v3, r)
+                delocal int v3 = 0
+            else
+                skip
+            fi c = 0
+            uncall cmpcube(T, P, s1, s2, s3, m, c)
+        delocal int c = 0
+    else
+        skip
+    fi hK = ph
+    if s3 != n - m then
+        local int al = 0, an = 0
+            local int u0 = 0, a0 = 0
+                call ahash(T, s1, s2, s3, m, dm, q, u0, a0, al)
+            delocal int u0 = 0, a0 = 0
+            local int kn = s3 + m
+                local int u0 = 0, a0 = 0
+                    call ahash(T, s1, s2, kn, m, dm, q, u0, a0, an)
+                delocal int u0 = 0, a0 = 0
+            delocal int kn = s3 + m
+            local int hN = (((hK + (q - ((al * pk1) % q))) * d) + an) % q
+                local int s3n = s3 + 1
+                    call scan3(T, n, P, m, d, q, r, ph, dm, pk1, s1, s2, s3n, hN)
+                delocal int s3n = s3 + 1
+            delocal int hN = (((hK + (q - ((al * pk1) % q))) * d) + an) % q
+            local int u0 = 0, a0 = 0
+                uncall ahash(T, s1, s2, s3, m, dm, q, u0, a0, al)
+            delocal int u0 = 0, a0 = 0
+            local int kn = s3 + m
+                local int u0 = 0, a0 = 0
+                    uncall ahash(T, s1, s2, kn, m, dm, q, u0, a0, an)
+                delocal int u0 = 0, a0 = 0
+            delocal int kn = s3 + m
+        delocal int al = 0, an = 0
+    else
+        skip
+    fi s3 != n - m
+
+procedure scan2(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int dm2, int pj1, int pk1, int s1, int s2, int hJ)
+    local int s30 = 0
+        call scan3(T, n, P, m, d, q, r, ph, dm, pk1, s1, s2, s30, hJ)
+    delocal int s30 = 0
+    if s2 != n - m then
+        local int bl = 0, bn = 0
+            local int i0 = 0, a0 = 0
+                call bhash(T, s1, s2, m, d, dm2, q, i0, a0, bl)
+            delocal int i0 = 0, a0 = 0
+            local int jn = s2 + m
+                local int i0 = 0, a0 = 0
+                    call bhash(T, s1, jn, m, d, dm2, q, i0, a0, bn)
+                delocal int i0 = 0, a0 = 0
+            delocal int jn = s2 + m
+            local int hN = (((hJ + (q - ((bl * pj1) % q))) * dm) + bn) % q
+                local int s2n = s2 + 1
+                    call scan2(T, n, P, m, d, q, r, ph, dm, dm2, pj1, pk1, s1, s2n, hN)
+                delocal int s2n = s2 + 1
+            delocal int hN = (((hJ + (q - ((bl * pj1) % q))) * dm) + bn) % q
+            local int i0 = 0, a0 = 0
+                uncall bhash(T, s1, s2, m, d, dm2, q, i0, a0, bl)
+            delocal int i0 = 0, a0 = 0
+            local int jn = s2 + m
+                local int i0 = 0, a0 = 0
+                    uncall bhash(T, s1, jn, m, d, dm2, q, i0, a0, bn)
+                delocal int i0 = 0, a0 = 0
+            delocal int jn = s2 + m
+        delocal int bl = 0, bn = 0
+    else
+        skip
+    fi s2 != n - m
+
+procedure scan1(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int dm2, int pi1, int pj1, int pk1, int s1, int hI)
+    local int s20 = 0
+        call scan2(T, n, P, m, d, q, r, ph, dm, dm2, pj1, pk1, s1, s20, hI)
+    delocal int s20 = 0
+    if s1 != n - m then
+        local int cl = 0, cn = 0
+            local int u0 = 0, a0 = 0
+                call chash(T, s1, m, d, q, u0, a0, cl)
+            delocal int u0 = 0, a0 = 0
+            local int im = s1 + m
+                local int u0 = 0, a0 = 0
+                    call chash(T, im, m, d, q, u0, a0, cn)
+                delocal int u0 = 0, a0 = 0
+            delocal int im = s1 + m
+            local int hN = (((hI + (q - ((cl * pi1) % q))) * dm2) + cn) % q
+                local int s1n = s1 + 1
+                    call scan1(T, n, P, m, d, q, r, ph, dm, dm2, pi1, pj1, pk1, s1n, hN)
+                delocal int s1n = s1 + 1
+            delocal int hN = (((hI + (q - ((cl * pi1) % q))) * dm2) + cn) % q
+            local int u0 = 0, a0 = 0
+                uncall chash(T, s1, m, d, q, u0, a0, cl)
+            delocal int u0 = 0, a0 = 0
+            local int im = s1 + m
+                local int u0 = 0, a0 = 0
+                    uncall chash(T, im, m, d, q, u0, a0, cn)
+                delocal int u0 = 0, a0 = 0
+            delocal int im = s1 + m
+        delocal int cl = 0, cn = 0
+    else
+        skip
+    fi s1 != n - m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int dm = 0, dm2 = 0, pk1 = 0, pj1 = 0, pi1 = 0, ph = 0, h0 = 0
+        local int t0 = 0, a1 = 1
+            call mpow(d, m, q, t0, a1, dm)
+        delocal int t0 = 0, a1 = 1
+        local int t0 = 0, a1 = 1
+            call mpow(dm, m, q, t0, a1, dm2)
+        delocal int t0 = 0, a1 = 1
+        local int e1 = m - 1
+            local int t0 = 0, a1 = 1
+                call mpow(d, e1, q, t0, a1, pk1)
+            delocal int t0 = 0, a1 = 1
+            local int t0 = 0, a1 = 1
+                call mpow(dm, e1, q, t0, a1, pj1)
+            delocal int t0 = 0, a1 = 1
+            local int t0 = 0, a1 = 1
+                call mpow(dm2, e1, q, t0, a1, pi1)
+            delocal int t0 = 0, a1 = 1
+        delocal int e1 = m - 1
+        local int u0 = 0, a0 = 0
+            call phash(P, m, d, q, u0, a0, ph)
+        delocal int u0 = 0, a0 = 0
+        local int u0 = 0, a0 = 0
+            call phash(T, m, d, q, u0, a0, h0)
+        delocal int u0 = 0, a0 = 0
+        local int s10 = 0
+            call scan1(T, n, P, m, d, q, r, ph, dm, dm2, pi1, pj1, pk1, s10, h0)
+        delocal int s10 = 0
+        local int u0 = 0, a0 = 0
+            uncall phash(T, m, d, q, u0, a0, h0)
+        delocal int u0 = 0, a0 = 0
+        local int u0 = 0, a0 = 0
+            uncall phash(P, m, d, q, u0, a0, ph)
+        delocal int u0 = 0, a0 = 0
+        local int e1 = m - 1
+            local int t0 = 0, a1 = 1
+                uncall mpow(dm2, e1, q, t0, a1, pi1)
+            delocal int t0 = 0, a1 = 1
+            local int t0 = 0, a1 = 1
+                uncall mpow(dm, e1, q, t0, a1, pj1)
+            delocal int t0 = 0, a1 = 1
+            local int t0 = 0, a1 = 1
+                uncall mpow(d, e1, q, t0, a1, pk1)
+            delocal int t0 = 0, a1 = 1
+        delocal int e1 = m - 1
+        local int t0 = 0, a1 = 1
+            uncall mpow(dm, m, q, t0, a1, dm2)
+        delocal int t0 = 0, a1 = 1
+        local int t0 = 0, a1 = 1
+            uncall mpow(d, m, q, t0, a1, dm)
+        delocal int t0 = 0, a1 = 1
+    delocal int dm = 0, dm2 = 0, pk1 = 0, pj1 = 0, pi1 = 0, ph = 0, h0 = 0
+
+procedure main()
+    int T[4][4][4] = {{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}, {{2, 2, 2, 2}, {2, 2, 2, 2}, {0, 2, 2, 2}, {0, 2, 2, 2}}, {{3, 3, 0, 3}, {3, 3, 3, 0}, {3, 3, 3, 3}, {0, 3, 0, 0}}, {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {4, 4, 4, 4}}}
+    int n = 4
+    int P[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+    int m = 2
+    int d = 10
+    int q = 101
+    stack r
+    call rabinkarp3(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+PyJanus parsing error
+  message: Expecting identifier
+  legacy: File "/tmp/tmpgb0l52y6.jan" in line 79, column 38:
+              Expecting identifier
+  location: /tmp/tmpgb0l52y6.jan:79:38
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    78 |             local int row = s1 + i
+  > 79 |                 local int t0 = 0, a0 = 0
+       |                                      ^
+    80 |                     call bline(T, row, jj, m, d, q, t0, a0, lh)
+
+Please fix the procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 3D Rabin-Karp pattern matching algorithm. Given an n-by-n-by-n text cube T (int T[][][]) and an m-by-m-by-m pattern cube P (int P[][][]), find every corner position (s1,s2,s3) with 0 <= s1,s2,s3 <= n-m where the m-by-m-by-m subcube of T anchored at (s1,s2,s3) equals P, and push the matches onto the stack r. Use a three-level modular rolling hash with radix d and prime modulus q, confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1.  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

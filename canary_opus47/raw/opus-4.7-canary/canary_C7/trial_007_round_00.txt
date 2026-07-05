@@ -1,0 +1,20 @@
+Looking at this problem, I need a procedure that sums non-multiples of 3 from 1 to n while decrementing n to 0.
+
+The natural approach is a countdown loop: process the current value of `n` (adding it to `s` only when it's not a multiple of 3), then decrement `n` until it reaches 0.
+
+For the inner `if`, since `n` is unchanged within the branches, the entry test `n % 3 != 0` also serves correctly as the exit assertion (true after the `then`-branch, false after the `else`-branch).
+
+```
+procedure sum_skip_three(int n, int s)
+    from n > 0 do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+    loop
+        n -= 1
+    until n = 0
+```
+
+Tracing for n=6, s=0: body sees 6 (skip, multiple of 3), then 5→s=5, 4→s=9, 3 (skip), 2→s=11, 1→s=12, then n steps to 0 and the loop exits. Result: **n=0, s=12** ✓

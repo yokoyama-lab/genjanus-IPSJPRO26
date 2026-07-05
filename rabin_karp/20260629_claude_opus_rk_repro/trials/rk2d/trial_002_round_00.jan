@@ -1,0 +1,127 @@
+procedure rowHash(int T[][], int row, int col, int m, int d, int q, int out)
+  local int H[m+1] = 0
+    local int j = 0
+      from j = 0 do
+        local int t = 0
+          t += (H[j] * d + T[row][col+j]) % q
+          H[j+1] += t
+          t -= (H[j] * d + T[row][col+j]) % q
+        delocal int t = 0
+        j += 1
+      loop skip until j = m
+    delocal int j = m
+    out += H[m]
+    local int j = m
+      from j = m do
+        j -= 1
+        local int t = 0
+          t += (H[j] * d + T[row][col+j]) % q
+          H[j+1] -= t
+          t -= (H[j] * d + T[row][col+j]) % q
+        delocal int t = 0
+      loop skip until j = 0
+    delocal int j = 0
+  delocal int H[m+1] = 0
+
+procedure windowHash(int T[][], int s1, int s2, int m, int d, int q, int out)
+  local int C[m+1] = 0
+    local int i = 0
+      from i = 0 do
+        local int rh = 0
+          call rowHash(T, s1+i, s2, m, d, q, rh)
+          local int t = 0
+            t += (C[i] * d + rh) % q
+            C[i+1] += t
+            t -= (C[i] * d + rh) % q
+          delocal int t = 0
+          uncall rowHash(T, s1+i, s2, m, d, q, rh)
+        delocal int rh = 0
+        i += 1
+      loop skip until i = m
+    delocal int i = m
+    out += C[m]
+    local int i = m
+      from i = m do
+        i -= 1
+        local int rh = 0
+          call rowHash(T, s1+i, s2, m, d, q, rh)
+          local int t = 0
+            t += (C[i] * d + rh) % q
+            C[i+1] -= t
+            t -= (C[i] * d + rh) % q
+          delocal int t = 0
+          uncall rowHash(T, s1+i, s2, m, d, q, rh)
+        delocal int rh = 0
+      loop skip until i = 0
+    delocal int i = 0
+  delocal int C[m+1] = 0
+
+procedure countEqual(int T[][], int s1, int s2, int P[][], int m, int cnt)
+  local int i = 0
+    from i = 0 do
+      local int j = 0
+        from j = 0 do
+          if T[s1+i][s2+j] = P[i][j] then
+            cnt += 1
+          else
+            skip
+          fi T[s1+i][s2+j] = P[i][j]
+          j += 1
+        loop skip until j = m
+      delocal int j = m
+      i += 1
+    loop skip until i = m
+  delocal int i = m
+
+procedure confirm(int T[][], int s1, int s2, int P[][], int m, int matched)
+  local int cnt = 0
+    call countEqual(T, s1, s2, P, m, cnt)
+    if cnt = m * m then
+      matched += 1
+    else
+      skip
+    fi matched = 1
+    uncall countEqual(T, s1, s2, P, m, cnt)
+  delocal int cnt = 0
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int hp = 0
+    call windowHash(P, 0, 0, m, d, q, hp)
+    local int s2 = 0
+      from s2 = 0 do
+        local int s1 = 0
+          from s1 = 0 do
+            local int hw = 0
+              call windowHash(T, s1, s2, m, d, q, hw)
+              local int matched = 0
+                if hw = hp then
+                  call confirm(T, s1, s2, P, m, matched)
+                else
+                  skip
+                fi hw = hp
+                if matched = 1 then
+                  local int a = 0
+                    a += s1
+                    push(a, r)
+                    a += s2
+                    push(a, r)
+                  delocal int a = 0
+                else
+                  skip
+                fi matched = 1
+                if hw = hp then
+                  uncall confirm(T, s1, s2, P, m, matched)
+                else
+                  skip
+                fi hw = hp
+              delocal int matched = 0
+              uncall windowHash(T, s1, s2, m, d, q, hw)
+            delocal int hw = 0
+            s1 += 1
+          loop skip until s1 = n - m + 1
+        delocal int s1 = n - m + 1
+        s2 += 1
+      loop skip until s2 = n - m + 1
+    delocal int s2 = n - m + 1
+    uncall windowHash(P, 0, 0, m, d, q, hp)
+  delocal int hp = 0

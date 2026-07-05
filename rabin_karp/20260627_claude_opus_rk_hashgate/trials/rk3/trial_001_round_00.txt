@@ -1,0 +1,86 @@
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int pf = 0
+  call hashfull(P, 0, 0, 0, m, d, pf)
+  local int ph = pf % q
+  local int s1 = 0
+  from s1 = 0 do
+    local int s2 = 0
+    from s2 = 0 do
+      local int s3 = 0
+      from s3 = 0 do
+        call windowstep(T, s1, s2, s3, P, m, d, q, ph, r)
+      loop s3 += 1 until s3 = n - m
+      delocal int s3 = n - m
+    loop s2 += 1 until s2 = n - m
+    delocal int s2 = n - m
+  loop s1 += 1 until s1 = n - m
+  delocal int s1 = n - m
+  delocal int ph = pf % q
+  uncall hashfull(P, 0, 0, 0, m, d, pf)
+  delocal int pf = 0
+
+procedure windowstep(int T[][][], int s1, int s2, int s3, int P[][][], int m, int d, int q, int ph, stack r)
+  local int wh = 0
+  call hashfull(T, s1, s2, s3, m, d, wh)
+  local int rwh = wh % q
+  if rwh = ph then
+    call confirm(T, s1, s2, s3, P, m, r)
+  else
+    skip
+  fi rwh = ph
+  delocal int rwh = wh % q
+  uncall hashfull(T, s1, s2, s3, m, d, wh)
+  delocal int wh = 0
+
+procedure confirm(int T[][][], int s1, int s2, int s3, int P[][][], int m, stack r)
+  local int diff = 0
+  call countdiff(T, s1, s2, s3, P, m, diff)
+  if diff = 0 then
+    call push3(s1, s2, s3, r)
+  else
+    skip
+  fi diff = 0
+  uncall countdiff(T, s1, s2, s3, P, m, diff)
+  delocal int diff = 0
+
+procedure push3(int s1, int s2, int s3, stack r)
+  local int a = s1
+  push(a, r)
+  delocal int a = 0
+  local int b = s2
+  push(b, r)
+  delocal int b = 0
+  local int c = s3
+  push(c, r)
+  delocal int c = 0
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        diff += (T[s1 + i][s2 + j][s3 + k] != P[i][j][k])
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+
+procedure hashfull(int C[][][], int o1, int o2, int o3, int m, int d, int h)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        h *= d
+        h += C[o1 + i][o2 + j][o3 + k]
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1

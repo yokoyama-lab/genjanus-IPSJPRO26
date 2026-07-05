@@ -1,0 +1,22 @@
+The two prior attempts failed for the same underlying reason: a `from`-loop's entry test must be **true on the first entry and false on every re-entry**, and it must be expressible without a self-referential `delocal`.
+
+- `s = 0` doesn't work: when the first value processed (`n=6`) is a multiple of 3, `s` stays 0, so the test is still true on re-entry.
+- The `orig` copy fails because `delocal int orig = orig` references the variable being delocalized (the aliasing error) — and there's no other live variable holding the original value once `n` has been counted down.
+
+The clean fix is a count-down loop on `n` itself, with the entry assertion comparing `n` to its starting value. Since `n` strictly decreases, `n = 6` is true only on the first entry and false on all re-entries, and `n = 0` is the natural exit. No locals are needed, so there's no disposal problem, and `n` lands exactly at 0.
+
+Tracing `n=6`: 6→skip, 5→+5, 4→+4, 3→skip, 2→+2, 1→+1 ⟹ `s=12`, `n=0`. Entry test is true only at `n=6`, false at 5,4,3,2,1. ✓
+
+```janus
+procedure sum_skip_three(int n, int s)
+    from n = 6 do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+```

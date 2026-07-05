@@ -1,0 +1,10 @@
+procedure xJk2Q9_step(int n, int a, int b)
+    local int n0 = n
+    from n = n0 do
+        skip
+    loop
+        a += 1
+        b -= 1
+        n -= 1
+    until n = 0
+    delocal int n0 = a

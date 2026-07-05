@@ -1,0 +1,10 @@
+STATUS: WRONG_OUTPUT
+RETURN_CODE: 0
+STDOUT:
+x = 2
+y = 3
+z = 1
+
+STDERR:
+
+ERROR: Expected x=3, got x=2

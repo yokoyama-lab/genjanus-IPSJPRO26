@@ -1,0 +1,346 @@
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int PD[m + 1] = 0, int P2[m + 1] = 0, int P3[m + 1] = 0, int H1[n * n * (n - m + 1)] = 0, int H2[n * (n - m + 1) * (n - m + 1)] = 0, int H3[(n - m + 1) * (n - m + 1) * (n - m + 1)] = 0, int g = 0
+        PD[0] += 1
+        local int t = 0
+        from t = 0 do
+            local int x = (PD[t] * (d % q)) % q
+            PD[t + 1] += x
+            delocal int x = PD[t + 1]
+            t += 1
+        until t = m
+        delocal int t = m
+        P2[0] += 1
+        local int t = 0
+        from t = 0 do
+            local int x = (P2[t] * PD[m]) % q
+            P2[t + 1] += x
+            delocal int x = P2[t + 1]
+            t += 1
+        until t = m
+        delocal int t = m
+        P3[0] += 1
+        local int t = 0
+        from t = 0 do
+            local int x = (P3[t] * P2[m]) % q
+            P3[t + 1] += x
+            delocal int x = P3[t + 1]
+            t += 1
+        until t = m
+        delocal int t = m
+        local int i = 0
+        from i = 0 do
+            local int j = 0
+            from j = 0 do
+                local int k = 0
+                from k = 0 do
+                    local int x = ((T[i][j][k] % q) * PD[m - 1 - k]) % q
+                    H1[(i * n + j) * (n - m + 1)] += x
+                    delocal int x = ((T[i][j][k] % q) * PD[m - 1 - k]) % q
+                    k += 1
+                until k = m
+                delocal int k = m
+                if n - m > 0 then
+                    local int s = 0
+                    from s = 0 do
+                        local int x = ((H1[(i * n + j) * (n - m + 1) + s] + q - (((T[i][j][s] % q) * PD[m - 1]) % q)) * PD[1] + (T[i][j][s + m] % q)) % q
+                        H1[(i * n + j) * (n - m + 1) + s + 1] += x
+                        delocal int x = H1[(i * n + j) * (n - m + 1) + s + 1]
+                        s += 1
+                    until s = n - m
+                    delocal int s = n - m
+                else
+                    skip
+                fi n - m > 0
+                j += 1
+            until j = n
+            delocal int j = n
+            i += 1
+        until i = n
+        delocal int i = n
+        local int i = 0
+        from i = 0 do
+            local int s3 = 0
+            from s3 = 0 do
+                local int j = 0
+                from j = 0 do
+                    local int x = (H1[(i * n + j) * (n - m + 1) + s3] * P2[m - 1 - j]) % q
+                    H2[(i * (n - m + 1)) * (n - m + 1) + s3] += x
+                    delocal int x = (H1[(i * n + j) * (n - m + 1) + s3] * P2[m - 1 - j]) % q
+                    j += 1
+                until j = m
+                delocal int j = m
+                if n - m > 0 then
+                    local int s = 0
+                    from s = 0 do
+                        local int x = ((H2[(i * (n - m + 1) + s) * (n - m + 1) + s3] + q - ((H1[(i * n + s) * (n - m + 1) + s3] * P2[m - 1]) % q)) * P2[1] + H1[(i * n + s + m) * (n - m + 1) + s3]) % q
+                        H2[(i * (n - m + 1) + s + 1) * (n - m + 1) + s3] += x
+                        delocal int x = H2[(i * (n - m + 1) + s + 1) * (n - m + 1) + s3]
+                        s += 1
+                    until s = n - m
+                    delocal int s = n - m
+                else
+                    skip
+                fi n - m > 0
+                s3 += 1
+            until s3 = n - m + 1
+            delocal int s3 = n - m + 1
+            i += 1
+        until i = n
+        delocal int i = n
+        local int s2 = 0
+        from s2 = 0 do
+            local int s3 = 0
+            from s3 = 0 do
+                local int i = 0
+                from i = 0 do
+                    local int x = (H2[(i * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1 - i]) % q
+                    H3[s2 * (n - m + 1) + s3] += x
+                    delocal int x = (H2[(i * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1 - i]) % q
+                    i += 1
+                until i = m
+                delocal int i = m
+                if n - m > 0 then
+                    local int s = 0
+                    from s = 0 do
+                        local int x = ((H3[(s * (n - m + 1) + s2) * (n - m + 1) + s3] + q - ((H2[(s * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1]) % q)) * P3[1] + H2[((s + m) * (n - m + 1) + s2) * (n - m + 1) + s3]) % q
+                        H3[((s + 1) * (n - m + 1) + s2) * (n - m + 1) + s3] += x
+                        delocal int x = H3[((s + 1) * (n - m + 1) + s2) * (n - m + 1) + s3]
+                        s += 1
+                    until s = n - m
+                    delocal int s = n - m
+                else
+                    skip
+                fi n - m > 0
+                s3 += 1
+            until s3 = n - m + 1
+            delocal int s3 = n - m + 1
+            s2 += 1
+        until s2 = n - m + 1
+        delocal int s2 = n - m + 1
+        local int a = 0
+        from a = 0 do
+            local int b = 0
+            from b = 0 do
+                local int c = 0
+                from c = 0 do
+                    local int x = ((P[a][b][c] % q) * ((((P3[m - 1 - a] * P2[m - 1 - b]) % q) * PD[m - 1 - c]) % q)) % q
+                    g += x
+                    delocal int x = ((P[a][b][c] % q) * ((((P3[m - 1 - a] * P2[m - 1 - b]) % q) * PD[m - 1 - c]) % q)) % q
+                    c += 1
+                until c = m
+                delocal int c = m
+                b += 1
+            until b = m
+            delocal int b = m
+            a += 1
+        until a = m
+        delocal int a = m
+        local int s1 = 0
+        from s1 = 0 do
+            local int s2 = 0
+            from s2 = 0 do
+                local int s3 = 0
+                from s3 = 0 do
+                    if H3[(s1 * (n - m + 1) + s2) * (n - m + 1) + s3] = (g % q) then
+                        local int df = 0
+                        local int a = 0
+                        from a = 0 do
+                            local int b = 0
+                            from b = 0 do
+                                local int c = 0
+                                from c = 0 do
+                                    if T[s1 + a][s2 + b][s3 + c] != P[a][b][c] then
+                                        df += 1
+                                    else
+                                        skip
+                                    fi T[s1 + a][s2 + b][s3 + c] != P[a][b][c]
+                                    c += 1
+                                until c = m
+                                delocal int c = m
+                                b += 1
+                            until b = m
+                            delocal int b = m
+                            a += 1
+                        until a = m
+                        delocal int a = m
+                        if df = 0 then
+                            local int w = 0
+                            w += s1
+                            push(w, r)
+                            w += s2
+                            push(w, r)
+                            w += s3
+                            push(w, r)
+                            delocal int w = 0
+                        else
+                            skip
+                        fi df = 0
+                        local int a = 0
+                        from a = 0 do
+                            local int b = 0
+                            from b = 0 do
+                                local int c = 0
+                                from c = 0 do
+                                    if T[s1 + a][s2 + b][s3 + c] != P[a][b][c] then
+                                        df -= 1
+                                    else
+                                        skip
+                                    fi T[s1 + a][s2 + b][s3 + c] != P[a][b][c]
+                                    c += 1
+                                until c = m
+                                delocal int c = m
+                                b += 1
+                            until b = m
+                            delocal int b = m
+                            a += 1
+                        until a = m
+                        delocal int a = m
+                        delocal int df = 0
+                    else
+                        skip
+                    fi H3[(s1 * (n - m + 1) + s2) * (n - m + 1) + s3] = (g % q)
+                    s3 += 1
+                until s3 = n - m + 1
+                delocal int s3 = n - m + 1
+                s2 += 1
+            until s2 = n - m + 1
+            delocal int s2 = n - m + 1
+            s1 += 1
+        until s1 = n - m + 1
+        delocal int s1 = n - m + 1
+        local int a = 0
+        from a = 0 do
+            local int b = 0
+            from b = 0 do
+                local int c = 0
+                from c = 0 do
+                    local int x = ((P[a][b][c] % q) * ((((P3[m - 1 - a] * P2[m - 1 - b]) % q) * PD[m - 1 - c]) % q)) % q
+                    g -= x
+                    delocal int x = ((P[a][b][c] % q) * ((((P3[m - 1 - a] * P2[m - 1 - b]) % q) * PD[m - 1 - c]) % q)) % q
+                    c += 1
+                until c = m
+                delocal int c = m
+                b += 1
+            until b = m
+            delocal int b = m
+            a += 1
+        until a = m
+        delocal int a = m
+        local int s2 = 0
+        from s2 = 0 do
+            local int s3 = 0
+            from s3 = 0 do
+                if n - m > 0 then
+                    local int s = n - m
+                    from s = n - m do
+                        local int x = ((H3[((s - 1) * (n - m + 1) + s2) * (n - m + 1) + s3] + q - ((H2[((s - 1) * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1]) % q)) * P3[1] + H2[((s - 1 + m) * (n - m + 1) + s2) * (n - m + 1) + s3]) % q
+                        H3[(s * (n - m + 1) + s2) * (n - m + 1) + s3] -= x
+                        delocal int x = ((H3[((s - 1) * (n - m + 1) + s2) * (n - m + 1) + s3] + q - ((H2[((s - 1) * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1]) % q)) * P3[1] + H2[((s - 1 + m) * (n - m + 1) + s2) * (n - m + 1) + s3]) % q
+                        s -= 1
+                    until s = 0
+                    delocal int s = 0
+                else
+                    skip
+                fi n - m > 0
+                local int i = 0
+                from i = 0 do
+                    local int x = (H2[(i * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1 - i]) % q
+                    H3[s2 * (n - m + 1) + s3] -= x
+                    delocal int x = (H2[(i * (n - m + 1) + s2) * (n - m + 1) + s3] * P3[m - 1 - i]) % q
+                    i += 1
+                until i = m
+                delocal int i = m
+                s3 += 1
+            until s3 = n - m + 1
+            delocal int s3 = n - m + 1
+            s2 += 1
+        until s2 = n - m + 1
+        delocal int s2 = n - m + 1
+        local int i = 0
+        from i = 0 do
+            local int s3 = 0
+            from s3 = 0 do
+                if n - m > 0 then
+                    local int s = n - m
+                    from s = n - m do
+                        local int x = ((H2[(i * (n - m + 1) + s - 1) * (n - m + 1) + s3] + q - ((H1[(i * n + s - 1) * (n - m + 1) + s3] * P2[m - 1]) % q)) * P2[1] + H1[(i * n + s - 1 + m) * (n - m + 1) + s3]) % q
+                        H2[(i * (n - m + 1) + s) * (n - m + 1) + s3] -= x
+                        delocal int x = ((H2[(i * (n - m + 1) + s - 1) * (n - m + 1) + s3] + q - ((H1[(i * n + s - 1) * (n - m + 1) + s3] * P2[m - 1]) % q)) * P2[1] + H1[(i * n + s - 1 + m) * (n - m + 1) + s3]) % q
+                        s -= 1
+                    until s = 0
+                    delocal int s = 0
+                else
+                    skip
+                fi n - m > 0
+                local int j = 0
+                from j = 0 do
+                    local int x = (H1[(i * n + j) * (n - m + 1) + s3] * P2[m - 1 - j]) % q
+                    H2[(i * (n - m + 1)) * (n - m + 1) + s3] -= x
+                    delocal int x = (H1[(i * n + j) * (n - m + 1) + s3] * P2[m - 1 - j]) % q
+                    j += 1
+                until j = m
+                delocal int j = m
+                s3 += 1
+            until s3 = n - m + 1
+            delocal int s3 = n - m + 1
+            i += 1
+        until i = n
+        delocal int i = n
+        local int i = 0
+        from i = 0 do
+            local int j = 0
+            from j = 0 do
+                if n - m > 0 then
+                    local int s = n - m
+                    from s = n - m do
+                        local int x = ((H1[(i * n + j) * (n - m + 1) + s - 1] + q - (((T[i][j][s - 1] % q) * PD[m - 1]) % q)) * PD[1] + (T[i][j][s - 1 + m] % q)) % q
+                        H1[(i * n + j) * (n - m + 1) + s] -= x
+                        delocal int x = ((H1[(i * n + j) * (n - m + 1) + s - 1] + q - (((T[i][j][s - 1] % q) * PD[m - 1]) % q)) * PD[1] + (T[i][j][s - 1 + m] % q)) % q
+                        s -= 1
+                    until s = 0
+                    delocal int s = 0
+                else
+                    skip
+                fi n - m > 0
+                local int k = 0
+                from k = 0 do
+                    local int x = ((T[i][j][k] % q) * PD[m - 1 - k]) % q
+                    H1[(i * n + j) * (n - m + 1)] -= x
+                    delocal int x = ((T[i][j][k] % q) * PD[m - 1 - k]) % q
+                    k += 1
+                until k = m
+                delocal int k = m
+                j += 1
+            until j = n
+            delocal int j = n
+            i += 1
+        until i = n
+        delocal int i = n
+        local int t = m
+        from t = m do
+            local int x = (P3[t - 1] * P2[m]) % q
+            P3[t] -= x
+            delocal int x = (P3[t - 1] * P2[m]) % q
+            t -= 1
+        until t = 0
+        delocal int t = 0
+        P3[0] -= 1
+        local int t = m
+        from t = m do
+            local int x = (P2[t - 1] * PD[m]) % q
+            P2[t] -= x
+            delocal int x = (P2[t - 1] * PD[m]) % q
+            t -= 1
+        until t = 0
+        delocal int t = 0
+        P2[0] -= 1
+        local int t = m
+        from t = m do
+            local int x = (PD[t - 1] * (d % q)) % q
+            PD[t] -= x
+            delocal int x = (PD[t - 1] * (d % q)) % q
+            t -= 1
+        until t = 0
+        delocal int t = 0
+        PD[0] -= 1
+    delocal int PD[m + 1] = 0, int P2[m + 1] = 0, int P3[m + 1] = 0, int H1[n * n * (n - m + 1)] = 0, int H2[n * (n - m + 1) * (n - m + 1)] = 0, int H3[(n - m + 1) * (n - m + 1) * (n - m + 1)] = 0, int g = 0

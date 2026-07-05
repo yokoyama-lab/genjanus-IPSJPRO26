@@ -1,0 +1,122 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 100
+  ✅ 成功: 0
+  ⚠️ 構文エラー: 1
+  ❌ 実行エラー: 99
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (1件)
+------------------------------------------------------------
+  p10arrayreverse/p10arrayreverse_out050_gpt5_2_251226_204152.janus
+
+❌ 実行エラーのあったファイル (99件)
+------------------------------------------------------------
+  p10arrayreverse/p10arrayreverse_out001_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out002_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out003_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out004_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out005_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out006_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out007_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out008_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out009_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out010_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out011_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out012_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out013_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out014_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out015_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out016_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out017_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out018_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out019_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out020_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out021_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out022_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out023_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out024_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out025_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out026_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out027_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out028_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out029_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out030_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out031_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out032_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out033_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out034_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out035_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out036_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out037_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out038_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out039_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out040_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out041_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out042_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out043_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out044_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out045_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out046_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out047_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out048_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out049_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out051_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out052_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out053_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out054_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out055_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out056_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out057_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out058_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out059_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out060_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out061_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out062_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out063_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out064_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out065_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out066_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out067_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out068_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out069_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out070_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out071_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out072_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out073_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out074_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out075_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out076_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out077_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out078_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out079_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out080_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out081_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out082_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out083_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out084_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out085_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out086_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out087_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out088_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out089_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out090_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out091_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out092_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out093_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out094_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out095_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out096_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out097_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out098_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out099_gpt5_2_251226_204152.janus
+  p10arrayreverse/p10arrayreverse_out100_gpt5_2_251226_204152.janus
+
+📄 CSV出力: jana_check_results_p10arrayreverse_summary.csv

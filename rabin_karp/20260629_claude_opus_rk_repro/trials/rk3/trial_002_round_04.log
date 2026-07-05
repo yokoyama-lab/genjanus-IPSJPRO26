@@ -1,0 +1,46 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Division remains: -3 % 10 != 0
+  legacy: Error at line 14:
+            Division remains: -3 % 10 != 0
+            In statement:
+              h /= d
+          
+            Where: A[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+                   bi = 0
+                   bj = 0
+                   bk = 0
+                   d = 10
+                   h = -3
+                   i = 1
+                   j = 1
+                   k = 1
+                   m = 2
+                   q = 101
+                   s = <0, 1, 3, 3, 0, 0, 2, 2, 0, 0, 3, 3, 0, 0, 2, 2, 0, 0]
+  location: /tmp/tmpw86bnlc2.jan:14:11
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    13 |       loop
+  > 14 |         h *= d
+       |           ^
+    15 |         h += A[bi+i][bj+j][bk+k]
+
+Context:
+  In statement:
+      h /= d
+    where A[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+          bi = 0
+          bj = 0
+          bk = 0
+          d = 10
+          h = -3
+          i = 1
+          j = 1
+          k = 1
+          m = 2
+          q = 101
+          s = <0, 1, 3, 3, 0, 0, 2, 2, 0, 0, 3, 3, 0, 0, 2, 2, 0, 0]

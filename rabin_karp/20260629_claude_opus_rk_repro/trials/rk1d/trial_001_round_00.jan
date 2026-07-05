@@ -1,0 +1,92 @@
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int pow = 1
+    local int i = 0
+      from i = 0 do skip
+      loop pow *= d
+           i += 1
+      until i = m - 1
+    delocal int i = m - 1
+
+    local int PV = 0
+      local int j = 0
+        from j = 0 do skip
+        loop PV *= d
+             PV += P[j]
+             j += 1
+        until j = m
+      delocal int j = m
+
+      local int hp = PV % q
+        local int V = 0
+          local int j2 = 0
+            from j2 = 0 do skip
+            loop V *= d
+                 V += T[j2]
+                 j2 += 1
+            until j2 = m
+          delocal int j2 = m
+
+          local int s = 0
+            from s = 0 do
+              local int hv = V % q
+                if hv = hp then
+                  local int mis = 0
+                    local int j5 = 0
+                      from j5 = 0 do skip
+                      loop if T[s + j5] != P[j5] then mis += 1 else skip fi T[s + j5] != P[j5]
+                           j5 += 1
+                      until j5 = m
+                    delocal int j5 = m
+                    if mis = 0 then
+                      local int v = s
+                        push(v, r)
+                      delocal int v = 0
+                    else skip
+                    fi mis = 0
+                  delocal int mis = 0
+                else skip
+                fi hv = hp
+              delocal int hv = V % q
+            loop
+              V -= T[s]*pow
+              V *= d
+              V += T[s + m]
+              s += 1
+            until s = n - m
+          delocal int s = n - m
+
+          local int a = n - m
+            from a = n - m do skip
+            loop a -= 1
+                 V -= T[a + m]
+                 V /= d
+                 V += T[a]*pow
+            until a = 0
+          delocal int a = 0
+
+          local int j3 = m
+            from j3 = m do skip
+            loop j3 -= 1
+                 V -= T[j3]
+                 V /= d
+            until j3 = 0
+          delocal int j3 = 0
+        delocal int V = 0
+      delocal int hp = PV % q
+
+      local int j4 = m
+        from j4 = m do skip
+        loop j4 -= 1
+             PV -= P[j4]
+             PV /= d
+        until j4 = 0
+      delocal int j4 = 0
+    delocal int PV = 0
+
+    local int i2 = m - 1
+      from i2 = m - 1 do skip
+      loop pow /= d
+           i2 -= 1
+      until i2 = 0
+    delocal int i2 = 0
+  delocal int pow = 1

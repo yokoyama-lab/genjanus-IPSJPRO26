@@ -1,0 +1,78 @@
+procedure rowhash(int T[][], int s1, int s2, int i, int m, int d, int rh)
+  local int j = 0
+  from j = 0 do
+     rh *= d
+     rh += T[s1 + i][s2 + j]
+     j += 1
+  loop skip
+  until j = m
+  delocal int j = m
+
+procedure windowhash(int T[][], int s1, int s2, int m, int d, int h)
+  local int i = 0
+  from i = 0 do
+     local int rh = 0
+     call rowhash(T, s1, s2, i, m, d, rh)
+     h *= d
+     h += rh
+     uncall rowhash(T, s1, s2, i, m, d, rh)
+     delocal int rh = 0
+     i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+
+procedure exactdiff(int T[][], int s1, int s2, int P[][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+     local int j = 0
+     from j = 0 do
+        diff += (T[s1 + i][s2 + j] != P[i][j])
+        j += 1
+     loop skip
+     until j = m
+     delocal int j = m
+     i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int hp = 0
+  call windowhash(P, 0, 0, m, d, hp)
+  local int s2 = 0
+  from s2 = 0 do
+     local int s1 = 0
+     from s1 = 0 do
+        local int hw = 0
+        call windowhash(T, s1, s2, m, d, hw)
+        if (hw % q) = (hp % q) then
+           local int diff = 0
+           call exactdiff(T, s1, s2, P, m, diff)
+           if diff = 0 then
+              local int a = s1
+              push(a, r)
+              delocal int a = 0
+              local int b = s2
+              push(b, r)
+              delocal int b = 0
+           else
+              skip
+           fi diff = 0
+           uncall exactdiff(T, s1, s2, P, m, diff)
+           delocal int diff = 0
+        else
+           skip
+        fi (hw % q) = (hp % q)
+        uncall windowhash(T, s1, s2, m, d, hw)
+        delocal int hw = 0
+        s1 += 1
+     loop skip
+     until s1 = (n - m + 1)
+     delocal int s1 = (n - m + 1)
+     s2 += 1
+  loop skip
+  until s2 = (n - m + 1)
+  delocal int s2 = (n - m + 1)
+  uncall windowhash(P, 0, 0, m, d, hp)
+  delocal int hp = 0

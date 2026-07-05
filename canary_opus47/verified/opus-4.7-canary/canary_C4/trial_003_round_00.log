@@ -1,0 +1,12 @@
+STATUS: SYNTAX_ERROR
+RETURN_CODE: 1
+STDOUT:
+File "/tmp/tmp4l_80ity.jan" in line 6, column 22:
+    Unexpected "x"
+    Expecting digit
+
+STDERR:
+
+ERROR: File "/tmp/tmp4l_80ity.jan" in line 6, column 22:
+    Unexpected "x"
+    Expecting digit

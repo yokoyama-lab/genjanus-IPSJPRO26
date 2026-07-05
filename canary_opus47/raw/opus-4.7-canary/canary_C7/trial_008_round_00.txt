@@ -1,0 +1,22 @@
+Looking at this problem, I need a loop that decrements `n` to 0 while accumulating into `s` only the values not divisible by 3.
+
+The key design choices:
+- **Entry test `s = 0`**: true on first entry (the problem states `s` starts at 0), distinguishing the initial state.
+- **Exit test `n = 0`**: stop once `n` has been counted down to 0.
+- **Body**: add `n` to `s` only when `n % 3 != 0`, then decrement `n`. The inner `if`'s exit assertion `n % 3 != 0` correctly matches the entry test (true after the then-branch, false after the `skip` else-branch).
+
+Tracing `n=6`: 6→skip, 5→+5, 4→+4, 3→skip, 2→+2, 1→+1 ⟹ `s = 12`, `n = 0`. ✓
+
+```janus
+procedure sum_skip_three(int n, int s)
+    from s = 0 do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+```

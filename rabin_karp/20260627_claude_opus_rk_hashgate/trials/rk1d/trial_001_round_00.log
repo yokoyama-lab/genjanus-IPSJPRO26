@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR', 'RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Expected value to be `0' for local variable `p'
+            but actual value is `18956'
+  legacy: Error at line 98:
+            Expected value to be `0' for local variable `p'
+           but actual value is `18956'
+            In statement:
+              local int p
+              skip
+              delocal int p
+  location: /tmp/tmprp1vl8ij.jan:98:11
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    97 |   delocal int t = 0
+  > 98 |   delocal int p = 0
+       |           ^
+    99 | 
+
+Context:
+  In statement:
+      local int p
+      skip
+      delocal int p

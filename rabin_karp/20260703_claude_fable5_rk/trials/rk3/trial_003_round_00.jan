@@ -1,0 +1,424 @@
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int w = n - m + 1
+  local int W[m * m * m + 1]
+  local int S[m + 1]
+  local int H1[n * n * w]
+  local int H2[n * w * w]
+  local int H3[w * w * w]
+  local int PH1[m * m]
+  local int PH2[m]
+  local int PH3[1]
+
+  W[0] += 1
+  local int t = 0
+  from t = 0 do
+    local int wp = W[t]
+    W[t + 1] += (wp * d) % q
+    delocal int wp = W[t]
+  loop t += 1 until t = m * m * m - 1
+  delocal int t = m * m * m - 1
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        local int sp = S[k]
+        S[k + 1] += (sp * d + T[i][j][k]) % q
+        delocal int sp = S[k]
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+      H1[(i * n + j) * w] += S[m]
+      local int k2 = m - 1
+      from k2 = m - 1 do
+        local int sp = S[k2]
+        S[k2 + 1] -= (sp * d + T[i][j][k2]) % q
+        delocal int sp = S[k2]
+      loop k2 -= 1 until k2 = 0
+      delocal int k2 = 0
+      if w > 1 then
+        local int s = 0
+        from s = 0 do
+          local int hp = H1[(i * n + j) * w + s]
+          H1[(i * n + j) * w + s + 1] += ((d * hp - T[i][j][s] * W[m] + T[i][j][s + m]) % q + q) % q
+          delocal int hp = H1[(i * n + j) * w + s]
+        loop s += 1 until s = w - 2
+        delocal int s = w - 2
+      else skip
+      fi w > 1
+    loop j += 1 until j = n - 1
+    delocal int j = n - 1
+  loop i += 1 until i = n - 1
+  delocal int i = n - 1
+
+  local int i = 0
+  from i = 0 do
+    local int z = 0
+    from z = 0 do
+      local int j = 0
+      from j = 0 do
+        local int sp = S[j]
+        S[j + 1] += (sp * W[m] + H1[(i * n + j) * w + z]) % q
+        delocal int sp = S[j]
+      loop j += 1 until j = m - 1
+      delocal int j = m - 1
+      H2[(i * w) * w + z] += S[m]
+      local int j2 = m - 1
+      from j2 = m - 1 do
+        local int sp = S[j2]
+        S[j2 + 1] -= (sp * W[m] + H1[(i * n + j2) * w + z]) % q
+        delocal int sp = S[j2]
+      loop j2 -= 1 until j2 = 0
+      delocal int j2 = 0
+      if w > 1 then
+        local int s = 0
+        from s = 0 do
+          local int hp = H2[(i * w + s) * w + z]
+          H2[(i * w + s + 1) * w + z] += ((W[m] * hp - H1[(i * n + s) * w + z] * W[m * m] + H1[(i * n + s + m) * w + z]) % q + q) % q
+          delocal int hp = H2[(i * w + s) * w + z]
+        loop s += 1 until s = w - 2
+        delocal int s = w - 2
+      else skip
+      fi w > 1
+    loop z += 1 until z = w - 1
+    delocal int z = w - 1
+  loop i += 1 until i = n - 1
+  delocal int i = n - 1
+
+  local int y = 0
+  from y = 0 do
+    local int z = 0
+    from z = 0 do
+      local int i = 0
+      from i = 0 do
+        local int sp = S[i]
+        S[i + 1] += (sp * W[m * m] + H2[(i * w + y) * w + z]) % q
+        delocal int sp = S[i]
+      loop i += 1 until i = m - 1
+      delocal int i = m - 1
+      H3[y * w + z] += S[m]
+      local int i2 = m - 1
+      from i2 = m - 1 do
+        local int sp = S[i2]
+        S[i2 + 1] -= (sp * W[m * m] + H2[(i2 * w + y) * w + z]) % q
+        delocal int sp = S[i2]
+      loop i2 -= 1 until i2 = 0
+      delocal int i2 = 0
+      if w > 1 then
+        local int s = 0
+        from s = 0 do
+          local int hp = H3[(s * w + y) * w + z]
+          H3[((s + 1) * w + y) * w + z] += ((W[m * m] * hp - H2[(s * w + y) * w + z] * W[m * m * m] + H2[((s + m) * w + y) * w + z]) % q + q) % q
+          delocal int hp = H3[(s * w + y) * w + z]
+        loop s += 1 until s = w - 2
+        delocal int s = w - 2
+      else skip
+      fi w > 1
+    loop z += 1 until z = w - 1
+    delocal int z = w - 1
+  loop y += 1 until y = w - 1
+  delocal int y = w - 1
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        local int sp = S[k]
+        S[k + 1] += (sp * d + P[i][j][k]) % q
+        delocal int sp = S[k]
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+      PH1[i * m + j] += S[m]
+      local int k2 = m - 1
+      from k2 = m - 1 do
+        local int sp = S[k2]
+        S[k2 + 1] -= (sp * d + P[i][j][k2]) % q
+        delocal int sp = S[k2]
+      loop k2 -= 1 until k2 = 0
+      delocal int k2 = 0
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int sp = S[j]
+      S[j + 1] += (sp * W[m] + PH1[i * m + j]) % q
+      delocal int sp = S[j]
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+    PH2[i] += S[m]
+    local int j2 = m - 1
+    from j2 = m - 1 do
+      local int sp = S[j2]
+      S[j2 + 1] -= (sp * W[m] + PH1[i * m + j2]) % q
+      delocal int sp = S[j2]
+    loop j2 -= 1 until j2 = 0
+    delocal int j2 = 0
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+
+  local int i = 0
+  from i = 0 do
+    local int sp = S[i]
+    S[i + 1] += (sp * W[m * m] + PH2[i]) % q
+    delocal int sp = S[i]
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+  PH3[0] += S[m]
+  local int i2 = m - 1
+  from i2 = m - 1 do
+    local int sp = S[i2]
+    S[i2 + 1] -= (sp * W[m * m] + PH2[i2]) % q
+    delocal int sp = S[i2]
+  loop i2 -= 1 until i2 = 0
+  delocal int i2 = 0
+
+  local int x = 0
+  from x = 0 do
+    local int y = 0
+    from y = 0 do
+      local int z = 0
+      from z = 0 do
+        if H3[(x * w + y) * w + z] = PH3[0] then
+          local int diff = 0
+          local int i = 0
+          from i = 0 do
+            local int j = 0
+            from j = 0 do
+              local int k = 0
+              from k = 0 do
+                if T[x + i][y + j][z + k] != P[i][j][k] then
+                  diff += 1
+                else
+                  skip
+                fi T[x + i][y + j][z + k] != P[i][j][k]
+              loop k += 1 until k = m - 1
+              delocal int k = m - 1
+            loop j += 1 until j = m - 1
+            delocal int j = m - 1
+          loop i += 1 until i = m - 1
+          delocal int i = m - 1
+          if diff = 0 then
+            local int a = x, int b = y, int c = z
+            push(a, r)
+            push(b, r)
+            push(c, r)
+            delocal int a = 0, int b = 0, int c = 0
+          else
+            skip
+          fi diff = 0
+          local int i = 0
+          from i = 0 do
+            local int j = 0
+            from j = 0 do
+              local int k = 0
+              from k = 0 do
+                if T[x + i][y + j][z + k] != P[i][j][k] then
+                  diff -= 1
+                else
+                  skip
+                fi T[x + i][y + j][z + k] != P[i][j][k]
+              loop k += 1 until k = m - 1
+              delocal int k = m - 1
+            loop j += 1 until j = m - 1
+            delocal int j = m - 1
+          loop i += 1 until i = m - 1
+          delocal int i = m - 1
+          delocal int diff = 0
+        else
+          skip
+        fi H3[(x * w + y) * w + z] = PH3[0]
+      loop z += 1 until z = w - 1
+      delocal int z = w - 1
+    loop y += 1 until y = w - 1
+    delocal int y = w - 1
+  loop x += 1 until x = w - 1
+  delocal int x = w - 1
+
+  local int i = 0
+  from i = 0 do
+    local int sp = S[i]
+    S[i + 1] += (sp * W[m * m] + PH2[i]) % q
+    delocal int sp = S[i]
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+  PH3[0] -= S[m]
+  local int i2 = m - 1
+  from i2 = m - 1 do
+    local int sp = S[i2]
+    S[i2 + 1] -= (sp * W[m * m] + PH2[i2]) % q
+    delocal int sp = S[i2]
+  loop i2 -= 1 until i2 = 0
+  delocal int i2 = 0
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int sp = S[j]
+      S[j + 1] += (sp * W[m] + PH1[i * m + j]) % q
+      delocal int sp = S[j]
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+    PH2[i] -= S[m]
+    local int j2 = m - 1
+    from j2 = m - 1 do
+      local int sp = S[j2]
+      S[j2 + 1] -= (sp * W[m] + PH1[i * m + j2]) % q
+      delocal int sp = S[j2]
+    loop j2 -= 1 until j2 = 0
+    delocal int j2 = 0
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        local int sp = S[k]
+        S[k + 1] += (sp * d + P[i][j][k]) % q
+        delocal int sp = S[k]
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+      PH1[i * m + j] -= S[m]
+      local int k2 = m - 1
+      from k2 = m - 1 do
+        local int sp = S[k2]
+        S[k2 + 1] -= (sp * d + P[i][j][k2]) % q
+        delocal int sp = S[k2]
+      loop k2 -= 1 until k2 = 0
+      delocal int k2 = 0
+    loop j += 1 until j = m - 1
+    delocal int j = m - 1
+  loop i += 1 until i = m - 1
+  delocal int i = m - 1
+
+  local int y = 0
+  from y = 0 do
+    local int z = 0
+    from z = 0 do
+      if w > 1 then
+        local int s = w - 2
+        from s = w - 2 do
+          local int hp = H3[(s * w + y) * w + z]
+          H3[((s + 1) * w + y) * w + z] -= ((W[m * m] * hp - H2[(s * w + y) * w + z] * W[m * m * m] + H2[((s + m) * w + y) * w + z]) % q + q) % q
+          delocal int hp = H3[(s * w + y) * w + z]
+        loop s -= 1 until s = 0
+        delocal int s = 0
+      else skip
+      fi w > 1
+      local int i = 0
+      from i = 0 do
+        local int sp = S[i]
+        S[i + 1] += (sp * W[m * m] + H2[(i * w + y) * w + z]) % q
+        delocal int sp = S[i]
+      loop i += 1 until i = m - 1
+      delocal int i = m - 1
+      H3[y * w + z] -= S[m]
+      local int i2 = m - 1
+      from i2 = m - 1 do
+        local int sp = S[i2]
+        S[i2 + 1] -= (sp * W[m * m] + H2[(i2 * w + y) * w + z]) % q
+        delocal int sp = S[i2]
+      loop i2 -= 1 until i2 = 0
+      delocal int i2 = 0
+    loop z += 1 until z = w - 1
+    delocal int z = w - 1
+  loop y += 1 until y = w - 1
+  delocal int y = w - 1
+
+  local int i = 0
+  from i = 0 do
+    local int z = 0
+    from z = 0 do
+      if w > 1 then
+        local int s = w - 2
+        from s = w - 2 do
+          local int hp = H2[(i * w + s) * w + z]
+          H2[(i * w + s + 1) * w + z] -= ((W[m] * hp - H1[(i * n + s) * w + z] * W[m * m] + H1[(i * n + s + m) * w + z]) % q + q) % q
+          delocal int hp = H2[(i * w + s) * w + z]
+        loop s -= 1 until s = 0
+        delocal int s = 0
+      else skip
+      fi w > 1
+      local int j = 0
+      from j = 0 do
+        local int sp = S[j]
+        S[j + 1] += (sp * W[m] + H1[(i * n + j) * w + z]) % q
+        delocal int sp = S[j]
+      loop j += 1 until j = m - 1
+      delocal int j = m - 1
+      H2[(i * w) * w + z] -= S[m]
+      local int j2 = m - 1
+      from j2 = m - 1 do
+        local int sp = S[j2]
+        S[j2 + 1] -= (sp * W[m] + H1[(i * n + j2) * w + z]) % q
+        delocal int sp = S[j2]
+      loop j2 -= 1 until j2 = 0
+      delocal int j2 = 0
+    loop z += 1 until z = w - 1
+    delocal int z = w - 1
+  loop i += 1 until i = n - 1
+  delocal int i = n - 1
+
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      if w > 1 then
+        local int s = w - 2
+        from s = w - 2 do
+          local int hp = H1[(i * n + j) * w + s]
+          H1[(i * n + j) * w + s + 1] -= ((d * hp - T[i][j][s] * W[m] + T[i][j][s + m]) % q + q) % q
+          delocal int hp = H1[(i * n + j) * w + s]
+        loop s -= 1 until s = 0
+        delocal int s = 0
+      else skip
+      fi w > 1
+      local int k = 0
+      from k = 0 do
+        local int sp = S[k]
+        S[k + 1] += (sp * d + T[i][j][k]) % q
+        delocal int sp = S[k]
+      loop k += 1 until k = m - 1
+      delocal int k = m - 1
+      H1[(i * n + j) * w] -= S[m]
+      local int k2 = m - 1
+      from k2 = m - 1 do
+        local int sp = S[k2]
+        S[k2 + 1] -= (sp * d + T[i][j][k2]) % q
+        delocal int sp = S[k2]
+      loop k2 -= 1 until k2 = 0
+      delocal int k2 = 0
+    loop j += 1 until j = n - 1
+    delocal int j = n - 1
+  loop i += 1 until i = n - 1
+  delocal int i = n - 1
+
+  local int t = m * m * m - 1
+  from t = m * m * m - 1 do
+    local int wp = W[t]
+    W[t + 1] -= (wp * d) % q
+    delocal int wp = W[t]
+  loop t -= 1 until t = 0
+  delocal int t = 0
+  W[0] -= 1
+
+  delocal int PH3[1]
+  delocal int PH2[m]
+  delocal int PH1[m * m]
+  delocal int H3[w * w * w]
+  delocal int H2[n * w * w]
+  delocal int H1[n * n * w]
+  delocal int S[m + 1]
+  delocal int W[m * m * m + 1]
+  delocal int w = n - m + 1

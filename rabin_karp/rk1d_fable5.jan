@@ -1,0 +1,113 @@
+// ============================================================================
+// Rabin-Karp 1次元文字列照合（可逆 Janus）
+//
+// 生成モデル : Claude Fable 5 (low effort)
+// 出典       : gen_janus/260626rabin-karp/runs/20260703_claude_fable5_rk/
+//              trials/rk1d/trial_001_round_00.jan （trial 1, pass@1, clean success）
+// 検証器     : PyJanus (jana2014_in_out)
+// 手続き部は生成物をそのまま用い、末尾に main()（テスト入力）のみ付加した。
+//
+// アルゴリズム: 基数 d・法 q の modular rolling hash を用い、
+//   窓ごとのハッシュを O(1) で更新（rkstep 内の hn 計算）しながら
+//   ハッシュ一致時のみ文字比較を行う。一致位置を stack r に push する。
+//   補助変数は delocal / uncall で消去され、クリーンに終了する（可逆）。
+//
+// 実行: pyjanus --std jana2014_in_out -s rabinkarp1_fable5.jan
+//   期待出力: r = <6, 4, 2, 0]   （P="1212" が T="1212121212" の位置 0,2,4,6 で一致）
+// ============================================================================
+
+procedure pdm(int res, int d, int q, int k)
+    if k = 0 then
+        res += 1 % q
+    else
+        local int k1 = k - 1
+        local int sub = 0
+        call pdm(sub, d, q, k1)
+        res += (sub * d) % q
+        uncall pdm(sub, d, q, k1)
+        delocal int sub = 0
+        delocal int k1 = k - 1
+    fi k = 0
+
+procedure hsh(int res, int A[], int k, int d, int q)
+    if k = 0 then
+        skip
+    else
+        local int k1 = k - 1
+        local int sub = 0
+        call hsh(sub, A, k1, d, q)
+        res += (sub * d + A[k1]) % q
+        uncall hsh(sub, A, k1, d, q)
+        delocal int sub = 0
+        delocal int k1 = k - 1
+    fi k = 0
+
+procedure rkstep(int T[], int n, int P[], int m, int d, int q, stack r, int s, int ph, int h, int hh)
+    if hh = ph then
+        local int eq = 0, int j = 0
+        from j = 0 do
+            skip
+        loop
+            if T[s + j] = P[j] then
+                eq += 1
+            else
+                skip
+            fi T[s + j] = P[j]
+            j += 1
+        until j = m
+        if eq = m then
+            local int c = s
+            push(c, r)
+            delocal int c = 0
+        else
+            skip
+        fi eq = m
+        from j = m do
+            skip
+        loop
+            j -= 1
+            if T[s + j] = P[j] then
+                eq -= 1
+            else
+                skip
+            fi T[s + j] = P[j]
+        until j = 0
+        delocal int eq = 0, int j = 0
+    else
+        skip
+    fi hh = ph
+    if s < n - m then
+        local int hn = ((hh + (q - (T[s] * h) % q)) * d + T[s + m]) % q
+        local int s1 = s + 1
+        call rkstep(T, n, P, m, d, q, r, s1, ph, h, hn)
+        delocal int s1 = s + 1
+        delocal int hn = ((hh + (q - (T[s] * h) % q)) * d + T[s + m]) % q
+    else
+        skip
+    fi s < n - m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    if m <= n then
+        local int ph = 0, int h0 = 0, int h = 0, int m1 = m - 1, int s0 = 0
+        call hsh(ph, P, m, d, q)
+        call hsh(h0, T, m, d, q)
+        call pdm(h, d, q, m1)
+        call rkstep(T, n, P, m, d, q, r, s0, ph, h, h0)
+        uncall pdm(h, d, q, m1)
+        uncall hsh(h0, T, m, d, q)
+        uncall hsh(ph, P, m, d, q)
+        delocal int ph = 0, int h0 = 0, int h = 0, int m1 = m - 1, int s0 = 0
+    else
+        skip
+    fi m <= n
+
+procedure main()
+    int n = 10
+    int m = 4
+    int d = 26
+    int q = 3
+    int T[] = {1,2,1,2,1,2,1,2,1,2}
+    int P[4] = {1,2,1,2}
+    stack r
+
+    call rabinkarp1(T, n, P, m, d, q, r)

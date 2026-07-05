@@ -1,0 +1,118 @@
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int pow = 1
+    local int i = 0
+      from i = 0 do skip
+      loop pow *= d
+           i += 1
+      until i = m - 1
+    delocal int i = m - 1
+
+    local int PV = 0
+      local int j = 0
+        from j = 0 do skip
+        loop PV *= d
+             PV += P[j]
+             j += 1
+        until j = m
+      delocal int j = m
+
+      local int hp = PV % q
+        local int H[n - m + 1] = 0
+          local int V0 = 0
+            local int k = 0
+              from k = 0 do skip
+              loop V0 *= d
+                   V0 += T[k]
+                   k += 1
+              until k = m
+            delocal int k = m
+            H[0] += V0 % q
+            local int k2 = m
+              from k2 = m do skip
+              loop k2 -= 1
+                   V0 -= T[k2]
+                   V0 /= d
+              until k2 = 0
+            delocal int k2 = 0
+          delocal int V0 = 0
+
+          local int sf = 1
+            from sf = 1 do skip
+            loop H[sf] += ((((H[sf - 1] - (T[sf - 1] * pow) % q + q) % q) * d) + T[sf + m - 1]) % q
+                 sf += 1
+            until sf = n - m + 1
+          delocal int sf = n - m + 1
+
+          local int s = 0
+            from s = 0 do skip
+            loop
+              if H[s] = hp then
+                local int mis = 0
+                  local int c = 0
+                    from c = 0 do skip
+                    loop if T[s + c] != P[c] then mis += 1 else skip fi T[s + c] != P[c]
+                         c += 1
+                    until c = m
+                  delocal int c = m
+                  if mis = 0 then
+                    local int v = s
+                      push(v, r)
+                    delocal int v = 0
+                  else skip
+                  fi mis = 0
+                  local int c2 = 0
+                    from c2 = 0 do skip
+                    loop if T[s + c2] != P[c2] then mis -= 1 else skip fi T[s + c2] != P[c2]
+                         c2 += 1
+                    until c2 = m
+                  delocal int c2 = m
+                delocal int mis = 0
+              else skip
+              fi H[s] = hp
+              s += 1
+            until s = n - m + 1
+          delocal int s = n - m + 1
+
+          local int u = n - m + 1
+            from u = n - m + 1 do skip
+            loop u -= 1
+                 H[u] -= ((((H[u - 1] - (T[u - 1] * pow) % q + q) % q) * d) + T[u + m - 1]) % q
+            until u = 1
+          delocal int u = 1
+
+          local int W0 = 0
+            local int k3 = 0
+              from k3 = 0 do skip
+              loop W0 *= d
+                   W0 += T[k3]
+                   k3 += 1
+              until k3 = m
+            delocal int k3 = m
+            H[0] -= W0 % q
+            local int k4 = m
+              from k4 = m do skip
+              loop k4 -= 1
+                   W0 -= T[k4]
+                   W0 /= d
+              until k4 = 0
+            delocal int k4 = 0
+          delocal int W0 = 0
+        delocal int H[n - m + 1] = 0
+      delocal int hp = PV % q
+
+      local int j4 = m
+        from j4 = m do skip
+        loop j4 -= 1
+             PV -= P[j4]
+             PV /= d
+        until j4 = 0
+      delocal int j4 = 0
+    delocal int PV = 0
+
+    local int i2 = m - 1
+      from i2 = m - 1 do skip
+      loop pow /= d
+           i2 -= 1
+      until i2 = 0
+    delocal int i2 = 0
+  delocal int pow = 1

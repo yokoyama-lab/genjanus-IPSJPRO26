@@ -1,0 +1,115 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 93
+  ✅ 成功: 2
+  ⚠️ 構文エラー: 91
+  ❌ 実行エラー: 0
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (2件)
+------------------------------------------------------------
+  p16rle/p16rle_out002_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out086_gpt5-nano_251228_194905.janus
+
+⚠️ 構文エラーのあったファイル (91件)
+------------------------------------------------------------
+  p16rle/p16rle_out001_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out003_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out004_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out005_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out006_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out007_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out008_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out010_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out011_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out012_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out013_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out014_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out015_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out016_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out017_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out018_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out019_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out020_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out021_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out022_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out023_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out024_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out025_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out026_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out027_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out029_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out030_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out031_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out032_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out033_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out035_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out036_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out037_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out039_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out040_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out041_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out042_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out043_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out044_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out045_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out046_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out048_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out049_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out050_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out051_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out052_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out053_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out054_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out055_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out056_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out057_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out058_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out059_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out061_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out062_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out064_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out065_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out066_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out067_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out068_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out069_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out070_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out071_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out072_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out073_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out074_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out075_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out076_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out077_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out078_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out079_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out080_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out081_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out082_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out083_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out084_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out085_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out087_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out088_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out089_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out090_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out091_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out092_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out093_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out094_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out095_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out096_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out097_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out098_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out099_gpt5-nano_251228_194905.janus
+  p16rle/p16rle_out100_gpt5-nano_251228_194905.janus
+
+❌ 実行エラーのあったファイル (0件)
+------------------------------------------------------------
+(なし)
+
+📄 CSV出力: p16rle/jana_check_results_p16rle_251228_194905_summary.csv

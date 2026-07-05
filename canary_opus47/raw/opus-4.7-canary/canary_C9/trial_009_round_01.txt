@@ -1,0 +1,17 @@
+The error is that `delocal int i = i` references the variable by itself (an illegal self-alias). The delocal needs a concrete expression equal to the local's final value.
+
+After the loop, the counter equals the original `n`, which is also exactly how much `a` was incremented — so I can assert the counter's final value against `a`.
+
+```janus
+procedure xJk2Q9_step(int n, int a, int b)
+    local int c = 0
+    from c = 0 do
+        a += 1
+        b -= 1
+        n -= 1
+        c += 1
+    loop
+        skip
+    until n = 0
+    delocal int c = a
+```

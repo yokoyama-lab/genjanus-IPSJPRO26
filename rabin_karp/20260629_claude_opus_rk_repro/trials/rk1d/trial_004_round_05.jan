@@ -1,0 +1,143 @@
+procedure horner(int A[], int base, int start, int len, int acc)
+  local int k = 0
+    from k = 0 do
+      acc *= base
+      acc += A[start + k]
+      k += 1
+    loop
+      skip
+    until k = len
+  delocal int k = len
+
+procedure countdiff(int T[], int P[], int s, int m, int diff)
+  local int j = 0
+    from j = 0 do
+      if T[s + j] != P[j] then
+        diff += 1
+      else
+        skip
+      fi T[s + j] != P[j]
+      j += 1
+    loop
+      skip
+    until j = m
+  delocal int j = m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int praw = 0
+    call horner(P, d, 0, m, praw)
+    local int ph = praw % q
+      local int dm = 1
+        local int i = 0
+          from i = 0 do
+            dm *= d
+            i += 1
+          loop
+            skip
+          until i = m
+        delocal int i = m
+        local int dmq = dm % q
+          local int Q[n]
+            local int run = 0
+              local int k = 0
+                from k = 0 do
+                  run *= d
+                  run += T[k]
+                  Q[k] += run / q
+                  run -= Q[k] * q
+                  k += 1
+                loop
+                  skip
+                until k = m
+              delocal int k = m
+              if run = ph then
+                local int diff = 0
+                  call countdiff(T, P, 0, m, diff)
+                  if diff = 0 then
+                    local int v = 0
+                      push(v, r)
+                    delocal int v = 0
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, P, 0, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi run = ph
+              if n - m + 1 >= 2 then
+                local int s = 1
+                  from s = 1 do
+                    run *= d
+                    run += T[s - 1 + m]
+                    run += T[s - 1] * q
+                    run -= T[s - 1] * dmq
+                    Q[m - 1 + s] += run / q
+                    run -= Q[m - 1 + s] * q
+                    if run = ph then
+                      local int diff = 0
+                        call countdiff(T, P, s, m, diff)
+                        if diff = 0 then
+                          local int v = 0
+                            v += s
+                            push(v, r)
+                          delocal int v = 0
+                        else
+                          skip
+                        fi diff = 0
+                        uncall countdiff(T, P, s, m, diff)
+                      delocal int diff = 0
+                    else
+                      skip
+                    fi run = ph
+                    s += 1
+                  loop
+                    skip
+                  until s = n - m + 1
+                delocal int s = n - m + 1
+              else
+                skip
+              fi n - m + 1 >= 2
+              if n - m + 1 >= 2 then
+                local int s = n - m + 1
+                  from s = n - m + 1 do
+                    s -= 1
+                    run += Q[m - 1 + s] * q
+                    Q[m - 1 + s] -= run / q
+                    run += T[s - 1] * dmq
+                    run -= T[s - 1] * q
+                    run -= T[s - 1 + m]
+                    run /= d
+                  loop
+                    skip
+                  until s = 1
+                delocal int s = 1
+              else
+                skip
+              fi n - m + 1 >= 2
+              local int k = m
+                from k = m do
+                  k -= 1
+                  run += Q[k] * q
+                  Q[k] -= run / q
+                  run -= T[k]
+                  run /= d
+                loop
+                  skip
+                until k = 0
+              delocal int k = 0
+            delocal int run = 0
+          delocal int Q[n]
+        delocal int dmq = dm % q
+        local int i = m
+          from i = m do
+            i -= 1
+            dm /= d
+          loop
+            skip
+          until i = 0
+        delocal int i = 0
+      delocal int dm = 1
+    delocal int ph = praw % q
+    uncall horner(P, d, 0, m, praw)
+  delocal int praw = 0

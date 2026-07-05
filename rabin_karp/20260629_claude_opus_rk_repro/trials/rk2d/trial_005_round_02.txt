@@ -1,0 +1,111 @@
+procedure rowwin(int A[][], int row, int col, int m, int d, int rh)
+   local int j = 0
+      from j = 0 do
+         rh *= d
+         rh += A[row][col + j]
+      loop
+         j += 1
+      until j = m - 1
+      delocal int j = m - 1
+
+procedure colhash(int A[][], int s1, int s2, int m, int d, int H)
+   local int i = 0
+      from i = 0 do
+         H *= d
+         local int rh = 0
+            call rowwin(A, s1 + i, s2, m, d, rh)
+            H += rh
+            uncall rowwin(A, s1 + i, s2, m, d, rh)
+         delocal int rh = 0
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure countmism(int T[][], int s1, int s2, int P[][], int m, int mism)
+   local int i = 0
+      from i = 0 do
+         local int j = 0
+            from j = 0 do
+               if T[s1 + i][s2 + j] != P[i][j] then
+                  mism += 1
+               else
+                  skip
+               fi T[s1 + i][s2 + j] != P[i][j]
+            loop
+               j += 1
+            until j = m - 1
+            delocal int j = m - 1
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+   local int PH = 0
+      call colhash(P, 0, 0, m, d, PH)
+      local int s2 = 0
+         from s2 = 0 do
+            local int dpow = 1
+               local int e = 0
+                  from e = 0 do
+                     skip
+                  loop
+                     dpow *= d
+                     e += 1
+                  until e = m - 1
+                  delocal int e = m - 1
+               local int H = 0
+                  call colhash(T, 0, s2, m, d, H)
+                  local int s1 = 0
+                     from s1 = 0 do
+                        if (H % q) = (PH % q) then
+                           local int mism = 0
+                              call countmism(T, s1, s2, P, m, mism)
+                              if mism = 0 then
+                                 local int a = s1
+                                    push(a, r)
+                                 delocal int a = 0
+                                 local int b = s2
+                                    push(b, r)
+                                 delocal int b = 0
+                              else
+                                 skip
+                              fi mism = 0
+                              uncall countmism(T, s1, s2, P, m, mism)
+                           delocal int mism = 0
+                        else
+                           skip
+                        fi (H % q) = (PH % q)
+                     loop
+                        local int dropv = 0
+                           call rowwin(T, s1, s2, m, d, dropv)
+                           H -= dropv * dpow
+                           uncall rowwin(T, s1, s2, m, d, dropv)
+                        delocal int dropv = 0
+                        H *= d
+                        local int addv = 0
+                           call rowwin(T, s1 + m, s2, m, d, addv)
+                           H += addv
+                           uncall rowwin(T, s1 + m, s2, m, d, addv)
+                        delocal int addv = 0
+                        s1 += 1
+                     until s1 = n - m
+                     delocal int s1 = n - m
+                  uncall colhash(T, n - m, s2, m, d, H)
+               delocal int H = 0
+               local int e2 = 0
+                  from e2 = 0 do
+                     skip
+                  loop
+                     dpow /= d
+                     e2 += 1
+                  until e2 = m - 1
+                  delocal int e2 = m - 1
+            delocal int dpow = 1
+         loop
+            s2 += 1
+         until s2 = n - m
+         delocal int s2 = n - m
+      uncall colhash(P, 0, 0, m, d, PH)
+   delocal int PH = 0

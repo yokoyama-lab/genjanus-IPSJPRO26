@@ -1,0 +1,172 @@
+```janus
+procedure cntdiff(int T[][], int P[][], int i, int j, int m, int c)
+    local int a = 0
+    from a = 0 do
+        local int b = 0
+        from b = 0 do
+            if T[i + a][j + b] != P[a][b] then
+                c += 1
+            else
+                skip
+            fi T[i + a][j + b] != P[a][b]
+            b += 1
+        loop skip
+        until b = m
+        delocal int b = m
+        a += 1
+    loop skip
+    until a = m
+    delocal int a = m
+
+procedure rk2build(int T[][], int n, int P[][], int m, int d, int q, int w, int pwv[], int pv[], int pcc[], int tvp[], int tv[], int hp[], int th[])
+    pwv[0] += 1
+    if m > 1 then
+        local int t0 = 0
+        from t0 = 0 do
+            local int pr = pwv[t0]
+            pwv[t0 + 1] += (pr * d) % q
+            delocal int pr = pwv[t0]
+            t0 += 1
+        loop skip
+        until t0 = m - 1
+        delocal int t0 = m - 1
+    else
+        skip
+    fi m > 1
+    local int t1 = 0
+    from t1 = 0 do
+        local int c1 = 0
+        from c1 = 0 do
+            local int pr = pv[t1 * m + c1]
+            pv[(t1 + 1) * m + c1] += (((pr * d) % q) + P[t1][c1]) % q
+            delocal int pr = pv[t1 * m + c1]
+            c1 += 1
+        loop skip
+        until c1 = m
+        delocal int c1 = m
+        t1 += 1
+    loop skip
+    until t1 = m
+    delocal int t1 = m
+    local int c5 = 0
+    from c5 = 0 do
+        local int pr = pcc[c5]
+        pcc[c5 + 1] += (((pr * d) % q) + pv[m * m + c5]) % q
+        delocal int pr = pcc[c5]
+        c5 += 1
+    loop skip
+    until c5 = m
+    delocal int c5 = m
+    local int t2 = 0
+    from t2 = 0 do
+        local int c2 = 0
+        from c2 = 0 do
+            local int pr = tvp[t2 * n + c2]
+            tvp[(t2 + 1) * n + c2] += (((pr * d) % q) + T[t2][c2]) % q
+            delocal int pr = tvp[t2 * n + c2]
+            c2 += 1
+        loop skip
+        until c2 = n
+        delocal int c2 = n
+        t2 += 1
+    loop skip
+    until t2 = m
+    delocal int t2 = m
+    local int c3 = 0
+    from c3 = 0 do
+        tv[c3] += tvp[m * n + c3]
+        c3 += 1
+    loop skip
+    until c3 = n
+    delocal int c3 = n
+    if w > 1 then
+        local int i1 = 0
+        from i1 = 0 do
+            local int c4 = 0
+            from c4 = 0 do
+                local int pr = tv[i1 * n + c4]
+                tv[(i1 + 1) * n + c4] += ((((((pr + q) - ((T[i1][c4] * pwv[m - 1]) % q)) % q) * d) % q) + T[i1 + m][c4]) % q
+                delocal int pr = tv[i1 * n + c4]
+                c4 += 1
+            loop skip
+            until c4 = n
+            delocal int c4 = n
+            i1 += 1
+        loop skip
+        until i1 = w - 1
+        delocal int i1 = w - 1
+    else
+        skip
+    fi w > 1
+    local int i2 = 0
+    from i2 = 0 do
+        local int t3 = 0
+        from t3 = 0 do
+            local int pr = hp[i2 * (m + 1) + t3]
+            hp[i2 * (m + 1) + t3 + 1] += (((pr * d) % q) + tv[i2 * n + t3]) % q
+            delocal int pr = hp[i2 * (m + 1) + t3]
+            t3 += 1
+        loop skip
+        until t3 = m
+        delocal int t3 = m
+        th[i2 * w] += hp[i2 * (m + 1) + m]
+        i2 += 1
+    loop skip
+    until i2 = w
+    delocal int i2 = w
+    if w > 1 then
+        local int i3 = 0
+        from i3 = 0 do
+            local int j1 = 0
+            from j1 = 0 do
+                local int pr = th[i3 * w + j1]
+                th[i3 * w + j1 + 1] += ((((((pr + q) - ((tv[i3 * n + j1] * pwv[m - 1]) % q)) % q) * d) % q) + tv[i3 * n + j1 + m]) % q
+                delocal int pr = th[i3 * w + j1]
+                j1 += 1
+            loop skip
+            until j1 = w - 1
+            delocal int j1 = w - 1
+            i3 += 1
+        loop skip
+        until i3 = w
+        delocal int i3 = w
+    else
+        skip
+    fi w > 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+    local int w = n - m + 1
+    local int pwv[m] = {0}, int pv[(m + 1) * m] = {0}, int pcc[m + 1] = {0}, int tvp[(m + 1) * n] = {0}, int tv[w * n] = {0}, int hp[w * (m + 1)] = {0}, int th[w * w] = {0}
+    call rk2build(T, n, P, m, d, q, w, pwv, pv, pcc, tvp, tv, hp, th)
+    local int j = 0
+    from j = 0 do
+        local int i = 0
+        from i = 0 do
+            if th[i * w + j] = pcc[m] then
+                local int c = 0
+                call cntdiff(T, P, i, j, m, c)
+                if c = 0 then
+                    local int x = i, int y = j
+                    push(x, r)
+                    push(y, r)
+                    delocal int x = 0, int y = 0
+                else
+                    skip
+                fi c = 0
+                uncall cntdiff(T, P, i, j, m, c)
+                delocal int c = 0
+            else
+                skip
+            fi th[i * w + j] = pcc[m]
+            i += 1
+        loop skip
+        until i = w
+        delocal int i = w
+        j += 1
+    loop skip
+    until j = w
+    delocal int j = w
+    uncall rk2build(T, n, P, m, d, q, w, pwv, pv, pcc, tvp, tv, hp, th)
+    delocal int pwv[m] = {0}, int pv[(m + 1) * m] = {0}, int pcc[m + 1] = {0}, int tvp[(m + 1) * n] = {0}, int tv[w * n] = {0}, int hp[w * (m + 1)] = {0}, int th[w * w] = {0}
+    delocal int w = n - m + 1
+```

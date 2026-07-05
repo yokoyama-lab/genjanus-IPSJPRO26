@@ -1,0 +1,348 @@
+```janus
+procedure mpow(int b, int e, int q, int t, int acc, int h)
+    if t = e then
+        h += acc
+    else
+        local int a2 = (acc * b) % q
+            local int t2 = t + 1
+                call mpow(b, e, q, t2, a2, h)
+            delocal int t2 = t + 1
+        delocal int a2 = (acc * b) % q
+    fi t = e
+
+procedure cmpcube(int T[][][], int P[][][], int s1, int s2, int s3, int m, int c)
+    local int i = 0
+        from i = 0 do
+            local int j = 0
+                from j = 0 do
+                    local int k = 0
+                        from k = 0 do
+                            if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+                                c += 1
+                            else
+                                skip
+                            fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+                            k += 1
+                        loop
+                            skip
+                        until k = m
+                    delocal int k = m
+                    j += 1
+                loop
+                    skip
+                until j = m
+            delocal int j = m
+            i += 1
+        loop
+            skip
+        until i = m
+    delocal int i = m
+
+procedure phash(int A[][][], int m, int d, int q, int u, int acc, int h)
+    if u = m * m * m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (A[u / (m * m)][(u / m) % m][u % m] % q)) % q
+            local int u2 = u + 1
+                call phash(A, m, d, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * d) + (A[u / (m * m)][(u / m) % m][u % m] % q)) % q
+    fi u = m * m * m
+
+procedure ahash(int T[][][], int s1, int s2, int kk, int m, int dm, int q, int u, int acc, int h)
+    if u = m * m then
+        h += acc
+    else
+        local int a2 = ((acc * dm) + (T[s1 + (u / m)][s2 + (u % m)][kk] % q)) % q
+            local int u2 = u + 1
+                call ahash(T, s1, s2, kk, m, dm, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * dm) + (T[s1 + (u / m)][s2 + (u % m)][kk] % q)) % q
+    fi u = m * m
+
+procedure bline(int T[][][], int row, int col, int m, int d, int q, int t, int acc, int h)
+    if t = m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (T[row][col][t] % q)) % q
+            local int t2 = t + 1
+                call bline(T, row, col, m, d, q, t2, a2, h)
+            delocal int t2 = t + 1
+        delocal int a2 = ((acc * d) + (T[row][col][t] % q)) % q
+    fi t = m
+
+procedure bhash(int T[][][], int s1, int jj, int m, int d, int dm2, int q, int i, int acc, int h)
+    if i = m then
+        h += acc
+    else
+        local int lh = 0
+            local int row = s1 + i
+                local int t0 = 0
+                    local int a0 = 0
+                        call bline(T, row, jj, m, d, q, t0, a0, lh)
+                    delocal int a0 = 0
+                delocal int t0 = 0
+            delocal int row = s1 + i
+            local int a2 = ((acc * dm2) + lh) % q
+                local int i2 = i + 1
+                    call bhash(T, s1, jj, m, d, dm2, q, i2, a2, h)
+                delocal int i2 = i + 1
+            delocal int a2 = ((acc * dm2) + lh) % q
+            local int row = s1 + i
+                local int t0 = 0
+                    local int a0 = 0
+                        uncall bline(T, row, jj, m, d, q, t0, a0, lh)
+                    delocal int a0 = 0
+                delocal int t0 = 0
+            delocal int row = s1 + i
+        delocal int lh = 0
+    fi i = m
+
+procedure chash(int T[][][], int ii, int m, int d, int q, int u, int acc, int h)
+    if u = m * m then
+        h += acc
+    else
+        local int a2 = ((acc * d) + (T[ii][u / m][u % m] % q)) % q
+            local int u2 = u + 1
+                call chash(T, ii, m, d, q, u2, a2, h)
+            delocal int u2 = u + 1
+        delocal int a2 = ((acc * d) + (T[ii][u / m][u % m] % q)) % q
+    fi u = m * m
+
+procedure scan3(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int pk1, int s1, int s2, int s3, int hK)
+    if hK = ph then
+        local int c = 0
+            call cmpcube(T, P, s1, s2, s3, m, c)
+            if c = 0 then
+                local int v1 = s1
+                    push(v1, r)
+                delocal int v1 = 0
+                local int v2 = s2
+                    push(v2, r)
+                delocal int v2 = 0
+                local int v3 = s3
+                    push(v3, r)
+                delocal int v3 = 0
+            else
+                skip
+            fi c = 0
+            uncall cmpcube(T, P, s1, s2, s3, m, c)
+        delocal int c = 0
+    else
+        skip
+    fi hK = ph
+    if s3 != n - m then
+        local int al = 0
+            local int an = 0
+                local int u0 = 0
+                    local int a0 = 0
+                        call ahash(T, s1, s2, s3, m, dm, q, u0, a0, al)
+                    delocal int a0 = 0
+                delocal int u0 = 0
+                local int kn = s3 + m
+                    local int u0 = 0
+                        local int a0 = 0
+                            call ahash(T, s1, s2, kn, m, dm, q, u0, a0, an)
+                        delocal int a0 = 0
+                    delocal int u0 = 0
+                delocal int kn = s3 + m
+                local int hN = (((hK + (q - ((al * pk1) % q))) * d) + an) % q
+                    local int s3n = s3 + 1
+                        call scan3(T, n, P, m, d, q, r, ph, dm, pk1, s1, s2, s3n, hN)
+                    delocal int s3n = s3 + 1
+                delocal int hN = (((hK + (q - ((al * pk1) % q))) * d) + an) % q
+                local int u0 = 0
+                    local int a0 = 0
+                        uncall ahash(T, s1, s2, s3, m, dm, q, u0, a0, al)
+                    delocal int a0 = 0
+                delocal int u0 = 0
+                local int kn = s3 + m
+                    local int u0 = 0
+                        local int a0 = 0
+                            uncall ahash(T, s1, s2, kn, m, dm, q, u0, a0, an)
+                        delocal int a0 = 0
+                    delocal int u0 = 0
+                delocal int kn = s3 + m
+            delocal int an = 0
+        delocal int al = 0
+    else
+        skip
+    fi s3 != n - m
+
+procedure scan2(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int dm2, int pj1, int pk1, int s1, int s2, int hJ)
+    local int s30 = 0
+        call scan3(T, n, P, m, d, q, r, ph, dm, pk1, s1, s2, s30, hJ)
+    delocal int s30 = 0
+    if s2 != n - m then
+        local int bl = 0
+            local int bn = 0
+                local int i0 = 0
+                    local int a0 = 0
+                        call bhash(T, s1, s2, m, d, dm2, q, i0, a0, bl)
+                    delocal int a0 = 0
+                delocal int i0 = 0
+                local int jn = s2 + m
+                    local int i0 = 0
+                        local int a0 = 0
+                            call bhash(T, s1, jn, m, d, dm2, q, i0, a0, bn)
+                        delocal int a0 = 0
+                    delocal int i0 = 0
+                delocal int jn = s2 + m
+                local int hN = (((hJ + (q - ((bl * pj1) % q))) * dm) + bn) % q
+                    local int s2n = s2 + 1
+                        call scan2(T, n, P, m, d, q, r, ph, dm, dm2, pj1, pk1, s1, s2n, hN)
+                    delocal int s2n = s2 + 1
+                delocal int hN = (((hJ + (q - ((bl * pj1) % q))) * dm) + bn) % q
+                local int i0 = 0
+                    local int a0 = 0
+                        uncall bhash(T, s1, s2, m, d, dm2, q, i0, a0, bl)
+                    delocal int a0 = 0
+                delocal int i0 = 0
+                local int jn = s2 + m
+                    local int i0 = 0
+                        local int a0 = 0
+                            uncall bhash(T, s1, jn, m, d, dm2, q, i0, a0, bn)
+                        delocal int a0 = 0
+                    delocal int i0 = 0
+                delocal int jn = s2 + m
+            delocal int bn = 0
+        delocal int bl = 0
+    else
+        skip
+    fi s2 != n - m
+
+procedure scan1(int T[][][], int n, int P[][][], int m, int d, int q, stack r, int ph, int dm, int dm2, int pi1, int pj1, int pk1, int s1, int hI)
+    local int s20 = 0
+        call scan2(T, n, P, m, d, q, r, ph, dm, dm2, pj1, pk1, s1, s20, hI)
+    delocal int s20 = 0
+    if s1 != n - m then
+        local int cl = 0
+            local int cn = 0
+                local int u0 = 0
+                    local int a0 = 0
+                        call chash(T, s1, m, d, q, u0, a0, cl)
+                    delocal int a0 = 0
+                delocal int u0 = 0
+                local int im = s1 + m
+                    local int u0 = 0
+                        local int a0 = 0
+                            call chash(T, im, m, d, q, u0, a0, cn)
+                        delocal int a0 = 0
+                    delocal int u0 = 0
+                delocal int im = s1 + m
+                local int hN = (((hI + (q - ((cl * pi1) % q))) * dm2) + cn) % q
+                    local int s1n = s1 + 1
+                        call scan1(T, n, P, m, d, q, r, ph, dm, dm2, pi1, pj1, pk1, s1n, hN)
+                    delocal int s1n = s1 + 1
+                delocal int hN = (((hI + (q - ((cl * pi1) % q))) * dm2) + cn) % q
+                local int u0 = 0
+                    local int a0 = 0
+                        uncall chash(T, s1, m, d, q, u0, a0, cl)
+                    delocal int a0 = 0
+                delocal int u0 = 0
+                local int im = s1 + m
+                    local int u0 = 0
+                        local int a0 = 0
+                            uncall chash(T, im, m, d, q, u0, a0, cn)
+                        delocal int a0 = 0
+                    delocal int u0 = 0
+                delocal int im = s1 + m
+            delocal int cn = 0
+        delocal int cl = 0
+    else
+        skip
+    fi s1 != n - m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int dm = 0
+        local int dm2 = 0
+            local int pk1 = 0
+                local int pj1 = 0
+                    local int pi1 = 0
+                        local int ph = 0
+                            local int h0 = 0
+                                local int t0 = 0
+                                    local int a1 = 1
+                                        call mpow(d, m, q, t0, a1, dm)
+                                    delocal int a1 = 1
+                                delocal int t0 = 0
+                                local int t0 = 0
+                                    local int a1 = 1
+                                        call mpow(dm, m, q, t0, a1, dm2)
+                                    delocal int a1 = 1
+                                delocal int t0 = 0
+                                local int e1 = m - 1
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            call mpow(d, e1, q, t0, a1, pk1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            call mpow(dm, e1, q, t0, a1, pj1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            call mpow(dm2, e1, q, t0, a1, pi1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                delocal int e1 = m - 1
+                                local int u0 = 0
+                                    local int a0 = 0
+                                        call phash(P, m, d, q, u0, a0, ph)
+                                    delocal int a0 = 0
+                                delocal int u0 = 0
+                                local int u0 = 0
+                                    local int a0 = 0
+                                        call phash(T, m, d, q, u0, a0, h0)
+                                    delocal int a0 = 0
+                                delocal int u0 = 0
+                                local int s10 = 0
+                                    call scan1(T, n, P, m, d, q, r, ph, dm, dm2, pi1, pj1, pk1, s10, h0)
+                                delocal int s10 = 0
+                                local int u0 = 0
+                                    local int a0 = 0
+                                        uncall phash(T, m, d, q, u0, a0, h0)
+                                    delocal int a0 = 0
+                                delocal int u0 = 0
+                                local int u0 = 0
+                                    local int a0 = 0
+                                        uncall phash(P, m, d, q, u0, a0, ph)
+                                    delocal int a0 = 0
+                                delocal int u0 = 0
+                                local int e1 = m - 1
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            uncall mpow(dm2, e1, q, t0, a1, pi1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            uncall mpow(dm, e1, q, t0, a1, pj1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                    local int t0 = 0
+                                        local int a1 = 1
+                                            uncall mpow(d, e1, q, t0, a1, pk1)
+                                        delocal int a1 = 1
+                                    delocal int t0 = 0
+                                delocal int e1 = m - 1
+                                local int t0 = 0
+                                    local int a1 = 1
+                                        uncall mpow(dm, m, q, t0, a1, dm2)
+                                    delocal int a1 = 1
+                                delocal int t0 = 0
+                                local int t0 = 0
+                                    local int a1 = 1
+                                        uncall mpow(d, m, q, t0, a1, dm)
+                                    delocal int a1 = 1
+                                delocal int t0 = 0
+                            delocal int h0 = 0
+                        delocal int ph = 0
+                    delocal int pi1 = 0
+                delocal int pj1 = 0
+            delocal int pk1 = 0
+        delocal int dm2 = 0
+    delocal int dm = 0
+```

@@ -1,0 +1,307 @@
+procedure pows(int W[], int b, int m, int q)
+    W[0] += 1
+    local int t = 0
+    from t = 0 do
+        local int u = 0
+        u += ((W[t] * b) % q)
+        W[t+1] += u
+        u -= ((W[t] * b) % q)
+        delocal int u = 0
+        t += 1
+    loop skip
+    until t = m
+    delocal int t = m
+
+procedure lvl1(int T[][][], int H1[], int n, int m, int L, int q, int d, int W[])
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            local int s = 0
+            from s = 0 do
+                if s = 0 then
+                    local int a = 0
+                    local int k = 0
+                    from k = 0 do
+                        a += ((T[i][j][k] * W[m-1-k]) % q)
+                        k += 1
+                    loop skip
+                    until k = m
+                    delocal int k = m
+                    H1[(i*n+j)*L] += (a % q)
+                    local int k = m
+                    from k = m do
+                        k -= 1
+                        a -= ((T[i][j][k] * W[m-1-k]) % q)
+                    loop skip
+                    until k = 0
+                    delocal int k = 0
+                    delocal int a = 0
+                else
+                    local int u = 0
+                    u += ((H1[(i*n+j)*L+s-1] * d + T[i][j][s+m-1] + q - ((T[i][j][s-1] * W[m]) % q)) % q)
+                    H1[(i*n+j)*L+s] += u
+                    u -= ((H1[(i*n+j)*L+s-1] * d + T[i][j][s+m-1] + q - ((T[i][j][s-1] * W[m]) % q)) % q)
+                    delocal int u = 0
+                fi s = 0
+                s += 1
+            loop skip
+            until s = L
+            delocal int s = L
+            j += 1
+        loop skip
+        until j = n
+        delocal int j = n
+        i += 1
+    loop skip
+    until i = n
+    delocal int i = n
+
+procedure lvl2(int H1[], int H2[], int n, int m, int L, int q, int b, int W[])
+    local int i = 0
+    from i = 0 do
+        local int z = 0
+        from z = 0 do
+            local int s = 0
+            from s = 0 do
+                if s = 0 then
+                    local int a = 0
+                    local int j = 0
+                    from j = 0 do
+                        a += ((H1[(i*n+j)*L+z] * W[m-1-j]) % q)
+                        j += 1
+                    loop skip
+                    until j = m
+                    delocal int j = m
+                    H2[i*L*L+z] += (a % q)
+                    local int j = m
+                    from j = m do
+                        j -= 1
+                        a -= ((H1[(i*n+j)*L+z] * W[m-1-j]) % q)
+                    loop skip
+                    until j = 0
+                    delocal int j = 0
+                    delocal int a = 0
+                else
+                    local int u = 0
+                    u += ((H2[(i*L+s-1)*L+z] * b + H1[(i*n+s+m-1)*L+z] + q - ((H1[(i*n+s-1)*L+z] * W[m]) % q)) % q)
+                    H2[(i*L+s)*L+z] += u
+                    u -= ((H2[(i*L+s-1)*L+z] * b + H1[(i*n+s+m-1)*L+z] + q - ((H1[(i*n+s-1)*L+z] * W[m]) % q)) % q)
+                    delocal int u = 0
+                fi s = 0
+                s += 1
+            loop skip
+            until s = L
+            delocal int s = L
+            z += 1
+        loop skip
+        until z = L
+        delocal int z = L
+        i += 1
+    loop skip
+    until i = n
+    delocal int i = n
+
+procedure lvl3(int H2[], int H3[], int m, int L, int q, int b, int W[])
+    local int y = 0
+    from y = 0 do
+        local int z = 0
+        from z = 0 do
+            local int s = 0
+            from s = 0 do
+                if s = 0 then
+                    local int a = 0
+                    local int t = 0
+                    from t = 0 do
+                        a += ((H2[(t*L+y)*L+z] * W[m-1-t]) % q)
+                        t += 1
+                    loop skip
+                    until t = m
+                    delocal int t = m
+                    H3[y*L+z] += (a % q)
+                    local int t = m
+                    from t = m do
+                        t -= 1
+                        a -= ((H2[(t*L+y)*L+z] * W[m-1-t]) % q)
+                    loop skip
+                    until t = 0
+                    delocal int t = 0
+                    delocal int a = 0
+                else
+                    local int u = 0
+                    u += ((H3[((s-1)*L+y)*L+z] * b + H2[((s+m-1)*L+y)*L+z] + q - ((H2[((s-1)*L+y)*L+z] * W[m]) % q)) % q)
+                    H3[(s*L+y)*L+z] += u
+                    u -= ((H3[((s-1)*L+y)*L+z] * b + H2[((s+m-1)*L+y)*L+z] + q - ((H2[((s-1)*L+y)*L+z] * W[m]) % q)) % q)
+                    delocal int u = 0
+                fi s = 0
+                s += 1
+            loop skip
+            until s = L
+            delocal int s = L
+            z += 1
+        loop skip
+        until z = L
+        delocal int z = L
+        y += 1
+    loop skip
+    until y = L
+    delocal int y = L
+
+procedure phash1(int P[][][], int G1[], int m, int q, int W[])
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            local int a = 0
+            local int k = 0
+            from k = 0 do
+                a += ((P[i][j][k] * W[m-1-k]) % q)
+                k += 1
+            loop skip
+            until k = m
+            delocal int k = m
+            G1[i*m+j] += (a % q)
+            local int k = m
+            from k = m do
+                k -= 1
+                a -= ((P[i][j][k] * W[m-1-k]) % q)
+            loop skip
+            until k = 0
+            delocal int k = 0
+            delocal int a = 0
+            j += 1
+        loop skip
+        until j = m
+        delocal int j = m
+        i += 1
+    loop skip
+    until i = m
+    delocal int i = m
+
+procedure pcomb(int X[], int Y[], int c, int m, int q, int W[])
+    local int i = 0
+    from i = 0 do
+        local int a = 0
+        local int t = 0
+        from t = 0 do
+            a += ((X[i*m+t] * W[m-1-t]) % q)
+            t += 1
+        loop skip
+        until t = m
+        delocal int t = m
+        Y[i] += (a % q)
+        local int t = m
+        from t = m do
+            t -= 1
+            a -= ((X[i*m+t] * W[m-1-t]) % q)
+        loop skip
+        until t = 0
+        delocal int t = 0
+        delocal int a = 0
+        i += 1
+    loop skip
+    until i = c
+    delocal int i = c
+
+procedure cmpcube(int T[][][], int P[][][], int x, int y, int z, int m, int c)
+    local int i = 0
+    from i = 0 do
+        local int j = 0
+        from j = 0 do
+            local int k = 0
+            from k = 0 do
+                if T[x+i][y+j][z+k] = P[i][j][k] then
+                    c += 1
+                else
+                    skip
+                fi T[x+i][y+j][z+k] = P[i][j][k]
+                k += 1
+            loop skip
+            until k = m
+            delocal int k = m
+            j += 1
+        loop skip
+        until j = m
+        delocal int j = m
+        i += 1
+    loop skip
+    until i = m
+    delocal int i = m
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+    local int L = n - m + 1
+    local int P1[m+1]
+    local int P2[m+1]
+    local int P3[m+1]
+    local int G1[m*m]
+    local int G2[m]
+    local int G3[1]
+    local int H1[n*n*L]
+    local int H2[n*L*L]
+    local int H3[L*L*L]
+    call pows(P1, d, m, q)
+    call pows(P2, P1[m], m, q)
+    call pows(P3, P2[m], m, q)
+    call lvl1(T, H1, n, m, L, q, d, P1)
+    call lvl2(H1, H2, n, m, L, q, P1[m], P2)
+    call lvl3(H2, H3, m, L, q, P2[m], P3)
+    call phash1(P, G1, m, q, P1)
+    call pcomb(G1, G2, m, m, q, P2)
+    call pcomb(G2, G3, 1, m, q, P3)
+    local int x = 0
+    from x = 0 do
+        local int y = 0
+        from y = 0 do
+            local int z = 0
+            from z = 0 do
+                if H3[(x*L+y)*L+z] = G3[0] then
+                    local int c = 0
+                    call cmpcube(T, P, x, y, z, m, c)
+                    if c = m*m*m then
+                        local int v = 0
+                        v += x
+                        push(v, r)
+                        v += y
+                        push(v, r)
+                        v += z
+                        push(v, r)
+                        delocal int v = 0
+                    else
+                        skip
+                    fi c = m*m*m
+                    uncall cmpcube(T, P, x, y, z, m, c)
+                    delocal int c = 0
+                else
+                    skip
+                fi H3[(x*L+y)*L+z] = G3[0]
+                z += 1
+            loop skip
+            until z = L
+            delocal int z = L
+            y += 1
+        loop skip
+        until y = L
+        delocal int y = L
+        x += 1
+    loop skip
+    until x = L
+    delocal int x = L
+    uncall pcomb(G2, G3, 1, m, q, P3)
+    uncall pcomb(G1, G2, m, m, q, P2)
+    uncall phash1(P, G1, m, q, P1)
+    uncall lvl3(H2, H3, m, L, q, P2[m], P3)
+    uncall lvl2(H1, H2, n, m, L, q, P1[m], P2)
+    uncall lvl1(T, H1, n, m, L, q, d, P1)
+    uncall pows(P3, P2[m], m, q)
+    uncall pows(P2, P1[m], m, q)
+    uncall pows(P1, d, m, q)
+    delocal int H3[L*L*L]
+    delocal int H2[n*L*L]
+    delocal int H1[n*n*L]
+    delocal int G3[1]
+    delocal int G2[m]
+    delocal int G1[m*m]
+    delocal int P3[m+1]
+    delocal int P2[m+1]
+    delocal int P1[m+1]
+    delocal int L = n - m + 1

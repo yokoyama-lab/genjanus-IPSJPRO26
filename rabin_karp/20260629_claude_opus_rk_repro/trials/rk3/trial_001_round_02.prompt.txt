@@ -1,0 +1,239 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure buildfirst(int T[][][], int s1, int s2, int m, int d, int q, int D, int H)
+  local int c = 0
+  from c = 0 do
+    H *= D
+    local int sl = 0
+      call addslicehash(T, s1, s2, c, m, d, q, sl)
+      H += sl
+      uncall addslicehash(T, s1, s2, c, m, d, q, sl)
+    delocal int sl = 0
+    c += 1
+  loop
+    skip
+  until c = m
+  delocal int c = m
+
+procedure rollf(int T[][][], int s1, int s2, int s3, int m, int d, int q, int D, int DT, int H)
+  H *= D
+  local int sl0 = 0
+    call addslicehash(T, s1, s2, s3, m, d, q, sl0)
+    H -= sl0 * DT
+    uncall addslicehash(T, s1, s2, s3, m, d, q, sl0)
+  delocal int sl0 = 0
+  local int slm = 0
+    call addslicehash(T, s1, s2, s3 + m, m, d, q, slm)
+    H += slm
+    uncall addslicehash(T, s1, s2, s3 + m, m, d, q, slm)
+  delocal int slm = 0
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int HP = 0
+            call buildfirst(P, 0, 0, m, d, q, D, HP)
+            local int lim = n - m
+              local int s1 = 0
+              from s1 = 0 do
+                local int s2 = 0
+                from s2 = 0 do
+                  local int H = 0
+                    call buildfirst(T, s1, s2, m, d, q, D, H)
+                    local int s3 = 0
+                    from s3 = 0 do
+                      if (H % q) = (HP % q) then
+                        local int diff = 0
+                          call countdiff(T, s1, s2, s3, P, m, diff)
+                          if diff = 0 then
+                            call pushpos(s1, s2, s3, r)
+                          else
+                            skip
+                          fi diff = 0
+                          uncall countdiff(T, s1, s2, s3, P, m, diff)
+                        delocal int diff = 0
+                      else
+                        skip
+                      fi (H % q) = (HP % q)
+                    loop
+                      call rollf(T, s1, s2, s3, m, d, q, D, DT, H)
+                      s3 += 1
+                    until s3 = lim
+                    delocal int s3 = lim
+                    local int s3b = lim
+                    from s3b = lim do
+                      skip
+                    loop
+                      s3b -= 1
+                      uncall rollf(T, s1, s2, s3b, m, d, q, D, DT, H)
+                    until s3b = 0
+                    delocal int s3b = 0
+                    uncall buildfirst(T, s1, s2, m, d, q, D, H)
+                  delocal int H = 0
+                  s2 += 1
+                loop
+                  skip
+                until s2 = lim
+                delocal int s2 = lim
+                s1 += 1
+              loop
+                skip
+              until s1 = lim
+              delocal int s1 = lim
+            delocal int lim = n - m
+          uncall buildfirst(P, 0, 0, m, d, q, D, HP)
+          delocal int HP = 0
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m
+
+procedure main()
+    int T[4][4][4] = {{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}, {{2, 2, 2, 2}, {2, 2, 2, 2}, {0, 2, 2, 2}, {0, 2, 2, 2}}, {{3, 3, 0, 3}, {3, 3, 3, 0}, {3, 3, 3, 3}, {0, 3, 0, 0}}, {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {4, 4, 4, 4}}}
+    int n = 4
+    int P[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+    int m = 2
+    int d = 10
+    int q = 101
+    stack r
+    call rabinkarp3(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+Passed case(s) 1..1 but failed case 2: with inputs {'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'n': 2, 'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'm': 2, 'd': 10, 'q': 101}, expected {'P': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'T': [[[1, 2], [2, 1]], [[2, 1], [1, 2]]], 'd': 10, 'm': 2, 'n': 2, 'q': 101, 'r': [0, 0, 0]}. PyJanus execution error
+  message: Array index `[2]' was out of bounds (array size was [2])
+  legacy: Error at line 19:
+            Array index `[2]' was out of bounds (array size was [2])
+            In statement:
+              acc += T[s1 + i][s2 + j][p] % q * pw % q % q
+          
+            Where: T[2][2][2] = {{{1, 2}, {2, 1}}, {{2, 1}, {1, 2}}}
+                   acc = 2
+                   d = 10
+                   e = 1
+                   i = 0
+                   j = 1
+                   m = 2
+                   p = 0
+                   pw = 10
+                   q = 101
+                   s1 = 0
+                   s2 = 1
+  location: /tmp/tmpwmumj46c.jan:19:20
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    18 |           call power(d, e, pw)
+  > 19 |           acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+       |                    ^
+    20 |           uncall power(d, e, pw)
+
+Context:
+  In statement:
+      acc += T[s1 + i][s2 + j][p] % q * pw % q % q
+    where T[2][2][2] = {{{1, 2}, {2, 1}}, {{2, 1}, {1, 2}}}
+          acc = 2
+          d = 10
+          e = 1
+          i = 0
+          j = 1
+          m = 2
+          p = 0
+          pw = 10
+          q = 101
+          s1 = 0
+          s2 = 1
+
+Fix hints:
+  - Check the array size and the expression used as the index at this location.
+
+Please fix the procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 3D Rabin-Karp pattern matching algorithm. Given an n-by-n-by-n text cube T (int T[][][]) and an m-by-m-by-m pattern cube P (int P[][][]), find every corner position (s1,s2,s3) with 0 <= s1,s2,s3 <= n-m where the m-by-m-by-m subcube of T anchored at (s1,s2,s3) equals P, and push the matches onto the stack r. Use a three-level modular rolling hash with radix d and prime modulus q, confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1.  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

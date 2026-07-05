@@ -1,0 +1,15 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus parsing error
+  message: Expecting identifier
+  legacy: File "/tmp/tmpgb0l52y6.jan" in line 79, column 38:
+              Expecting identifier
+  location: /tmp/tmpgb0l52y6.jan:79:38
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    78 |             local int row = s1 + i
+  > 79 |                 local int t0 = 0, a0 = 0
+       |                                      ^
+    80 |                     call bline(T, row, jj, m, d, q, t0, a0, lh)

@@ -1,0 +1,96 @@
+procedure rowfull(int V[][], int row, int c0, int m, int d, int h)
+  local int j = 0
+  from j = 0 do
+    h *= d
+    h += V[row][c0 + j]
+  loop
+    j += 1
+  until j = m - 1
+  delocal int j = m - 1
+
+procedure rowhash(int V[][], int row, int c0, int m, int d, int q, int h)
+  local int hf = 0
+  call rowfull(V, row, c0, m, d, hf)
+  h += hf % q
+  uncall rowfull(V, row, c0, m, d, hf)
+  delocal int hf = 0
+
+procedure win2dfull(int V[][], int r0, int c0, int m, int d, int q, int h)
+  local int i = 0
+  from i = 0 do
+    local int rh = 0
+    call rowhash(V, r0 + i, c0, m, d, q, rh)
+    h *= d
+    h += rh
+    uncall rowhash(V, r0 + i, c0, m, d, q, rh)
+    delocal int rh = 0
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure hash2d(int V[][], int r0, int c0, int m, int d, int q, int h)
+  local int hf = 0
+  call win2dfull(V, r0, c0, m, d, q, hf)
+  h += hf % q
+  uncall win2dfull(V, r0, c0, m, d, q, hf)
+  delocal int hf = 0
+
+procedure diffcount(int T[][], int s1, int s2, int P[][], int m, int cnt)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      if T[s1 + i][s2 + j] != P[i][j] then
+        cnt += 1
+      else
+        skip
+      fi T[s1 + i][s2 + j] != P[i][j]
+    loop
+      j += 1
+    until j = m - 1
+    delocal int j = m - 1
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int PH = 0
+  call hash2d(P, 0, 0, m, d, q, PH)
+  local int s2 = 0
+  from s2 = 0 do
+    local int s1 = 0
+    from s1 = 0 do
+      local int H = 0
+      call hash2d(T, s1, s2, m, d, q, H)
+      if H = PH then
+        local int cnt = 0
+        call diffcount(T, s1, s2, P, m, cnt)
+        if cnt = 0 then
+          local int a = s1
+          push(a, r)
+          delocal int a = 0
+          local int b = s2
+          push(b, r)
+          delocal int b = 0
+        else
+          skip
+        fi cnt = 0
+        uncall diffcount(T, s1, s2, P, m, cnt)
+        delocal int cnt = 0
+      else
+        skip
+      fi H = PH
+      uncall hash2d(T, s1, s2, m, d, q, H)
+      delocal int H = 0
+    loop
+      s1 += 1
+    until s1 = n - m
+    delocal int s1 = n - m
+  loop
+    s2 += 1
+  until s2 = n - m
+  delocal int s2 = n - m
+  uncall hash2d(P, 0, 0, m, d, q, PH)
+  delocal int PH = 0

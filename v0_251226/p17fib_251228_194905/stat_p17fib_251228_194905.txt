@@ -1,0 +1,106 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 85
+  ✅ 成功: 1
+  ⚠️ 構文エラー: 74
+  ❌ 実行エラー: 10
+
+✅ 成功したファイル（正しい出力） (0件)
+------------------------------------------------------------
+(なし)
+
+❌ 成功したファイル（誤った出力） (1件)
+------------------------------------------------------------
+  p17fib/p17fib_out030_gpt5-nano_251228_194905.janus
+
+⚠️ 構文エラーのあったファイル (74件)
+------------------------------------------------------------
+  p17fib/p17fib_out001_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out002_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out004_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out005_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out006_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out007_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out008_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out009_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out010_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out011_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out012_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out014_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out015_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out016_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out017_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out018_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out019_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out020_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out021_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out022_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out023_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out025_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out026_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out027_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out028_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out032_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out034_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out036_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out039_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out040_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out041_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out042_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out043_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out044_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out045_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out046_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out047_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out048_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out051_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out052_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out053_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out056_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out057_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out058_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out060_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out062_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out064_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out065_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out067_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out068_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out069_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out070_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out071_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out073_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out074_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out075_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out076_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out078_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out079_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out080_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out081_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out083_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out085_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out086_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out087_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out088_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out090_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out091_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out093_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out096_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out097_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out098_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out099_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out100_gpt5-nano_251228_194905.janus
+
+❌ 実行エラーのあったファイル (10件)
+------------------------------------------------------------
+  p17fib/p17fib_out024_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out029_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out033_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out038_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out049_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out054_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out063_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out082_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out089_gpt5-nano_251228_194905.janus
+  p17fib/p17fib_out095_gpt5-nano_251228_194905.janus
+
+📄 CSV出力: p17fib/jana_check_results_p17fib_251228_194905_summary.csv

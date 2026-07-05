@@ -1,0 +1,14 @@
+Looking at this problem, the recursive form is the natural Janus idiom (like the classic `fib`): the entry test `n = 0` distinguishes the base case, the inner conditional assertion `n % 3 != 0` is exactly reversible, and `n` is driven down to 0 through the recursion.
+
+procedure sum_skip_three(int n, int s)
+    if n = 0 then
+        skip
+    else
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+        call sum_skip_three(n, s)
+    fi n = 0

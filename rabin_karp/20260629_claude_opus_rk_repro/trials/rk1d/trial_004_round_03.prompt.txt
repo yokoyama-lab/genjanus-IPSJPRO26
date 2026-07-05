@@ -1,0 +1,163 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure wpoly(int A[], int base, int start, int m, int h)
+  local int pwr = 1
+    local int k = 0
+      from k = 0 do
+        h += A[start + (m - 1 - k)] * pwr
+        pwr *= base
+        k += 1
+      loop
+        skip
+      until k = m
+      from k = m do
+        k -= 1
+        pwr /= base
+      loop
+        skip
+      until k = 0
+    delocal int k = 0
+  delocal int pwr = 1
+
+procedure countdiff(int T[], int P[], int s, int m, int diff)
+  local int j = 0
+    from j = 0 do
+      if T[s + j] != P[j] then
+        diff += 1
+      else
+        skip
+      fi T[s + j] != P[j]
+      j += 1
+    loop
+      skip
+    until j = m
+  delocal int j = m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int phq = 0
+    local int ppoly = 0
+      call wpoly(P, d, 0, m, ppoly)
+      phq += ppoly % q
+      uncall wpoly(P, d, 0, m, ppoly)
+    delocal int ppoly = 0
+    local int dm = 1
+      local int i = 0
+        from i = 0 do
+          dm *= d
+          i += 1
+        loop
+          skip
+        until i = m
+      delocal int i = m
+      local int run = 0
+        call wpoly(T, d, 0, m, run)
+        local int s = 0
+          from s = 0 do
+            local int hq = 0
+              hq += run % q
+              if hq = phq then
+                local int diff = 0
+                  call countdiff(T, P, s, m, diff)
+                  if diff = 0 then
+                    local int v = 0
+                      v += s
+                      push(v, r)
+                    delocal int v = 0
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, P, s, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi hq = phq
+              hq -= run % q
+            delocal int hq = 0
+            s += 1
+            if s < n - m + 1 then
+              run *= d
+              run -= T[s - 1] * dm
+              run += T[s - 1 + m]
+            else
+              skip
+            fi s < n - m + 1
+          loop
+            skip
+          until s = n - m + 1
+        delocal int s = n - m + 1
+        local int s2 = n - m + 1
+          from s2 = n - m + 1 do
+            s2 -= 1
+            if s2 > 0 then
+              run -= T[s2 + m - 1]
+              run += T[s2 - 1] * dm
+              run /= d
+            else
+              skip
+            fi s2 > 0
+          loop
+            skip
+          until s2 = 0
+        delocal int s2 = 0
+        uncall wpoly(T, d, 0, m, run)
+      delocal int run = 0
+      local int i = 0
+        from i = 0 do
+          dm /= d
+          i += 1
+        loop
+          skip
+        until i = m
+      delocal int i = m
+    delocal int dm = 1
+  delocal int phq = 0
+
+procedure main()
+    int T[10] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
+    int n = 10
+    int P[4] = {1, 2, 1, 2}
+    int m = 4
+    int d = 26
+    int q = 3
+    stack r
+    call rabinkarp1(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+PyJanus execution error
+  message: Expected value to be `0' for local variable `phq'
+            but actual value is `2'
+  legacy: Error at line 111:
+            Expected value to be `0' for local variable `phq'
+           but actual value is `2'
+            In statement:
+              local int phq
+              skip
+              delocal int phq
+  location: /tmp/tmp_bkw7ez3.jan:111:11
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    110 |     delocal int dm = 1
+  > 111 |   delocal int phq = 0
+        |           ^
+    112 | 
+
+Context:
+  In statement:
+      local int phq
+      skip
+      delocal int phq
+
+Please fix the procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r).
+Reminder: Implement the reversible 1D Rabin-Karp string matching algorithm. Given a text T (n symbols) and a pattern P (m symbols), find every start position s with 0 <= s <= n-m where the length-m window of T starting at s equals P, and push each such s onto the stack r in increasing order of s (so r ends holding all match positions). Use a modular polynomial rolling hash with radix d and prime modulus q: the hash of a window is its base-d value mod q; slide the window updating the hash incrementally, and on a hash match confirm with a direct (reversible) character comparison before pushing s. T, n, P, m, d and q must be unchanged; r starts empty. Compute and then uncompute every intermediate hash and temporary so that no garbage remains and the whole procedure is reversible. Signature: procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: T=[1,2,1,2,1,2,1,2,1,2], n=10, P=[1,2,1,2], m=4, d=26, q=3 -> r = <6, 4, 2, 0] (matches at 0,2,4,6).  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions. For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

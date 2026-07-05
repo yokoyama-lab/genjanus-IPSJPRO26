@@ -1,0 +1,111 @@
+procedure wpoly(int A[], int base, int start, int m, int h)
+  local int pwr = 1
+    local int k = 0
+      from k = 0 do
+        h += A[start + (m - 1 - k)] * pwr
+        pwr *= base
+        k += 1
+      loop
+        skip
+      until k = m
+      from k = m do
+        k -= 1
+        pwr /= base
+      loop
+        skip
+      until k = 0
+    delocal int k = 0
+  delocal int pwr = 1
+
+procedure whash(int A[], int base, int q, int start, int m, int h)
+  local int U = 0
+    call wpoly(A, base, start, m, U)
+    h += U % q
+    uncall wpoly(A, base, start, m, U)
+  delocal int U = 0
+
+procedure countdiff(int T[], int P[], int s, int m, int diff)
+  local int j = 0
+    from j = 0 do
+      if T[s + j] != P[j] then
+        diff += 1
+      else
+        skip
+      fi T[s + j] != P[j]
+      j += 1
+    loop
+      skip
+    until j = m
+  delocal int j = m
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int phq = 0
+    call whash(P, d, q, 0, m, phq)
+    local int dm = 1
+      local int i = 0
+        from i = 0 do
+          dm *= d
+          i += 1
+        loop
+          skip
+        until i = m
+      delocal int i = m
+      local int run = 0
+        call wpoly(T, d, 0, m, run)
+        local int s = 0
+          from s = 0 do
+            if (run % q) = phq then
+              local int diff = 0
+                call countdiff(T, P, s, m, diff)
+                if diff = 0 then
+                  local int v = 0
+                    v += s
+                    push(v, r)
+                  delocal int v = 0
+                else
+                  skip
+                fi diff = 0
+                uncall countdiff(T, P, s, m, diff)
+              delocal int diff = 0
+            else
+              skip
+            fi (run % q) = phq
+            s += 1
+            if s < n - m + 1 then
+              run *= d
+              run -= T[s - 1] * dm
+              run += T[s - 1 + m]
+            else
+              skip
+            fi s < n - m + 1
+          loop
+            skip
+          until s = n - m + 1
+        delocal int s = n - m + 1
+        local int s2 = n - m + 1
+          from s2 = n - m + 1 do
+            s2 -= 1
+            if s2 > 0 then
+              run -= T[s2 + m - 1]
+              run += T[s2 - 1] * dm
+              run /= d
+            else
+              skip
+            fi s2 > 0
+          loop
+            skip
+          until s2 = 0
+        delocal int s2 = 0
+        uncall wpoly(T, d, 0, m, run)
+      delocal int run = 0
+      local int i = 0
+        from i = 0 do
+          dm /= d
+          i += 1
+        loop
+          skip
+        until i = m
+      delocal int i = m
+    delocal int dm = 1
+    uncall whash(P, d, q, 0, m, phq)
+  delocal int phq = 0

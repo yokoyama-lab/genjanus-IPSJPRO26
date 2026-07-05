@@ -1,0 +1,18 @@
+STATUS: RUNTIME_ERROR
+RETURN_CODE: 1
+STDOUT:
+[ERROR (line 3)]
+[Identifiers `x' and `x' are aliases,In expression:
+    x,In statement:
+    x += x
+  where x = 5
+        y = 3]
+
+STDERR:
+
+ERROR: [ERROR (line 3)]
+[Identifiers `x' and `x' are aliases,In expression:
+    x,In statement:
+    x += x
+  where x = 5
+        y = 3]

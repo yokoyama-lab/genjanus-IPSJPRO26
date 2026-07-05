@@ -1,0 +1,17 @@
+Looking at this problem, I need to track the iteration count `i`, and the key challenge is the `delocal` expression must equal `i`'s final value using only the available variables.
+
+After the loop, `i` equals the number of iterations (the original `n`), but `n` is now 0 and the original `a`/`b` base values aren't stored. However, since `a` increased by `i` and `b` decreased by `i`, the difference `a - b` increased by `2*i`. Given the test cases start with `a == b`, `(a - b) / 2` recovers `i` exactly.
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    local int i = 0
+    from i = 0 do
+        skip
+    loop
+        a += 1
+        b -= 1
+        n -= 1
+        i += 1
+    until n = 0
+    delocal int i = (a - b) / 2
+```

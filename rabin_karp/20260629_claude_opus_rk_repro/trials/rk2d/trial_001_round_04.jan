@@ -1,0 +1,111 @@
+procedure powint(int b, int e, int p)
+  local int j = 0
+  from j = 0 do
+    skip
+  loop
+    p *= b
+    j += 1
+  until j = e
+  delocal int j = e
+
+procedure rowhash(int G[][], int row, int c0, int m, int d, int rh)
+  local int k = 0
+  from k = 0 do
+    rh *= d
+    rh += G[row][c0 + k]
+    k += 1
+  loop skip until k = m
+  delocal int k = m
+
+procedure fullwin(int G[][], int r0, int c0, int m, int d, int h)
+  local int i = 0
+  from i = 0 do
+    local int k = 0
+    from k = 0 do
+      h *= d
+      h += G[r0 + i][c0 + k]
+      k += 1
+    loop skip until k = m
+    delocal int k = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure countdiff(int T[][], int s1, int s2, int P[][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int k = 0
+    from k = 0 do
+      if T[s1 + i][s2 + k] != P[i][k] then
+        diff += 1
+      else
+        skip
+      fi T[s1 + i][s2 + k] != P[i][k]
+      k += 1
+    loop skip until k = m
+    delocal int k = m
+    i += 1
+  loop skip until i = m
+  delocal int i = m
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int Phi = 1
+    call powint(d, m * (m - 1), Phi)
+    local int P1 = 1
+      call powint(d, m, P1)
+      local int PV = 0
+        call fullwin(P, 0, 0, m, d, PV)
+        local int s2 = 0
+        from s2 = 0 do
+          local int h = 0
+            call fullwin(T, 0, s2, m, d, h)
+            local int s1 = 0
+            from s1 = 0 do
+              if (h % q) = (PV % q) then
+                local int diff = 0
+                  call countdiff(T, s1, s2, P, m, diff)
+                  if diff = 0 then
+                    local int a = s1
+                      push(a, r)
+                    delocal int a = 0
+                    local int b = s2
+                      push(b, r)
+                    delocal int b = 0
+                  else
+                    skip
+                  fi diff = 0
+                  uncall countdiff(T, s1, s2, P, m, diff)
+                delocal int diff = 0
+              else
+                skip
+              fi (h % q) = (PV % q)
+            loop
+              local int lead = 0
+                call rowhash(T, s1, s2, m, d, lead)
+                local int newr = 0
+                  call rowhash(T, s1 + m, s2, m, d, newr)
+                  h -= lead * Phi
+                  h *= P1
+                  h += newr
+                  uncall rowhash(T, s1 + m, s2, m, d, newr)
+                delocal int newr = 0
+                uncall rowhash(T, s1, s2, m, d, lead)
+              delocal int lead = 0
+              s1 += 1
+            until s1 = n - m
+            delocal int s1 = n - m
+            local int last = 0
+              call fullwin(T, n - m, s2, m, d, last)
+              h -= last
+              uncall fullwin(T, n - m, s2, m, d, last)
+            delocal int last = 0
+          delocal int h = 0
+          s2 += 1
+        loop skip until s2 = n - m + 1
+        delocal int s2 = n - m + 1
+        uncall fullwin(P, 0, 0, m, d, PV)
+      delocal int PV = 0
+      uncall powint(d, m, P1)
+    delocal int P1 = 1
+    uncall powint(d, m * (m - 1), Phi)
+  delocal int Phi = 1

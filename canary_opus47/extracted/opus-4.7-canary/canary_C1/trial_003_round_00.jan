@@ -1,0 +1,2 @@
+procedure proc_7a3f(int q_alpha, int q_beta)
+    q_alpha <=> q_beta

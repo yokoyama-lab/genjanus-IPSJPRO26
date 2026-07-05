@@ -1,0 +1,150 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure computeFull(int A[], int off, int len, int d, int v)
+  local int i = 0
+  from i = 0 do
+    v *= d
+    v += A[off + i]
+    i += 1
+  loop skip
+  until i = len
+  delocal int i = len
+
+procedure windowEqual(int T[], int s, int P[], int m, int eq)
+  local int diff = 0
+  local int i = 0
+  from i = 0 do
+    if T[s + i] != P[i] then
+      diff += 1
+    else
+      skip
+    fi T[s + i] != P[i]
+    i += 1
+  loop skip
+  until i = m
+  delocal int i = m
+  if diff = 0 then
+    eq += 1
+  else
+    skip
+  fi eq = 1
+  local int k = 0
+  from k = 0 do
+    if T[s + k] != P[k] then
+      diff -= 1
+    else
+      skip
+    fi T[s + k] != P[k]
+    k += 1
+  loop skip
+  until k = m
+  delocal int k = m
+  delocal int diff = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+  local int p = 0
+  call computeFull(P, 0, m, d, p)
+  local int t = 0
+  call computeFull(T, 0, m, d, t)
+  local int pw = 1
+  local int j = 0
+  from j = 0 do
+    pw *= d
+    j += 1
+  loop skip
+  until j = m
+  delocal int j = m
+  local int s = 0
+  from s = 0 do
+    if (t % q) = (p % q) then
+      local int eq = 0
+      call windowEqual(T, s, P, m, eq)
+      if eq = 1 then
+        local int val = 0
+        val += s
+        push(val, r)
+        delocal int val = 0
+      else
+        skip
+      fi eq = 1
+      uncall windowEqual(T, s, P, m, eq)
+      delocal int eq = 0
+    else
+      skip
+    fi (t % q) = (p % q)
+  loop
+    t *= d
+    t += T[s + m] - (T[s] * pw)
+    s += 1
+  until s = n - m
+  delocal int s = n - m
+  local int w = n - m
+  from w = n - m do
+    skip
+  loop
+    w -= 1
+    t -= T[w + m] - (T[w] * pw)
+    t /= d
+  until w = 0
+  delocal int w = 0
+  uncall computeFull(T, 0, m, d, t)
+  local int jj = 0
+  from jj = 0 do
+    pw /= d
+    jj += 1
+  loop skip
+  until jj = m
+  delocal int jj = m
+  delocal int pw = 1
+  delocal int t = 0
+  delocal int p = 0
+
+procedure main()
+    int T[10] = {1, 2, 1, 2, 1, 2, 1, 2, 1, 2}
+    int n = 10
+    int P[4] = {1, 2, 1, 2}
+    int m = 4
+    int d = 26
+    int q = 3
+    stack r
+    call rabinkarp1(T, n, P, m, d, q, r)
+
+```
+
+The jana interpreter reported this error:
+PyJanus execution error
+  message: Expected value to be `0' for local variable `p'
+            but actual value is `18956'
+  legacy: Error at line 98:
+            Expected value to be `0' for local variable `p'
+           but actual value is `18956'
+            In statement:
+              local int p
+              skip
+              delocal int p
+  location: /tmp/tmprp1vl8ij.jan:98:11
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    97 |   delocal int t = 0
+  > 98 |   delocal int p = 0
+       |           ^
+    99 | 
+
+Context:
+  In statement:
+      local int p
+      skip
+      delocal int p
+
+Please fix the procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r).
+Reminder: Implement the reversible 1D Rabin-Karp string matching algorithm. Given a text T (n symbols) and a pattern P (m symbols), find every start position s with 0 <= s <= n-m where the length-m window of T starting at s equals P, and push each such s onto the stack r in increasing order of s (so r ends holding all match positions). Use a modular polynomial rolling hash with radix d and prime modulus q: the hash of a window is its base-d value mod q; slide the window updating the hash incrementally, and on a hash match confirm with a direct (reversible) character comparison before pushing s. T, n, P, m, d and q must be unchanged; r starts empty. Compute and then uncompute every intermediate hash and temporary so that no garbage remains and the whole procedure is reversible. Signature: procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: T=[1,2,1,2,1,2,1,2,1,2], n=10, P=[1,2,1,2], m=4, d=26, q=3 -> r = <6, 4, 2, 0] (matches at 0,2,4,6).  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

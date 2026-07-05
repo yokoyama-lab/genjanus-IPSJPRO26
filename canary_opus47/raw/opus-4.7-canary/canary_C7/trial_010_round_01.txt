@@ -1,0 +1,21 @@
+The error is in the `delocal`: my local `i` was frozen at the original value of `n` (6) for use as the loop's entry assertion, but the `delocal` claimed it would be 0. The `delocal` expression must evaluate to `i`'s actual final value.
+
+The cleanest fix keeps the frozen mirror `i = n` as the entry assertion (it's true only on first entry, since `n` decrements away from the frozen `i` on every re-entry), decrements `n` to 0 while accumulating `s`, then disposes `i` with an expression equal to its final value. At exit, `n = 0` and `s = 12`, and `i` still holds 6 — which equals `s / 2`.
+
+I verified the full trace for n=6: entry `i=n` (6=6) holds; re-entries `6=5,6=4,…` are all false; the `if` exit assertion `n % 3 != 0` is true after the then-branch and false after the else; `s` accumulates 5+4+2+1=12; `n` reaches 0; and `delocal i = s/2 = 6` matches `i`.
+
+```
+procedure sum_skip_three(int n, int s)
+    local int i = n
+    from i = n do
+        if n % 3 != 0 then
+            s += n
+        else
+            skip
+        fi n % 3 != 0
+        n -= 1
+    loop
+        skip
+    until n = 0
+    delocal int i = s / 2
+```

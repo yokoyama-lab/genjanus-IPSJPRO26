@@ -1,0 +1,22 @@
+procedure negate_via_loop(int x)
+    local int y = x
+    if y >= 0 then
+        local int i = 0
+        from i = 0 do
+            skip
+        loop
+            i += 1
+            x -= 2
+        until i = y
+        delocal int i = y
+    else
+        local int i = 0
+        from i = 0 do
+            skip
+        loop
+            i += 1
+            x += 2
+        until i = 0 - y
+        delocal int i = 0 - y
+    fi x <= 0
+    delocal int y = 0 - x

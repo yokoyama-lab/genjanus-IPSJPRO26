@@ -1,0 +1,41 @@
+Looking at this, the alias error happens because `delocal int i = i` references `i` in its own expression. I need an expression equal to i's final value (N) without using `i`.
+
+Since I need n=0 at end but also need a way to express i's value at delocal time, I'll keep n unchanged during the loop, then use n in the delocal expression, and consume n via i first:
+
+```
+procedure sum_skip_three(int n, int s)
+    local int i = 0
+    from i = 0 do
+        i += 1
+        if i % 3 != 0 then
+            s += i
+        else
+            skip
+        fi i % 3 != 0
+    loop
+        skip
+    until i = n
+    n -= i
+    delocal int i = n + i
+```
+
+Wait, that still has `i` in the expression. Let me fix:
+
+```
+procedure sum_skip_three(int n, int s)
+    local int i = 0
+    from i = 0 do
+        i += 1
+        n -= 1
+        if i % 3 != 0 then
+            s += i
+        else
+            skip
+        fi i % 3 != 0
+    loop
+        skip
+    until n = 0
+    n += i
+    i -= n
+    delocal int i = 0
+```

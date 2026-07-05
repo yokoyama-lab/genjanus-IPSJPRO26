@@ -1,0 +1,22 @@
+STATUS: RUNTIME_ERROR
+RETURN_CODE: 1
+STDOUT:
+[ERROR (line 12)]
+[Identifiers `i' and `i' are aliases,In expression:
+    i,In statement:
+    local int i = 0
+    ...
+    delocal int i = i
+  where n = 0
+        s = 12]
+
+STDERR:
+
+ERROR: [ERROR (line 12)]
+[Identifiers `i' and `i' are aliases,In expression:
+    i,In statement:
+    local int i = 0
+    ...
+    delocal int i = i
+  where n = 0
+        s = 12]

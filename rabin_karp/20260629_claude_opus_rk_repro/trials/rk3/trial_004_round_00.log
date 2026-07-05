@@ -1,0 +1,27 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'SUCCESS']
+ERROR: PyJanus execution error
+  message: Expected value to be `0' for local variable `hw'
+            but actual value is `81'
+  legacy: Error at line 88:
+            Expected value to be `0' for local variable `hw'
+           but actual value is `81'
+            In statement:
+              local int hw
+              skip
+              delocal int hw
+  location: /tmp/tmplno2zuku.jan:88:25
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+    87 |                   fi hw = hp
+  > 88 |                 delocal int hw = 0
+       |                         ^
+    89 |               loop s3 += 1
+
+Context:
+  In statement:
+      local int hw
+      skip
+      delocal int hw

@@ -1,0 +1,154 @@
+You are an expert in reversible computing and the reversible programming language Janus.
+
+Write a Janus procedure with the following signature:
+
+    procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+
+The procedure should: Implement the reversible 2D Rabin-Karp pattern matching algorithm. Given an n-by-n text grid T (int T[][]) and an m-by-m pattern grid P (int P[][]), find every top-left position (s1,s2) with 0 <= s1,s2 <= n-m where the m-by-m subgrid of T anchored at (s1,s2) equals P, and push the matches onto the stack r. Use a two-level modular rolling hash with radix d and prime modulus q (hash rows, then combine columns), confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1. Example: the 5-by-5 text and 2-by-2 pattern below give r = <3, 3, 3, 1, 1, 2].  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions. 
+
+Example: when called with T=[[1, 2, 3, 1, 2], [4, 1, 2, 4, 3], [5, 4, 3, 2, 1], [6, 2, 1, 4, 3], [7, 2, 3, 2, 1]], n=5, P=[[4, 3], [2, 1]], m=2, d=8, q=3, the expected result is P=[[4, 3], [2, 1]], T=[[1, 2, 3, 1, 2], [4, 1, 2, 4, 3], [5, 4, 3, 2, 1], [6, 2, 1, 4, 3], [7, 2, 3, 2, 1]], d=8, m=2, n=5, q=3, r=[3, 3, 3, 1, 1, 2].
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.
+The BNF of the Janus language is as follows:
+```
+<Program> ::= (<ProcedureDef>)* <MainProcedureDef>
+<ProcedureDef> ::= "procedure" <IdentNonMain> "(" [ <Param> ("," <Param>)* ] ")" (<Stmt>)+
+<MainProcedureDef> ::= "procedure" "main" "(" ")" (<MainVdecl>)* (<Stmt>)+
+
+<Param> ::= "int" <Ident> [ "[" "]" ]
+
+<MainVdecl> ::= "int" <Ident> [ "=" <Expr> ]  | "int" <Ident> "[" "]" [ "=" <ArrayLit> ]
+<ArrayLit> ::= "{" <Expr> ("," <Expr>)* "}"
+
+<LocalDecl> ::= "int" <Ident> "=" <Expr>
+<LocalDeclList> ::= <LocalDecl> ("," <LocalDecl>)*
+
+<Stmt>
+  ::= <Lval> <ModOp> <Expr>
+   | "if" <Expr> "then" (<Stmt>)+ "else" (<Stmt>)+ "fi" <Expr>
+   | "from" <Expr> "do"   (<Stmt>)+ "loop" (<Stmt>)+ "until" <Expr>
+   | "local" <LocalDeclList> (<Stmt>)+ "delocal" <LocalDeclList>
+   | "call" <Ident> "(" [ <ArgList> ] ")"
+   | "uncall" <Ident> "(" [ <ArgList> ] ")"
+   | <Lval> "<=>" <Lval>
+   | "skip"
+
+<ModOp> ::= "+=" | "-=" | "^=" | "*=" | "/="
+
+<ArgList> ::= <Expr> ("," <Expr>)*
+
+<Lval> ::= <Ident> [ "[" <Expr> "]" ]
+
+<Expr> ::= <Expr> <BinOp> <Expr> | ("!" | "~") <Expr> | <Term>
+<Term> ::= "(" <Expr> ")" | <Integer> | <Lval>
+<BinOp> ::= "*" | "/" | "%" | "+" | "-" | "<=" | "<" | ">=" | ">" | "=" | "!=" | "^" | "&&" | "||"
+
+<Ident> ::= <letter> (<alphaNum> | "_" | "'")*
+<IdentNonMain> ::= <Ident>
+<Integer> ::= <decimal-integer>
+```
+
+Static Reversibility Constraints (well-formedness rules)
+
+```
+C1. Reversible assignment (non-self-referential update)
+    For any statement:
+        <Lval> <ModOp> <Expr>
+    let Base(<Lval>) be the identifier at the root of the lval
+    (i.e., Base(x)=x, Base(a[i])=a).
+    Then Base(<Lval>) MUST NOT occur in <Expr> as an identifier
+    (neither as a variable nor as an array base).
+
+          Examples:
+            OK:   i += 1
+            OK:   a[i] += 1
+            NG:   i += i
+            NG:   a[i] += a[j]
+
+C2. If/fi consistency (entry/exit condition discipline)
+    For:
+        if E_in then S1 else S2 fi E_out
+    forward execution must satisfy:
+      - If E_in is true: execute S1 and after S1, E_out must be true.
+      - If E_in is false: execute S2 and after S2, E_out must be false.
+    (In particular, E_in and E_out must be chosen so that the branch taken
+     forward can be reconstructed backward.)
+
+C3. From/until loop consistency + execution order (strengthened)
+    For:
+        from E_in do S1 loop S2 until E_out
+
+    Execution order (forward):
+      1) Evaluate E_in. It MUST hold at loop entry.
+      2) Execute S1 once (if absent, treat as skip).
+      3) Evaluate E_out.
+         - If E_out is true, terminate the loop immediately.
+         - If E_out is false, execute S2 once (if absent, treat as skip),
+           then evaluate E_in and it MUST be false, and go back to step (2).
+
+C4. local/delocal discipline (static well-formedness)
+
+    For any block:
+        local D1, ..., Dk   S   delocal D1', ..., Dk'
+
+    the following must hold:
+
+      (a) Arity agreement:
+          The number of declarations must be the same:
+              k = k'.
+
+      (b) Identifier agreement:
+          The declared identifiers must match exactly,
+          in the same order and with the same names.
+          (Only the initializer expressions may differ.)
+
+      (c) Scope discipline:
+          The identifiers introduced by the local declarations
+          are in scope only within S.
+          They must not be accessed outside the block.
+
+    Intuition:
+      The local/delocal construct introduces temporary variables
+      whose lifetimes are statically delimited,
+      while the delocal declarations specify the values
+      required to re-enter the block during backward execution.
+
+C5. Scope / declared-identifier discipline
+    A program may use only identifiers that are in scope.
+      - In a procedure body: identifiers must be procedure parameters or locals
+        introduced by an enclosing local/delocal block.
+      - In main: identifiers must be declared by earlier <MainVdecl> or locals.
+      - No implicit globals.
+      - No shadowing: a local declaration MUST NOT reuse an identifier already in scope.
+
+C6. delocal expected-value check (runtime)
+    For:
+        local int x = E_in   S   delocal int x = E_out
+    runtime check at delocal:
+      - Immediately before delocal, the implementation checks:
+            x == Eval(E_out)
+        If it fails, abort.
+    Note: E_out need not equal E_in.
+
+      Examples:
+            NG:   E_in is x
+            NG:   E_out is x
+
+C7. Semantics of the reversible update operators:
+    - `x *= e` multiplies x by e and is undone by `x /= e`; it requires e != 0.
+    - `x /= e` requires e != 0 and that x is exactly divisible by e (no remainder).
+```
+
+Single-line comments start with //; multi-line comments start with /* and end with */.
+
+Self-check before output: if any of the following holds, rewrite the Janus program from scratch before producing the output.
+- The program does not conform to the BNF given above.
+- A reversible update has its left-hand-side variable appearing on the right-hand side (e.g., x += x, x -= x, x *= x).
+- A comment is written in any form other than // or /* ... */.
+- A non-existent keyword such as 'end' is used.
+- The keyword 'end' appears at the end of a procedure.

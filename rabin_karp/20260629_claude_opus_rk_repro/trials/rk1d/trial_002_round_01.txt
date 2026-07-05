@@ -1,0 +1,135 @@
+Looking at this, the algorithm and reversibility are correct, but the local array declarations use a compound size expression (`n - m + 1`) directly in the declaration, which the parser rejects. I hoist that into a size variable. The `powmod` value `d^m` is correct for the rolling update (the removed leading term gets the extra factor of `d` from the multiply), so I keep it.
+
+```
+procedure countmism(int T[], int P[], int s, int m, int mism)
+    local int j = 0
+    from j = 0 do
+        if T[s + j] != P[j] then
+            mism += 1
+        else
+            skip
+        fi T[s + j] != P[j]
+        j += 1
+    loop
+        skip
+    until j = m
+    delocal int j = m
+
+procedure horner(int A[], int off, int m, int d, int q, int h, int Q[])
+    local int i = 0
+    from i = 0 do
+        h *= d
+        h += A[off + i]
+        Q[i] += h / q
+        h -= Q[i] * q
+        i += 1
+    loop
+        skip
+    until i = m
+    delocal int i = m
+
+procedure powmod(int d, int m, int q, int dm, int Qp[])
+    dm += 1
+    local int k = 0
+    from k = 0 do
+        dm *= d
+        Qp[k] += dm / q
+        dm -= Qp[k] * q
+        k += 1
+    loop
+        skip
+    until k = m
+    delocal int k = m
+
+procedure build(int A[], int n, int m, int d, int q, int dm, int H[], int Qb[], int Q1[])
+    local int cur = 0
+    local int j = 0
+    from j = 0 do
+        cur *= d
+        cur += A[j]
+        Qb[j] += cur / q
+        cur -= Qb[j] * q
+        j += 1
+    loop
+        skip
+    until j = m
+    delocal int j = m
+    local int s = 0
+    from s = 0 do
+        H[s] += cur
+        if s + 1 < n - m + 1 then
+            local int lr = 0
+            lr += A[s] * dm
+            local int ql = 0
+            ql += lr / q
+            lr -= ql * q
+            local int nx = 0
+            nx += cur * d
+            nx += A[s + m]
+            nx += q
+            nx -= lr
+            Q1[s] += nx / q
+            nx -= Q1[s] * q
+            cur <=> nx
+            nx -= H[s]
+            delocal int nx = 0
+            lr += ql * q
+            ql -= lr / q
+            lr -= A[s] * dm
+            delocal int ql = 0
+            delocal int lr = 0
+        else
+            skip
+        fi s + 1 < n - m + 1
+        s += 1
+    loop
+        skip
+    until s = n - m + 1
+    delocal int s = n - m + 1
+    cur -= H[n - m]
+    delocal int cur = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int nm = n - m + 1
+    local int dm = 0
+    local int Qpow[m] = 0
+    call powmod(d, m, q, dm, Qpow)
+    local int hp = 0
+    local int Qp[m] = 0
+    call horner(P, 0, m, d, q, hp, Qp)
+    local int H[nm] = 0
+    local int Qb[m] = 0
+    local int Q1[nm] = 0
+    call build(T, n, m, d, q, dm, H, Qb, Q1)
+    local int s = 0
+    from s = 0 do
+        if H[s] = hp then
+            local int mism = 0
+            call countmism(T, P, s, m, mism)
+            if mism = 0 then
+                push(s, r)
+            else
+                skip
+            fi mism = 0
+            uncall countmism(T, P, s, m, mism)
+            delocal int mism = 0
+        else
+            skip
+        fi H[s] = hp
+        s += 1
+    loop
+        skip
+    until s = nm
+    delocal int s = nm
+    uncall build(T, n, m, d, q, dm, H, Qb, Q1)
+    delocal int Q1[nm] = 0
+    delocal int Qb[m] = 0
+    delocal int H[nm] = 0
+    uncall horner(P, 0, m, d, q, hp, Qp)
+    delocal int Qp[m] = 0
+    delocal int hp = 0
+    uncall powmod(d, m, q, dm, Qpow)
+    delocal int Qpow[m] = 0
+    delocal int dm = 0
+    delocal int nm = n - m + 1
+```

@@ -1,0 +1,107 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 86
+  ✅ 成功: 6
+  ⚠️ 構文エラー: 69
+  ❌ 実行エラー: 11
+
+✅ 成功したファイル（正しい出力） (6件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out021_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out045_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out050_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out053_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out073_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out091_gpt5-nano_251228_121610.janus
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (69件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out001_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out002_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out004_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out005_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out006_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out007_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out009_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out010_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out012_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out013_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out014_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out015_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out016_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out017_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out018_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out019_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out020_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out022_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out026_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out027_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out031_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out032_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out034_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out035_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out036_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out037_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out038_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out039_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out040_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out041_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out042_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out044_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out046_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out047_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out048_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out049_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out051_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out052_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out054_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out055_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out059_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out060_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out061_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out062_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out064_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out065_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out066_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out067_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out068_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out069_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out070_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out071_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out072_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out075_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out076_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out077_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out078_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out079_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out081_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out082_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out083_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out084_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out085_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out086_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out087_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out088_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out090_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out092_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out093_gpt5-nano_251228_121610.janus
+
+❌ 実行エラーのあったファイル (11件)
+------------------------------------------------------------
+  p11factorial/p11factorial_out003_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out008_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out023_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out025_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out029_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out030_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out033_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out056_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out057_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out058_gpt5-nano_251228_121610.janus
+  p11factorial/p11factorial_out094_gpt5-nano_251228_121610.janus
+
+📄 CSV出力: p11factorial/jana_check_results_p11factorial_251228_121610_summary.csv

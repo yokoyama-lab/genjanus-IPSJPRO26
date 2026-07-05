@@ -1,0 +1,58 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 37
+  ✅ 成功: 6
+  ⚠️ 構文エラー: 11
+  ❌ 実行エラー: 20
+
+✅ 成功したファイル（正しい出力） (6件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out010_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out011_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out013_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out021_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out033_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out039_gpt5-nano_251228_022614.janus
+
+❌ 成功したファイル（誤った出力） (0件)
+------------------------------------------------------------
+(なし)
+
+⚠️ 構文エラーのあったファイル (11件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out007_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out014_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out016_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out024_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out025_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out027_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out028_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out032_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out034_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out035_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out038_gpt5-nano_251228_022614.janus
+
+❌ 実行エラーのあったファイル (20件)
+------------------------------------------------------------
+  p08flipsign/p08flipsign_out002_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out003_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out004_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out005_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out006_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out008_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out009_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out012_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out015_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out017_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out018_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out019_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out020_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out022_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out023_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out026_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out029_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out031_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out036_gpt5-nano_251228_022614.janus
+  p08flipsign/p08flipsign_out037_gpt5-nano_251228_022614.janus
+
+📄 CSV出力: p08flipsign/jana_check_results_p08flipsign_251228_083731_summary.csv

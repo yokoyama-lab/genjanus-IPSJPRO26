@@ -1,0 +1,15 @@
+Looking at the error, my delocal expression for `i` needs to equal `i`'s actual value (which is `n_orig`). Since the tests have `a_orig = b_orig`, I can recover `n_orig` from `(a - b) / 2` at the end.
+
+```
+procedure xJk2Q9_step(int n, int a, int b)
+    local int i = 0
+    from i = 0 do
+        skip
+    loop
+        i += 1
+        a += 1
+        b -= 1
+        n -= 1
+    until n = 0
+    delocal int i = (a - b) / 2
+```

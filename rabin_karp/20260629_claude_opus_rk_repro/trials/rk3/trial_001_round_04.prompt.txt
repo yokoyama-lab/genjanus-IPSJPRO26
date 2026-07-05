@@ -1,0 +1,199 @@
+Your Janus procedure has an error. Here is the full program (your procedure + test harness):
+
+```
+procedure power(int d, int e, int pw)
+  local int c = 0
+  from c = 0 do
+    skip
+  loop
+    pw *= d
+    c += 1
+  until c = e
+  delocal int c = e
+
+procedure addslicehash(int T[][][], int s1, int s2, int p, int m, int d, int q, int acc)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int e = i * m + j
+        local int pw = 1
+          call power(d, e, pw)
+          acc += ((T[s1 + i][s2 + j][p] % q) * (pw % q)) % q
+          uncall power(d, e, pw)
+        delocal int pw = 1
+      delocal int e = i * m + j
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure buildfirst(int T[][][], int s1, int s2, int m, int d, int q, int D, int H)
+  local int c = 0
+  from c = 0 do
+    H *= D
+    local int sl = 0
+      call addslicehash(T, s1, s2, c, m, d, q, sl)
+      H += sl
+      uncall addslicehash(T, s1, s2, c, m, d, q, sl)
+    delocal int sl = 0
+    c += 1
+  loop
+    skip
+  until c = m
+  delocal int c = m
+
+procedure countdiff(int T[][][], int s1, int s2, int s3, int P[][][], int m, int diff)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      local int k = 0
+      from k = 0 do
+        if T[s1 + i][s2 + j][s3 + k] != P[i][j][k] then
+          diff += 1
+        else
+          skip
+        fi T[s1 + i][s2 + j][s3 + k] != P[i][j][k]
+        k += 1
+      loop
+        skip
+      until k = m
+      delocal int k = m
+      j += 1
+    loop
+      skip
+    until j = m
+    delocal int j = m
+    i += 1
+  loop
+    skip
+  until i = m
+  delocal int i = m
+
+procedure pushpos(int s1, int s2, int s3, stack r)
+  local int a = s1
+    push(a, r)
+  delocal int a = 0
+  local int b = s2
+    push(b, r)
+  delocal int b = 0
+  local int c = s3
+    push(c, r)
+  delocal int c = 0
+
+procedure scanline(int T[][][], int s1, int s2, int s3, int lim, int P[][][], int m, int d, int q, int D, int DT, int HPr, int prevH, stack r)
+  if prevH = HPr then
+    local int diff = 0
+      call countdiff(T, s1, s2, s3, P, m, diff)
+      if diff = 0 then
+        call pushpos(s1, s2, s3, r)
+      else
+        skip
+      fi diff = 0
+      uncall countdiff(T, s1, s2, s3, P, m, diff)
+    delocal int diff = 0
+  else
+    skip
+  fi prevH = HPr
+  if s3 < lim then
+    local int so = 0
+      call addslicehash(T, s1, s2, s3, m, d, q, so)
+      local int si = 0
+        call addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+        local int curH = 0
+          curH += (prevH * (D % q)) % q
+          curH += si % q
+          curH += q
+          curH -= ((so % q) * (DT % q)) % q
+          local int qt = curH / q
+            curH -= qt * q
+            call scanline(T, s1, s2, s3 + 1, lim, P, m, d, q, D, DT, HPr, curH, r)
+            curH += qt * q
+          delocal int qt = curH / q
+          curH += ((so % q) * (DT % q)) % q
+          curH -= q
+          curH -= si % q
+          curH -= (prevH * (D % q)) % q
+        delocal int curH = 0
+        uncall addslicehash(T, s1, s2, s3 + m, m, d, q, si)
+      delocal int si = 0
+      uncall addslicehash(T, s1, s2, s3, m, d, q, so)
+    delocal int so = 0
+  else
+    skip
+  fi s3 < lim
+
+procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r)
+  local int mm = m * m
+    local int total = mm * m
+      local int D = 1
+        call power(d, mm, D)
+        local int DT = 1
+          call power(d, total, DT)
+          local int lim = n - m
+            local int HPexact = 0
+              call buildfirst(P, 0, 0, m, d, q, D, HPexact)
+              local int HPr = HPexact % q
+                local int s1 = 0
+                from s1 = 0 do
+                  local int s2 = 0
+                  from s2 = 0 do
+                    local int H0exact = 0
+                      call buildfirst(T, s1, s2, m, d, q, D, H0exact)
+                      local int qt0 = H0exact / q
+                        H0exact -= qt0 * q
+                        call scanline(T, s1, s2, 0, lim, P, m, d, q, D, DT, HPr, H0exact, r)
+                        H0exact += qt0 * q
+                      delocal int qt0 = H0exact / q
+                      uncall buildfirst(T, s1, s2, m, d, q, D, H0exact)
+                    delocal int H0exact = 0
+                  loop
+                    s2 += 1
+                  until s2 = lim
+                  delocal int s2 = lim
+                loop
+                  s1 += 1
+                until s1 = lim
+                delocal int s1 = lim
+              delocal int HPr = HPexact % q
+              uncall buildfirst(P, 0, 0, m, d, q, D, HPexact)
+            delocal int HPexact = 0
+          delocal int lim = n - m
+          uncall power(d, total, DT)
+        delocal int DT = 1
+        uncall power(d, mm, D)
+      delocal int D = 1
+    delocal int total = mm * m
+  delocal int mm = m * m
+
+procedure main()
+    int T[4][4][4] = {{{1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}, {1, 1, 1, 1}}, {{2, 2, 2, 2}, {2, 2, 2, 2}, {0, 2, 2, 2}, {0, 2, 2, 2}}, {{3, 3, 0, 3}, {3, 3, 3, 0}, {3, 3, 3, 3}, {0, 3, 0, 0}}, {{1, 2, 3, 4}, {1, 2, 3, 4}, {1, 2, 3, 4}, {4, 4, 4, 4}}}
+    int n = 4
+    int P[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+    int m = 2
+    int d = 10
+    int q = 101
+    stack r
+    call rabinkarp3(T, n, P, m, d, q, r)
+
+```
+
+The output is correct but the required algorithm is not used:
+The output is correct, but the required Rabin-Karp algorithm is not used: the procedure must compute a modular polynomial rolling hash (multiply by the radix d and reduce modulo the prime q), not a naive character-by-character comparison. Use BOTH d and q: hash the pattern and the first window, update the hash incrementally as the window slides (each step taking the result modulo q), and only confirm a candidate by direct comparison when the hashes are equal. Uncompute the hashes so the result stays reversible.
+
+Please fix the procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r).
+Reminder: Implement the reversible 3D Rabin-Karp pattern matching algorithm. Given an n-by-n-by-n text cube T (int T[][][]) and an m-by-m-by-m pattern cube P (int P[][][]), find every corner position (s1,s2,s3) with 0 <= s1,s2,s3 <= n-m where the m-by-m-by-m subcube of T anchored at (s1,s2,s3) equals P, and push the matches onto the stack r. Use a three-level modular rolling hash with radix d and prime modulus q, confirming each hash match by a direct reversible comparison. T, n, P, m, d and q must be unchanged; r starts empty. Uncompute all intermediate hashes and temporaries so no garbage remains (fully reversible). Signature: procedure rabinkarp3(int T[][][], int n, int P[][][], int m, int d, int q, stack r). Assume q is prime and gcd(d,q)=1.  You MUST implement this with the modular polynomial rolling hash described above: multiply by the radix d, reduce modulo the prime q, and update the hash incrementally as the window slides, confirming a match by direct comparison only when the hashes agree, and uncompute the hashes. A naive character-by-character comparison that does not compute the hash is NOT accepted, even if it produces the correct match positions.  For efficiency and clean reversibility, prefer a FORWARD-ONLY design: store the window hashes in an array and fill it with forward rolling updates, writing each new hash into a fresh zero array cell so every step is a single reversible '+=' (no per-step uncompute), and clean up at the end by re-subtracting the same forward expression (the earlier hashes are still available, so you do NOT need a modular inverse of d). Avoid recomputing each window hash from scratch and avoid computing a modular inverse. 
+
+Output rules:
+- Output ONLY the Janus procedure definition(s), starting with 'procedure'.
+- Do NOT include main() or any global variable declarations.
+- Do NOT include any explanations outside the code.
+- Do NOT add any comments.
+- Single-line comments start with //; multi-line comments start with /* and end with */.

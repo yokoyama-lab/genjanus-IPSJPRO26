@@ -1,0 +1,140 @@
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int nw = n - m + 1
+    local int Hp[m]
+    local int W[m + 1]
+    local int PH[m + 1]
+    local int H[nw]
+
+    Hp[0] += 1
+    if m > 1 then
+        local int i = 1
+        from i = 1 do
+            local int t = (Hp[i - 1] * d) % q
+                Hp[i] += t
+            delocal int t = Hp[i]
+            i += 1
+        loop skip
+        until i = m
+        delocal int i = m
+    else skip
+    fi m > 1
+
+    local int j = 0
+    from j = 0 do
+        local int t = ((W[j] * d) + T[j]) % q
+            W[j + 1] += t
+        delocal int t = W[j + 1]
+        j += 1
+    loop skip
+    until j = m
+    delocal int j = m
+
+    local int j = 0
+    from j = 0 do
+        local int t = ((PH[j] * d) + P[j]) % q
+            PH[j + 1] += t
+        delocal int t = PH[j + 1]
+        j += 1
+    loop skip
+    until j = m
+    delocal int j = m
+
+    H[0] += W[m]
+
+    if nw > 1 then
+        local int s = 0
+        from s = 0 do
+            local int t = (((H[s] + (q * q)) - ((T[s] % q) * Hp[m - 1])) * d + T[s + m]) % q
+                H[s + 1] += t
+            delocal int t = H[s + 1]
+            s += 1
+        loop skip
+        until s = nw - 1
+        delocal int s = nw - 1
+    else skip
+    fi nw > 1
+
+    local int s = 0
+    from s = 0 do
+        if H[s] = PH[m] then
+            local int c = 0, int k = 0
+                from k = 0 do
+                    c += (T[s + k] = P[k])
+                    k += 1
+                loop skip
+                until k = m
+                if c = m then
+                    local int sc = 0
+                        sc += s
+                        push(sc, r)
+                    delocal int sc = 0
+                else skip
+                fi c = m
+                from k = m do
+                    c -= (T[s + k - 1] = P[k - 1])
+                    k -= 1
+                loop skip
+                until k = 0
+            delocal int c = 0, int k = 0
+        else skip
+        fi H[s] = PH[m]
+        s += 1
+    loop skip
+    until s = nw
+    delocal int s = nw
+
+    if nw > 1 then
+        local int s = nw - 1
+        from s = nw - 1 do
+            local int t = (((H[s - 1] + (q * q)) - ((T[s - 1] % q) * Hp[m - 1])) * d + T[s - 1 + m]) % q
+                H[s] -= t
+            delocal int t = (((H[s - 1] + (q * q)) - ((T[s - 1] % q) * Hp[m - 1])) * d + T[s - 1 + m]) % q
+            s -= 1
+        loop skip
+        until s = 0
+        delocal int s = 0
+    else skip
+    fi nw > 1
+
+    H[0] -= W[m]
+
+    local int j = m
+    from j = m do
+        local int t = ((PH[j - 1] * d) + P[j - 1]) % q
+            PH[j] -= t
+        delocal int t = ((PH[j - 1] * d) + P[j - 1]) % q
+        j -= 1
+    loop skip
+    until j = 0
+    delocal int j = 0
+
+    local int j = m
+    from j = m do
+        local int t = ((W[j - 1] * d) + T[j - 1]) % q
+            W[j] -= t
+        delocal int t = ((W[j - 1] * d) + T[j - 1]) % q
+        j -= 1
+    loop skip
+    until j = 0
+    delocal int j = 0
+
+    if m > 1 then
+        local int i = m - 1
+        from i = m - 1 do
+            local int t = (Hp[i - 1] * d) % q
+                Hp[i] -= t
+            delocal int t = (Hp[i - 1] * d) % q
+            i -= 1
+        loop skip
+        until i = 0
+        delocal int i = 0
+    else skip
+    fi m > 1
+
+    Hp[0] -= 1
+
+    delocal int H[nw]
+    delocal int PH[m + 1]
+    delocal int W[m + 1]
+    delocal int Hp[m]
+    delocal int nw = n - m + 1

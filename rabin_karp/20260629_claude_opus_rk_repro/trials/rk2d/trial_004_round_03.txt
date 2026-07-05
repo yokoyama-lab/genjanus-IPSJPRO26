@@ -1,0 +1,109 @@
+procedure buildpf(int V[][], int row, int c0, int m, int d, int q, int pf[])
+  pf[0] += V[row][c0] % q
+  local int j = 1
+  from j = 1 do
+    pf[j] += (pf[j - 1] * d + V[row][c0 + j]) % q
+  loop
+    j += 1
+  until j = m - 1
+  delocal int j = m - 1
+
+procedure modrowhash(int V[][], int row, int c0, int m, int d, int q, int out)
+  local int pf[m]
+  call buildpf(V, row, c0, m, d, q, pf)
+  out += pf[m - 1]
+  uncall buildpf(V, row, c0, m, d, q, pf)
+  delocal int pf[m]
+
+procedure fillrh(int V[][], int r0, int c0, int m, int d, int q, int rh[])
+  local int i = 0
+  from i = 0 do
+    local int t = 0
+    call modrowhash(V, r0 + i, c0, m, d, q, t)
+    rh[i] += t
+    uncall modrowhash(V, r0 + i, c0, m, d, q, t)
+    delocal int t = 0
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure buildcomb(int src[], int m, int d, int q, int qf[])
+  qf[0] += src[0] % q
+  local int k = 1
+  from k = 1 do
+    qf[k] += (qf[k - 1] * d + src[k]) % q
+  loop
+    k += 1
+  until k = m - 1
+  delocal int k = m - 1
+
+procedure modblockhash(int V[][], int r0, int c0, int m, int d, int q, int out)
+  local int rh[m]
+  call fillrh(V, r0, c0, m, d, q, rh)
+  local int qf[m]
+  call buildcomb(rh, m, d, q, qf)
+  out += qf[m - 1]
+  uncall buildcomb(rh, m, d, q, qf)
+  delocal int qf[m]
+  uncall fillrh(V, r0, c0, m, d, q, rh)
+  delocal int rh[m]
+
+procedure diffcount(int T[][], int s1, int s2, int P[][], int m, int cnt)
+  local int i = 0
+  from i = 0 do
+    local int j = 0
+    from j = 0 do
+      if T[s1 + i][s2 + j] != P[i][j] then
+        cnt += 1
+      else
+        skip
+      fi T[s1 + i][s2 + j] != P[i][j]
+    loop
+      j += 1
+    until j = m - 1
+    delocal int j = m - 1
+  loop
+    i += 1
+  until i = m - 1
+  delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+  local int PH = 0
+  call modblockhash(P, 0, 0, m, d, q, PH)
+  local int s2 = 0
+  from s2 = 0 do
+    local int s1 = 0
+    from s1 = 0 do
+      local int H = 0
+      call modblockhash(T, s1, s2, m, d, q, H)
+      if H = PH then
+        local int cnt = 0
+        call diffcount(T, s1, s2, P, m, cnt)
+        if cnt = 0 then
+          local int a = s1
+          push(a, r)
+          delocal int a = 0
+          local int b = s2
+          push(b, r)
+          delocal int b = 0
+        else
+          skip
+        fi cnt = 0
+        uncall diffcount(T, s1, s2, P, m, cnt)
+        delocal int cnt = 0
+      else
+        skip
+      fi H = PH
+      uncall modblockhash(T, s1, s2, m, d, q, H)
+      delocal int H = 0
+    loop
+      s1 += 1
+    until s1 = n - m
+    delocal int s1 = n - m
+  loop
+    s2 += 1
+  until s2 = n - m
+  delocal int s2 = n - m
+  uncall modblockhash(P, 0, 0, m, d, q, PH)
+  delocal int PH = 0

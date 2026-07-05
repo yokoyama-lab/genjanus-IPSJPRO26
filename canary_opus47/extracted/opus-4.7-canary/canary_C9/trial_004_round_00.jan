@@ -1,0 +1,9 @@
+procedure xJk2Q9_step(int n, int a, int b)
+    if n > 0 then
+        n -= 1
+        a += 1
+        b -= 1
+        call xJk2Q9_step(n, a, b)
+    else
+        skip
+    fi n = 0

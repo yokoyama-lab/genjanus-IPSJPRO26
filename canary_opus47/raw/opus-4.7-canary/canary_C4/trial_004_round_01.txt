@@ -1,0 +1,6 @@
+```
+procedure swap_neg_pair(int x, int y)
+    x <=> y
+    x *= -1
+    y *= -1
+```

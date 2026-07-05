@@ -1,0 +1,45 @@
+STATUS: RUNTIME_ERROR
+CASES: ['RUNTIME_ERROR', 'RUNTIME_ERROR']
+ERROR: PyJanus execution error
+  message: Array index `[2]' was out of bounds (array size was [2])
+  legacy: Error at line 9:
+            Array index `[2]' was out of bounds (array size was [2])
+            In statement:
+              h += A[bi + i][bj + j][bk + k]
+          
+            Where: A[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+                   bi = 0
+                   bj = 0
+                   bk = 0
+                   d = 10
+                   h = 220
+                   i = 0
+                   j = 0
+                   k = 2
+                   m = 2
+  location: /tmp/tmp7tahsp_a.jan:9:14
+  std: jana2014_in_out
+  direction: forward
+
+Source:
+     8 |         h *= d
+  >  9 |         h += A[bi+i][bj+j][bk+k]
+       |              ^
+    10 |       loop
+
+Context:
+  In statement:
+      h += A[bi + i][bj + j][bk + k]
+    where A[2][2][2] = {{{2, 2}, {2, 2}}, {{3, 3}, {3, 3}}}
+          bi = 0
+          bj = 0
+          bk = 0
+          d = 10
+          h = 220
+          i = 0
+          j = 0
+          k = 2
+          m = 2
+
+Fix hints:
+  - Check the array size and the expression used as the index at this location.

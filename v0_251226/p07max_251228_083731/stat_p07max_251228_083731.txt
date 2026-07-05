@@ -1,0 +1,68 @@
+=== Janus 構文検証 詳細結果 ===
+
+総ファイル数: 48
+  ✅ 成功: 26
+  ⚠️ 構文エラー: 13
+  ❌ 実行エラー: 9
+
+✅ 成功したファイル（正しい出力） (22件)
+------------------------------------------------------------
+  p07max/p07max_out002_gpt5-nano_251228_022614.janus
+  p07max/p07max_out003_gpt5-nano_251228_022614.janus
+  p07max/p07max_out006_gpt5-nano_251228_022614.janus
+  p07max/p07max_out007_gpt5-nano_251228_022614.janus
+  p07max/p07max_out008_gpt5-nano_251228_022614.janus
+  p07max/p07max_out010_gpt5-nano_251228_022614.janus
+  p07max/p07max_out013_gpt5-nano_251228_022614.janus
+  p07max/p07max_out021_gpt5-nano_251228_022614.janus
+  p07max/p07max_out022_gpt5-nano_251228_022614.janus
+  p07max/p07max_out024_gpt5-nano_251228_022614.janus
+  p07max/p07max_out025_gpt5-nano_251228_022614.janus
+  p07max/p07max_out028_gpt5-nano_251228_022614.janus
+  p07max/p07max_out031_gpt5-nano_251228_022614.janus
+  p07max/p07max_out032_gpt5-nano_251228_022614.janus
+  p07max/p07max_out033_gpt5-nano_251228_022614.janus
+  p07max/p07max_out034_gpt5-nano_251228_022614.janus
+  p07max/p07max_out035_gpt5-nano_251228_022614.janus
+  p07max/p07max_out037_gpt5-nano_251228_022614.janus
+  p07max/p07max_out039_gpt5-nano_251228_022614.janus
+  p07max/p07max_out041_gpt5-nano_251228_022614.janus
+  p07max/p07max_out045_gpt5-nano_251228_022614.janus
+  p07max/p07max_out046_gpt5-nano_251228_022614.janus
+
+❌ 成功したファイル（誤った出力） (4件)
+------------------------------------------------------------
+  p07max/p07max_out011_gpt5-nano_251228_022614.janus
+  p07max/p07max_out026_gpt5-nano_251228_022614.janus
+  p07max/p07max_out044_gpt5-nano_251228_022614.janus
+  p07max/p07max_out048_gpt5-nano_251228_022614.janus
+
+⚠️ 構文エラーのあったファイル (13件)
+------------------------------------------------------------
+  p07max/p07max_out001_gpt5-nano_251228_022614.janus
+  p07max/p07max_out004_gpt5-nano_251228_022614.janus
+  p07max/p07max_out005_gpt5-nano_251228_022614.janus
+  p07max/p07max_out014_gpt5-nano_251228_022614.janus
+  p07max/p07max_out015_gpt5-nano_251228_022614.janus
+  p07max/p07max_out016_gpt5-nano_251228_022614.janus
+  p07max/p07max_out023_gpt5-nano_251228_022614.janus
+  p07max/p07max_out029_gpt5-nano_251228_022614.janus
+  p07max/p07max_out030_gpt5-nano_251228_022614.janus
+  p07max/p07max_out036_gpt5-nano_251228_022614.janus
+  p07max/p07max_out040_gpt5-nano_251228_022614.janus
+  p07max/p07max_out042_gpt5-nano_251228_022614.janus
+  p07max/p07max_out043_gpt5-nano_251228_022614.janus
+
+❌ 実行エラーのあったファイル (9件)
+------------------------------------------------------------
+  p07max/p07max_out009_gpt5-nano_251228_022614.janus
+  p07max/p07max_out012_gpt5-nano_251228_022614.janus
+  p07max/p07max_out017_gpt5-nano_251228_022614.janus
+  p07max/p07max_out018_gpt5-nano_251228_022614.janus
+  p07max/p07max_out019_gpt5-nano_251228_022614.janus
+  p07max/p07max_out020_gpt5-nano_251228_022614.janus
+  p07max/p07max_out027_gpt5-nano_251228_022614.janus
+  p07max/p07max_out038_gpt5-nano_251228_022614.janus
+  p07max/p07max_out047_gpt5-nano_251228_022614.janus
+
+📄 CSV出力: p07max/jana_check_results_p07max_251228_083731_summary.csv

@@ -1,0 +1,170 @@
+procedure rowfull(int A[][], int row, int col, int m, int d, int h)
+   local int j = 0
+      from j = 0 do
+         h *= d
+         h += A[row][col + j]
+      loop
+         j += 1
+      until j = m - 1
+      delocal int j = m - 1
+
+procedure rhcombine(int RH[], int nm1, int s2, int s1, int m, int d, int g)
+   local int i = 0
+      from i = 0 do
+         g *= d
+         g += RH[(s1 + i) * nm1 + s2]
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure pcombine(int A[][], int m, int d, int q, int g)
+   local int i = 0
+      from i = 0 do
+         g *= d
+         local int h = 0
+            call rowfull(A, i, 0, m, d, h)
+            g += h % q
+            uncall rowfull(A, i, 0, m, d, h)
+         delocal int h = 0
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure buildRH(int A[][], int n, int nm1, int m, int d, int q, int RH[])
+   local int r = 0
+      from r = 0 do
+         local int c = 0
+            from c = 0 do
+               local int h = 0
+                  call rowfull(A, r, c, m, d, h)
+                  RH[r * nm1 + c] += h % q
+                  uncall rowfull(A, r, c, m, d, h)
+               delocal int h = 0
+            loop
+               c += 1
+            until c = nm1 - 1
+            delocal int c = nm1 - 1
+      loop
+         r += 1
+      until r = n - 1
+      delocal int r = n - 1
+
+procedure buildWH(int RH[], int nm1, int m, int d, int q, int WH[])
+   local int pw = 1
+      local int e = 0
+         from e = 0 do
+            skip
+         loop
+            pw *= d
+            e += 1
+         until e = m - 1
+         delocal int e = m - 1
+      local int s2 = 0
+         from s2 = 0 do
+            local int s1 = 0
+               from s1 = 0 do
+                  if s1 = 0 then
+                     local int g = 0
+                        call rhcombine(RH, nm1, s2, 0, m, d, g)
+                        WH[s1 * nm1 + s2] += g % q
+                        uncall rhcombine(RH, nm1, s2, 0, m, d, g)
+                     delocal int g = 0
+                  else
+                     local int prev = 0
+                        prev += WH[(s1 - 1) * nm1 + s2]
+                        WH[s1 * nm1 + s2] += (((prev - (RH[(s1 - 1) * nm1 + s2] * (pw % q)) % q + q) % q) * d + RH[(s1 - 1 + m) * nm1 + s2]) % q
+                        prev -= WH[(s1 - 1) * nm1 + s2]
+                     delocal int prev = 0
+                  fi s1 = 0
+               loop
+                  s1 += 1
+               until s1 = nm1 - 1
+               delocal int s1 = nm1 - 1
+         loop
+            s2 += 1
+         until s2 = nm1 - 1
+         delocal int s2 = nm1 - 1
+      local int e2 = 0
+         from e2 = 0 do
+            skip
+         loop
+            pw /= d
+            e2 += 1
+         until e2 = m - 1
+         delocal int e2 = m - 1
+   delocal int pw = 1
+
+procedure countmism(int T[][], int s1, int s2, int P[][], int m, int mism)
+   local int i = 0
+      from i = 0 do
+         local int j = 0
+            from j = 0 do
+               if T[s1 + i][s2 + j] != P[i][j] then
+                  mism += 1
+               else
+                  skip
+               fi T[s1 + i][s2 + j] != P[i][j]
+            loop
+               j += 1
+            until j = m - 1
+            delocal int j = m - 1
+      loop
+         i += 1
+      until i = m - 1
+      delocal int i = m - 1
+
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+   local int nm1 = n - m + 1
+      local int RH[n * nm1]
+         call buildRH(T, n, nm1, m, d, q, RH)
+         local int WH[nm1 * nm1]
+            call buildWH(RH, nm1, m, d, q, WH)
+            local int PHmod = 0
+               local int g = 0
+                  call pcombine(P, m, d, q, g)
+                  PHmod += g % q
+                  uncall pcombine(P, m, d, q, g)
+               delocal int g = 0
+               local int s2 = 0
+                  from s2 = 0 do
+                     local int s1 = 0
+                        from s1 = 0 do
+                           if WH[s1 * nm1 + s2] = PHmod then
+                              local int mism = 0
+                                 call countmism(T, s1, s2, P, m, mism)
+                                 if mism = 0 then
+                                    local int a = s1
+                                       push(a, r)
+                                    delocal int a = 0
+                                    local int b = s2
+                                       push(b, r)
+                                    delocal int b = 0
+                                 else
+                                    skip
+                                 fi mism = 0
+                                 uncall countmism(T, s1, s2, P, m, mism)
+                              delocal int mism = 0
+                           else
+                              skip
+                           fi WH[s1 * nm1 + s2] = PHmod
+                        loop
+                           s1 += 1
+                        until s1 = nm1 - 1
+                        delocal int s1 = nm1 - 1
+                  loop
+                     s2 += 1
+                  until s2 = nm1 - 1
+                  delocal int s2 = nm1 - 1
+               local int g = 0
+                  call pcombine(P, m, d, q, g)
+                  PHmod -= g % q
+                  uncall pcombine(P, m, d, q, g)
+               delocal int g = 0
+            delocal int PHmod = 0
+            uncall buildWH(RH, nm1, m, d, q, WH)
+         delocal int WH[nm1 * nm1]
+         uncall buildRH(T, n, nm1, m, d, q, RH)
+      delocal int RH[n * nm1]
+   delocal int nm1 = n - m + 1

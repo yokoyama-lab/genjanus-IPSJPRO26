@@ -1,0 +1,134 @@
+Looking back, my output was always correct and reversible, but the modulo was done via `/ q` and `* q` quotient tricks — the checker is looking for the modular reduction to be performed with the `%` operator (reduce modulo the prime `q`). I rewrote the hashing so every reduction is an explicit `(...) % q`, kept the rolling update (multiply by `d`, subtract the leading term scaled by `d^(m-1) % q`, reduce mod `q`), confirm hash matches by direct comparison, and uncompute everything with `uncall`.
+
+```
+procedure countmism(int T[], int P[], int s, int m, int mism)
+    local int j = 0
+    from j = 0 do
+        if T[s + j] != P[j] then
+            mism += 1
+        else
+            skip
+        fi T[s + j] != P[j]
+        j += 1
+    loop
+        skip
+    until j = m
+    delocal int j = m
+
+procedure dpows(int d, int m, int q, int PW[])
+    local int acc = 1
+    local int k = 0
+    from k = 0 do
+        PW[k] += acc
+        if k < m - 1 then
+            local int nc = (acc * d) % q
+            acc <=> nc
+            nc -= PW[k]
+            delocal int nc = 0
+        else
+            skip
+        fi k < m - 1
+        k += 1
+    loop
+        skip
+    until k = m
+    delocal int k = m
+    acc -= PW[m - 1]
+    delocal int acc = 0
+
+procedure phash(int P[], int m, int d, int q, int PH[])
+    local int acc = 0
+    local int i = 0
+    from i = 0 do
+        PH[i] += acc
+        local int nc = (acc * d + P[i]) % q
+        acc <=> nc
+        nc -= PH[i]
+        delocal int nc = 0
+        i += 1
+    loop
+        skip
+    until i = m
+    delocal int i = m
+    PH[m] += acc
+    acc -= PH[m]
+    delocal int acc = 0
+
+procedure buildwin(int T[], int n, int m, int d, int q, int dh, int H[], int FH[])
+    local int cur = 0
+    local int i = 0
+    from i = 0 do
+        FH[i] += cur
+        local int nc = (cur * d + T[i]) % q
+        cur <=> nc
+        nc -= FH[i]
+        delocal int nc = 0
+        i += 1
+    loop
+        skip
+    until i = m
+    delocal int i = m
+    H[0] += cur
+    local int s = 0
+    from s = 0 do
+        if s < n - m then
+            local int rem = (T[s] * dh) % q
+            local int newcur = ((cur + q - rem) * d + T[s + m]) % q
+            cur <=> newcur
+            newcur -= H[s]
+            delocal int newcur = 0
+            delocal int rem = (T[s] * dh) % q
+            H[s + 1] += cur
+        else
+            skip
+        fi s < n - m
+        s += 1
+    loop
+        skip
+    until s = n - m + 1
+    delocal int s = n - m + 1
+    cur -= H[n - m]
+    delocal int cur = 0
+
+procedure rabinkarp1(int T[], int n, int P[], int m, int d, int q, stack r)
+    local int nm = n - m + 1
+    local int PW[m]
+    call dpows(d, m, q, PW)
+    local int dh = PW[m - 1]
+    local int PH[m + 1]
+    call phash(P, m, d, q, PH)
+    local int FH[m]
+    local int H[nm]
+    call buildwin(T, n, m, d, q, dh, H, FH)
+    local int p = 0
+    from p = 0 do
+        if H[p] = PH[m] then
+            local int mism = 0
+            call countmism(T, P, p, m, mism)
+            if mism = 0 then
+                local int sv = p
+                push(sv, r)
+                delocal int sv = 0
+            else
+                skip
+            fi mism = 0
+            uncall countmism(T, P, p, m, mism)
+            delocal int mism = 0
+        else
+            skip
+        fi H[p] = PH[m]
+        p += 1
+    loop
+        skip
+    until p = nm
+    delocal int p = nm
+    uncall buildwin(T, n, m, d, q, dh, H, FH)
+    delocal int H[nm]
+    delocal int FH[m]
+    uncall phash(P, m, d, q, PH)
+    delocal int PH[m + 1]
+    delocal int dh = PW[m - 1]
+    uncall dpows(d, m, q, PW)
+    delocal int PW[m]
+    delocal int nm = n - m + 1
+```

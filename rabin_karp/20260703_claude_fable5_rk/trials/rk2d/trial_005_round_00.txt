@@ -1,0 +1,235 @@
+```
+procedure rabinkarp2(int T[][], int n, int P[][], int m, int d, int q, stack r)
+    local int L = n - m + 1
+    local int pw[m]
+    local int pch[(m + 1) * m]
+    local int pf[m + 1]
+    local int hc[(m + 1) * n]
+    local int ch[L * n]
+    local int wf[L * (m + 1)]
+    local int w[L * L]
+
+    pw[0] += 1
+    local int k = 1
+    from k = 1 do skip
+    loop
+        pw[k] += (pw[k - 1] * d) % q
+        k += 1
+    until k = m
+    delocal int k = m
+
+    local int j = 0
+    from j = 0 do skip
+    loop
+        local int i = 0
+        from i = 0 do skip
+        loop
+            pch[(i + 1) * m + j] += (pch[i * m + j] * d + P[i][j]) % q
+            i += 1
+        until i = m
+        delocal int i = m
+        j += 1
+    until j = m
+    delocal int j = m
+
+    local int k = 0
+    from k = 0 do skip
+    loop
+        pf[k + 1] += (pf[k] * d + pch[m * m + k]) % q
+        k += 1
+    until k = m
+    delocal int k = m
+
+    local int j = 0
+    from j = 0 do skip
+    loop
+        local int i = 0
+        from i = 0 do skip
+        loop
+            hc[(i + 1) * n + j] += (hc[i * n + j] * d + T[i][j]) % q
+            i += 1
+        until i = m
+        delocal int i = m
+        ch[j] += hc[m * n + j]
+        j += 1
+    until j = n
+    delocal int j = n
+
+    local int s1 = 1
+    from s1 = 1 do skip
+    loop
+        local int j = 0
+        from j = 0 do skip
+        loop
+            ch[s1 * n + j] += ((ch[(s1 - 1) * n + j] - (T[s1 - 1][j] * pw[m - 1]) % q + q) * d + T[s1 + m - 1][j]) % q
+            j += 1
+        until j = n
+        delocal int j = n
+        s1 += 1
+    until s1 = L
+    delocal int s1 = L
+
+    local int s1 = 0
+    from s1 = 0 do skip
+    loop
+        local int k = 0
+        from k = 0 do skip
+        loop
+            wf[s1 * (m + 1) + k + 1] += (wf[s1 * (m + 1) + k] * d + ch[s1 * n + k]) % q
+            k += 1
+        until k = m
+        delocal int k = m
+        w[s1 * L] += wf[s1 * (m + 1) + m]
+        local int s2 = 1
+        from s2 = 1 do skip
+        loop
+            w[s1 * L + s2] += ((w[s1 * L + s2 - 1] - (ch[s1 * n + s2 - 1] * pw[m - 1]) % q + q) * d + ch[s1 * n + s2 + m - 1]) % q
+            s2 += 1
+        until s2 = L
+        delocal int s2 = L
+        s1 += 1
+    until s1 = L
+    delocal int s1 = L
+
+    local int s2 = 0
+    from s2 = 0 do skip
+    loop
+        local int s1 = 0
+        from s1 = 0 do skip
+        loop
+            if w[s1 * L + s2] = pf[m] then
+                local int c = 0
+                local int i = 0
+                from i = 0 do skip
+                loop
+                    local int k = 0
+                    from k = 0 do skip
+                    loop
+                        if T[s1 + i][s2 + k] != P[i][k] then c += 1 else skip fi T[s1 + i][s2 + k] != P[i][k]
+                        k += 1
+                    until k = m
+                    delocal int k = m
+                    i += 1
+                until i = m
+                delocal int i = m
+                if c = 0 then
+                    local int v = s1
+                    push(v, r)
+                    delocal int v = 0
+                    local int u = s2
+                    push(u, r)
+                    delocal int u = 0
+                else skip fi c = 0
+                local int i = 0
+                from i = 0 do skip
+                loop
+                    local int k = 0
+                    from k = 0 do skip
+                    loop
+                        if T[s1 + i][s2 + k] != P[i][k] then c -= 1 else skip fi T[s1 + i][s2 + k] != P[i][k]
+                        k += 1
+                    until k = m
+                    delocal int k = m
+                    i += 1
+                until i = m
+                delocal int i = m
+                delocal int c = 0
+            else skip fi w[s1 * L + s2] = pf[m]
+            s1 += 1
+        until s1 = L
+        delocal int s1 = L
+        s2 += 1
+    until s2 = L
+    delocal int s2 = L
+
+    local int s1 = 0
+    from s1 = 0 do skip
+    loop
+        local int s2 = L
+        from s2 = L do skip
+        loop
+            s2 -= 1
+            w[s1 * L + s2] -= ((w[s1 * L + s2 - 1] - (ch[s1 * n + s2 - 1] * pw[m - 1]) % q + q) * d + ch[s1 * n + s2 + m - 1]) % q
+        until s2 = 1
+        delocal int s2 = 1
+        w[s1 * L] -= wf[s1 * (m + 1) + m]
+        local int k = m
+        from k = m do skip
+        loop
+            k -= 1
+            wf[s1 * (m + 1) + k + 1] -= (wf[s1 * (m + 1) + k] * d + ch[s1 * n + k]) % q
+        until k = 0
+        delocal int k = 0
+        s1 += 1
+    until s1 = L
+    delocal int s1 = L
+
+    local int s1 = L
+    from s1 = L do skip
+    loop
+        s1 -= 1
+        local int j = 0
+        from j = 0 do skip
+        loop
+            ch[s1 * n + j] -= ((ch[(s1 - 1) * n + j] - (T[s1 - 1][j] * pw[m - 1]) % q + q) * d + T[s1 + m - 1][j]) % q
+            j += 1
+        until j = n
+        delocal int j = n
+    until s1 = 1
+    delocal int s1 = 1
+
+    local int j = 0
+    from j = 0 do skip
+    loop
+        ch[j] -= hc[m * n + j]
+        local int i = m
+        from i = m do skip
+        loop
+            i -= 1
+            hc[(i + 1) * n + j] -= (hc[i * n + j] * d + T[i][j]) % q
+        until i = 0
+        delocal int i = 0
+        j += 1
+    until j = n
+    delocal int j = n
+
+    local int k = m
+    from k = m do skip
+    loop
+        k -= 1
+        pf[k + 1] -= (pf[k] * d + pch[m * m + k]) % q
+    until k = 0
+    delocal int k = 0
+
+    local int j = 0
+    from j = 0 do skip
+    loop
+        local int i = m
+        from i = m do skip
+        loop
+            i -= 1
+            pch[(i + 1) * m + j] -= (pch[i * m + j] * d + P[i][j]) % q
+        until i = 0
+        delocal int i = 0
+        j += 1
+    until j = m
+    delocal int j = m
+
+    local int k = m
+    from k = m do skip
+    loop
+        k -= 1
+        pw[k] -= (pw[k - 1] * d) % q
+    until k = 1
+    delocal int k = 1
+    pw[0] -= 1
+
+    delocal int w[L * L]
+    delocal int wf[L * (m + 1)]
+    delocal int ch[L * n]
+    delocal int hc[(m + 1) * n]
+    delocal int pf[m + 1]
+    delocal int pch[(m + 1) * m]
+    delocal int pw[m]
+    delocal int L = n - m + 1
+```

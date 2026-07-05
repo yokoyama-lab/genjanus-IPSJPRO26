@@ -1,0 +1,9 @@
+STATUS: SUCCESS
+RETURN_CODE: 0
+STDOUT:
+q_alpha = 5
+q_beta = 3
+
+STDERR:
+
+ERROR: 

@@ -51,7 +51,8 @@ def basic19_rate(model):
 
 # ---- Hard12 per-task clean/10 rate under the unified table89 convention (first-10 valid,
 #      deficit->timeout; gemini API-only). 2026-07-05 n=10化 (20260704_topup10h_* を含む)。
-#      Totals match Table tab:hard12 (115/111/94/95/68/45/43/32 per 120).
+#      Totals match Table tab:hard12 (115/111/94/95/68/39/43/31 per 120).
+#      2026-07-07 監査対応: 初回完走attempt優先で mini 45->39, Haiku 32->31 に訂正。
 #      Source: scripts/table7_hard12.py (CAP=10). Task order = D["hard_tasks"].
 HARD12_RATES = {
   "Opus 4.8/high":         [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5],
@@ -59,9 +60,9 @@ HARD12_RATES = {
   "GPT-5.4/low":           [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.5, 0.9, 0.0],
   "GPT-5.5/low":           [1.0, 0.8, 0.9, 1.0, 1.0, 0.7, 1.0, 0.2, 0.7, 1.0, 1.0, 0.2],
   "Gemini-3.1-flash-lite": [1.0, 0.3, 0.1, 1.0, 0.9, 0.1, 0.3, 0.9, 0.9, 0.2, 0.6, 0.5],
-  "GPT-5.4-mini/low":      [1.0, 0.4, 0.6, 0.9, 0.6, 0.0, 0.3, 0.2, 0.2, 0.0, 0.1, 0.2],
+  "GPT-5.4-mini/low":      [0.9, 0.4, 0.4, 0.8, 0.5, 0.0, 0.3, 0.2, 0.1, 0.0, 0.1, 0.2],
   "Gemini-2.5-flash":      [1.0, 0.3, 0.4, 0.8, 0.8, 0.0, 0.0, 0.0, 0.1, 0.1, 0.2, 0.6],
-  "Haiku 4.5":             [1.0, 0.2, 0.3, 0.3, 0.5, 0.0, 0.0, 0.2, 0.2, 0.2, 0.3, 0.0],
+  "Haiku 4.5":             [1.0, 0.2, 0.3, 0.3, 0.5, 0.0, 0.0, 0.1, 0.2, 0.2, 0.3, 0.0],
 }
 # ---- Extreme12 per-task clean rate via table89.model_tables (authoritative; topup pools).
 #      2026-07-04/05 n=10化 (first-10 valid; 20260704_topup10_* を含む。G3fp も 07-05 に n=10 到達)。
@@ -73,7 +74,7 @@ EXT12_RATES = {
   "GPT-5.4/low":           [0.7, 0.4, 0.8, 0.8, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.4, 0.0],
   "GPT-5.5/low":           [0.3, 1.0, 1.0, 0.4, 0.9, 0.7, 0.1, 0.7, 0.0, 0.1, 0.4, 0.0],
   "Gemini-3.1-flash-lite": [0.0, 0.5, 0.3, 0.0, 0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-  "GPT-5.4-mini/low":      [0.0, 0.4, 0.1, 0.1, 0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2],
+  "GPT-5.4-mini/low":      [0.0, 0.4, 0.1, 0.1, 0.2, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],  # bwt 2/10->0/10 (2026-07-07 監査: フィードバック逐次暗記を除外)
   # G2.5f: API runは全タスクGF, cli runも8/12タスクでGF全滅。有効試行が得られた4タスク(zeck21/cf8/bitrev7/bwt30, first-10で分母7〜10)のみ表示, クリーン成功は全て0。他はNaN=灰色(測定不能, 表6除外)
   "Gemini-2.5-flash":      [0.0, 0.0, 0.0, float("nan"), float("nan"), float("nan"), float("nan"), float("nan"), float("nan"), float("nan"), float("nan"), 0.0],
   "Haiku 4.5":             [0.0, 0.0, 0.3, 0.0, 0.1, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.0],
@@ -213,8 +214,8 @@ FT9 = {  # counts in category order: success, wrong, irreversible, runtime, synt
  "GPT-5.4/low":          [ 61,30,17, 6, 6, 0],
  "GPT-5.5/low":          [ 56,39,11, 9, 5, 0],
  "Gemini-3.1-flash-lite":[ 11,54,14,13,28, 0],
- "GPT-5.4-mini/low":     [ 11,42,23,17,27, 0],
- "Haiku 4.5":            [  5,37,19,12,47, 0],
+ "GPT-5.4-mini/low":     [  9,44,23,17,27, 0],  # 2026-07-07 監査訂正 (逐次暗記2件を wrong へ)
+ "Haiku 4.5":            [  5,37,20,11,47, 0],  # 2026-07-07 監査訂正 (初回attempt採用で分類1件移動)
 }
 def fig_failtypes():
     import matplotlib.patches as mpatches

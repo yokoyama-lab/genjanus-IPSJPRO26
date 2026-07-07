@@ -4,11 +4,37 @@ replicating fig/dump.py classify() + trial_outcomes() exactly, with
 denominator fixed at CAP per task (first-CAP backend-valid; deficits -> timeout).
 
 2026-07-04: CAP=10 (n=10化; 20260704_topup10_* run を追加)。CAP=5 で旧表(n=5)を再現可能。
-G3fp のみ有効試行が各タスク7のため MODEL_CAP で cap=7（分母84）。"""
+2026-07-05: G3fp も topup10 で n=10 化済み（cap 例外なし。MODEL_CAP は空）。
+2026-07-07 監査対応:
+  (1) trial_outcomes を「初回完走 attempt 優先」に変更。同一 (run_id, task, trial) に
+      複数の実行系列（attempt。resume/再実行で round が 0 に戻る）がある場合、
+      GENERATION_FAIL のみで終わった attempt（インフラ失敗）は読み飛ばし、
+      最初にモデルの結果（成功または失敗）まで完走した attempt を採用する。
+      これにより「失敗した試行のみを後日再実行し成功で上書き」する選択バイアスを排除。
+  (2) HARDCODED: self-refine の失敗フィードバック（落ちた隠しケースの入力と期待値を
+      1件ずつ開示）を逐次暗記し、テスト入力の丸ごと照合で出力を直書きした成功 10 件
+      （全て h2_bwt・codex 系・監査で新作隠しケース不合格を確認）を wrong に再分類。
+  BASE は環境変数 GENJANUS_BASE で上書き可能（第三者再現用）。"""
 import json, collections, os, math
 from collections import defaultdict
 
-BASE="/home/tetsuo/dev/github.com/tetsuo-jp/gen_janus"
+BASE=os.environ.get("GENJANUS_BASE", "/home/tetsuo/dev/github.com/tetsuo-jp/gen_janus")
+
+# 監査(2026-07-07)で確認したフィードバック逐次暗記によるハードコード成功。
+# (run_id, task, trial) -> モデルの正解ではないため wrong として扱う。
+# 公表セルに影響するのは GPT-5.4-mini h2_bwt の trial 8,9 のみ（2/10 -> 0/10）。
+HARDCODED={
+ ("20260613_codex_gpt-5.5_hard2","h2_bwt",16),
+ ("20260613_codex_gpt-5.5_hard2","h2_bwt",20),
+ ("20260613_codex_gpt-5.5_hard2","h2_bwt",21),
+ ("20260613_codex_gpt-5.5_hard2","h2_bwt",22),
+ ("20260618_codex_gpt-5.4_hard2","h2_bwt",17),
+ ("20260618_codex_gpt-5.4_hard2","h2_bwt",26),
+ ("20260618_codex_gpt-5.4-mini_hard2","h2_bwt",8),
+ ("20260618_codex_gpt-5.4-mini_hard2","h2_bwt",9),
+ ("20260618_codex_gpt-5.4-mini_hard2","h2_bwt",26),
+ ("20260618_codex_gpt-5.4-mini_hard2","h2_bwt",28),
+}
 EXT_TASKS=["h2_zeckendorf","h2_cf_expand","h2_bitrev","h2_modinv","h2_mtf","h2_oesort",
            "h2_heapify","h2_lehmer_rank","h2_perm_inverse","h2_kmp_failure","h2_hilbert","h2_bwt"]
 CAP=10
@@ -38,22 +64,44 @@ def classify(status, error):
     if status=="WRONG_OUTPUT" or "Assertion failed" in e or "Passed case" in e or "Expected s=" in e or "got s=" in e:
         return "wrong"
     return "runtime"
+def split_attempts(rows):
+    """timestamp 順の行列を attempt（round が 0 に戻るごとに新系列）へ分割する。"""
+    rows=sorted(rows, key=lambda r:(r.get("timestamp") or "", r.get("round",0)))
+    attempts=[]; cur=[]; prev=None
+    for r in rows:
+        rnd=r.get("round",0)
+        if cur and prev is not None and rnd<=prev:
+            attempts.append(cur); cur=[]
+        cur.append(r); prev=rnd
+    if cur: attempts.append(cur)
+    return attempts
 def trial_outcomes(entries):
     trials=defaultdict(list)
     for e in entries: trials[(e.get("run_id"), label(e), e.get("trial"))].append(e)
     out=[]
-    for (rid,lab,tr),rounds in trials.items():
-        rounds=sorted(rounds, key=lambda r:r.get("round",0))
-        task=rounds[0].get("task",lab); diff=rounds[0].get("difficulty",0)
+    for (rid,lab,tr),rows in trials.items():
+        task=rows[0].get("task",lab); diff=rows[0].get("difficulty",0)
+        # 初回完走 attempt 優先: インフラ失敗(全行 GENERATION_FAIL)の attempt は飛ばし、
+        # 最初にモデルの結果まで完走した attempt を採用（後日の再実行は無視）。
+        chosen=None
+        for att in split_attempts(rows):
+            if all(r.get("status")=="GENERATION_FAIL" for r in att): continue
+            chosen=att; break
+        if chosen is None:
+            out.append(dict(run_id=rid,trial=tr,label=lab,task=task,difficulty=diff,
+                            cat="backend",clean=False)); continue
+        rounds=sorted(chosen, key=lambda r:r.get("round",0))
         succ=next((r for r in rounds if r.get("status")=="SUCCESS"),None)
         if succ is not None:
-            cat="success"; clean=bool(succ.get("clean")); nround=succ.get("round",0)
+            cat="success"; clean=bool(succ.get("clean"))
         else:
             last=rounds[-1]
-            cat=classify(last.get("status"), last.get("error")); clean=False; nround=last.get("round",0)
+            cat=classify(last.get("status"), last.get("error")); clean=False
+        if (rid,task,tr) in HARDCODED:
+            cat="wrong"; clean=False  # フィードバック逐次暗記（docstring 参照）
         out.append(dict(run_id=rid,trial=tr,label=lab,task=task,difficulty=diff,cat=cat,clean=clean))
     return out
-# ---- end verbatim ----
+# ---- end (classify は fig/dump.py と同一、trial_outcomes は監査対応版) ----
 
 def firstN_valid_by_task(outs, task, cap):
     # order by (run_id, trial); valid = cat != backend ; take first cap

@@ -64,9 +64,22 @@ used to produce the reported results.
    有効試行・失敗として分母に算入**する。
 3. **試行数の均一化**：各（モデル, タスク）で (run_id, trial) 順の**先頭N有効試行**を採り，
    N本に満たない分はタイムアウト＝失敗として補填して分母を固定する。
-   N は Hard12 が 5（分母60＝5×12），Extreme12 が 10（分母120＝10×12。
-   2026-07-04 の n=10 化以降。Gemini-3-flash-preview のみ API クレジット制約により
-   7有効試行＝84），Basic19 が 10，self-refine 分析（図3）が 20 である。
+   N は Hard12 が 10（分母120＝10×12），Extreme12 が 10（分母120＝10×12。
+   いずれも 2026-07-04/05 の n=10 化以降。Gemini-3-flash-preview も topup で n=10 化済み），
+   Basic19 が 10，self-refine 分析（図3）が 20 である。
+3b. **初回完走 attempt 優先**（2026-07-07 監査対応）：同一 (run_id, task, trial) に複数の
+   実行系列（attempt）が記録されている場合，インフラ失敗（全行 GENERATION_FAIL）のみの
+   attempt は飛ばし，**最初にモデルの結果（成功・失敗）まで完走した attempt** を採用する。
+   後日の再実行は集計に用いない。20260612 の gpt-5.4-mini／haiku の Hard12 run に
+   「完走失敗した trial のみを 2026-07-02 に再実行し成功で上書き」した計7 trial があり，
+   any-success 集計では成功が水増しされるため（GPT-5.4-mini 45→39/120，Haiku 32→31/120
+   に訂正）。一次ログは改変せずすべて残している。
+3c. **フィードバック逐次暗記の除外**（2026-07-07 監査対応）：self-refine の失敗フィード
+   バックは落ちた隠しケースの入力・期待値を1件ずつ開示するため，ラウンドを重ねると
+   全ケースを if 分岐で丸暗記した「成功」が可能になる。監査（参照実装＋新作隠しケース
+   での全 SUCCESS 再実行）で Extreme12 h2_bwt の codex 系 10 件を検出し，`table89.py` の
+   `HARDCODED` で誤出力として再分類した（公表セルへの影響は GPT-5.4-mini h2_bwt
+   2/10→0/10，マクロ 9.2%→7.5% のみ。Claude 系・Gemini 系に該当なし）。
 4. **タスク等加重（マクロ平均）**：Extreme12 の総合値はタスクごとの成功率の単純平均。
    本規約では全タスクの分母が揃うため成功数／総試行数と一致する。
    表8の95%信頼区間は Wilson 法による（試行はタスク内で相関するため目安）。
@@ -75,15 +88,15 @@ used to produce the reported results.
 
 | 論文の図表・節 | データ | 集計/生成スクリプト |
 |---|---|---|
-| 図2 上段 V0（19プロンプト×3モデル, n=100） | `v0_251226/`（stat_*.txt。2026-07 の topup 分を含む。集計 xlsx 同梱） | `scripts/make_figs.py`（V0 の採点は jana [kirkedal, mult_eq ブランチ, ID 1ac57e5]＋`analyze_jana_results_detailed2.py`） |
+| 図2 上段 V0（19プロンプト×3モデル, n=100） | `v0_251226/`（stat_*.txt。2026-07 の topup 分を含む。集計 xlsx 同梱） | `scripts/make_figs.py`（V0 の採点は jana [kirkedal, mult_eq ブランチ, ID 1ac57e5]＋`v0_251226/analyze_jana_results_detailed2.py`（同梱）） |
 | 図2 下段・図4 Basic19 ブロック（n=10） | `v2_basic19/`（モデル別プールは §4 参照） | `scripts/make_figs.py` の `BASIC19_N10` |
 | 図3 self-refine（GPT-5.4-mini, ラウンド別累積, n=20） | `v2_basic19/20260609_gpt-5.4-mini_low_paper19/`（先頭20試行） | `scripts/make_figs.py` `fig_selfrefine` |
 | 表7・図4 Hard12 ブロック（8モデル，X/120，n=10） | `v2_hard12/`（2026-07-05 に n=10 化。20260704_topup10h_{opus,g3fp,gpt54mini,g25f(+b),haiku}_hard12 を含む 16 run。Gemini 2 モデルは公式 API run＋topup） | `scripts/table7_hard12.py`（CAP=10。CAP=5 で旧 X/60 を再現） |
-| 表8・図5 失敗内訳・図4 Extreme12 ブロック（10モデル，n=10） | `v2_extreme12/`（2026-07-04/05 に n=10 化。20260704_topup10_{opus,fable5,sonnet5,g35flash,gpt54,g3fp}_hard2 を含む 21 run のプール。全モデル各タスク先頭10有効試行） | `scripts/table89.py`（CAP=10。タスク等加重・失敗内訳・Wilson CI を完全再現。CAP=5 で旧 n=5 表を再現） |
+| 表8・図5 失敗内訳・図4 Extreme12 ブロック（10モデル，n=10） | `v2_extreme12/`（2026-07-04/05 に n=10 化。20260704_topup10_{opus,fable5,sonnet5,g35flash,gpt54,g3fp}_hard2 を含む 20 run のプール。全モデル各タスク先頭10有効試行。**注**: `20260702_codex_gpt-5.4_extreme3fill` は特定3課題のみの補充予備 run のため集計プールに含めない。含めると GPT-5.4 は 61→67/120 と高くなる＝除外は保守的方向） | `scripts/table89.py`（CAP=10。タスク等加重・失敗内訳・Wilson CI を完全再現。CAP=5 で旧 n=5 表を再現） |
 | §4.3 V1（16タスク×100試行；完了1220=全成功・未完了380＝379がCLIタイムアウトで生成未到達＋1が誤出力(digit_sum trial31)） | `v1_260308/experiment_log.jsonl` | (task, trial) ごとに SUCCESS の有無を数える単純集計 |
 | §4.9 h3 予備調査（ntt / edit_distance / ackermann / suffix_array） | `h3_probe/`（Opus 4.8 = 20260702，Fable 5 = 20260703） | log.jsonl の per-task 単純集計（ntt の生成タイムアウト1件は失敗算入） |
 | §5.3 生成失敗パターン1〜3のコード例 | `v2_hard12/20260612_codex_gpt-5.4_hard12`（h_cantor_pair trial 24），`v2_hard12/20260612_claude_opus_hard12`（h_modexp trial 5 round 0/1） | 本文掲載コードと逐語一致 |
-| §5.5 Rabin–Karp（Opus 4.8 / Sonnet 4.6 / Fable 5） | `rabin_karp/`（hashgate＝設計調査，repro＝forward-only 各次元5試行，sonnet_rk_repro＝全試行生成不能，fable5_rk＝1D/2D 5/5・3D 4/4）＋`oracle/`（正準解）＋`rk1d_fable5.jan`（実行可能例） | 設計分類は classify_design.py（RK 実験一式に付属） |
+| §5.5 Rabin–Karp（Opus 4.8 / Sonnet 4.6 / Fable 5） | `rabin_karp/`（hashgate＝設計調査，repro＝forward-only 各次元5試行，sonnet_rk_repro＝全試行生成不能，fable5_rk＝1D/2D 5/5・3D 4/4）＋`oracle/`（正準解）＋`rk1d_fable5.jan`（実行可能例） | 設計分類は `rabin_karp/classify_design.py`（同梱） |
 | §6.7 カナリア実験（データ汚染の予備確認） | `canary_opus47/`（Opus 4.7×9課題：(a)識別子難読化 (b)新規合成・逆方向 (c)イディオム禁止。ログ＋raw/extracted/verified 一式＋課題定義抜粋） | log の status 集計＋raw 出力の逐語照合（汚染の明確な兆候なし） |
 
 ## 4. 各サブフォルダ
@@ -97,7 +110,7 @@ used to produce the reported results.
   Gemini-3-flash-preview = 20260609/0610b/0612＋API topup10；
   Gemini-3.1-flash-lite = 20260610b＋API topup10；Opus 4.8/high = 20260703_opus_high_basic19。
 - `v2_hard12/` — 表7の8モデル分（n=10 化の topup10h 5 run を含む 16 run）。Gemini 2 モデルは公式 API run（20260702）＋topup を採用し，gemini-cli 版 2 run は参考として収載（本文の「素朴集計12%」の根拠は `20260612_gemini_gemini-3-flash-preview_hard12`）。
-- `v2_extreme12/` — 表8・図5の10モデル分（n=10 化の topup10 6 run を含む 21 run）。
+- `v2_extreme12/` — 表8・図5の10モデル分（n=10 化の topup10 6 run を含む 21 run。うち集計プールは 20 run で，extreme3fill は予備＝§3 の注を参照）。
 - `h3_probe/` — Extreme12 を越える課題の予備調査（2 run）。
 - `rabin_karp/` — 可逆 Rabin–Karp 実験一式（4 run のログと生成 .jan，オラクル，実行可能例）。
 - `canary_opus47/` — §6.7 のカナリア実験一式（2026-03，Opus 4.7）。raw/ に生成原文を保存。
@@ -116,12 +129,13 @@ used to produce the reported results.
 mkdir -p shim/260612/runs shim/260607/runs
 for d in v2_extreme12/*/ v2_hard12/*/; do ln -s "$(pwd)/$d" shim/260612/runs/; done
 for d in v2_basic19/*/;               do ln -s "$(pwd)/$d" shim/260607/runs/; done
-sed -i 's|^BASE=.*|BASE="'"$(pwd)"'/shim"|' scripts/table89.py scripts/table7_hard12.py
-python3 scripts/table89.py        # 表8・図5の全数値を再現
-python3 scripts/table7_hard12.py  # 表7の全数値を再現
+GENJANUS_BASE="$(pwd)/shim" python3 scripts/table89.py        # 表8・図5の全数値を再現
+GENJANUS_BASE="$(pwd)/shim" python3 scripts/table7_hard12.py  # 表7の全数値を再現
 ```
 
-（2026-07-04 に第三者環境で上記手順により表7・表8・図5の論文値の完全再現を確認済み。）
+（2026-07-04 に第三者環境で表7・表8・図5の論文値の完全再現を確認済み。2026-07-07 の
+監査対応（§2 の 3b・3c）以降は，訂正後の値＝GPT-5.4-mini Hard12 39/120・Extreme12 9/120，
+Haiku Hard12 31/120 が出力される。他モデルの値は変わらない。）
 
 ## 6. 注意事項
 

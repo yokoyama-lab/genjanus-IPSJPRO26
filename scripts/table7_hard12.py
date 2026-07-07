@@ -3,7 +3,12 @@
 first-CAP backend-valid trials per task, deficit -> timeout(failure), X/(12*CAP) total.
 gemini models use API-only runs (matching the 表7 note). Also emits per-task
 clean/CAP for regenerating fig4 heatmap Hard12 block.
-2026-07-05: CAP=10 (20260704_topup10h_* を追加)。CAP=5 で旧表を再現可能。"""
+2026-07-05: CAP=10 (20260704_topup10h_* を追加)。CAP=5 で旧表を再現可能。
+2026-07-07 監査対応: trial_outcomes を「初回完走 attempt 優先」に変更（table89.py と同一規則）。
+  20260612 の gpt-5.4-mini／haiku run に「完走失敗した trial のみ 7/2 に再実行し成功で
+  上書き」する選択バイアス（計7 trial）があり、any-success 集計では成功が水増しされる。
+  初回完走優先により GPT-5.4-mini 45→39/120, Haiku 32→31/120 に訂正。
+  BASE は環境変数 GENJANUS_BASE で上書き可能。per-task JSON はカレントディレクトリに出力。"""
 import json, os, math
 from collections import defaultdict
 CAP=10
@@ -12,7 +17,7 @@ def wilson(x,n,z=1.96):
     c=(p+z*z/(2*n))/d
     h=z*math.sqrt(p*(1-p)/n+z*z/(4*n*n))/d
     return (max(0.0,c-h), min(1.0,c+h))
-BASE="/home/tetsuo/dev/github.com/tetsuo-jp/gen_janus"
+BASE=os.environ.get("GENJANUS_BASE", "/home/tetsuo/dev/github.com/tetsuo-jp/gen_janus")
 HARD_TASKS=["h_gray_encode","h_gray_decode","h_rotate_k","h_delta_encode","h_delta_decode",
             "h_bsort01","h_base3","h_cantor_pair","h_cantor_unpair","h_bingcd","h_merge_halves","h_modexp"]
 def load(path):
@@ -27,18 +32,36 @@ def runs(ps):
     out=[]
     for p in ps: out.extend(load(p))
     return out
+def split_attempts(rows):
+    """timestamp 順の行列を attempt（round が 0 に戻るごとに新系列）へ分割する。"""
+    rows=sorted(rows, key=lambda r:(r.get("timestamp") or "", r.get("round",0)))
+    attempts=[]; cur=[]; prev=None
+    for r in rows:
+        rnd=r.get("round",0)
+        if cur and prev is not None and rnd<=prev:
+            attempts.append(cur); cur=[]
+        cur.append(r); prev=rnd
+    if cur: attempts.append(cur)
+    return attempts
 def trial_outcomes(entries):
     trials=defaultdict(list)
     for e in entries: trials[(e.get("run_id"), label(e), e.get("trial"))].append(e)
     out=[]
-    for (rid,lab,tr),rounds in trials.items():
-        rounds=sorted(rounds, key=lambda r:r.get("round",0))
-        task=rounds[0].get("task",lab)
+    for (rid,lab,tr),rows in trials.items():
+        task=rows[0].get("task",lab)
+        # 初回完走 attempt 優先（docstring 参照）。インフラ失敗のみの attempt は飛ばす。
+        chosen=None
+        for att in split_attempts(rows):
+            if all(r.get("status")=="GENERATION_FAIL" for r in att): continue
+            chosen=att; break
+        if chosen is None:
+            out.append(dict(run_id=rid,trial=tr,task=task,cat="fail",clean=False,backend=True))
+            continue
+        rounds=sorted(chosen, key=lambda r:r.get("round",0))
         succ=next((r for r in rounds if r.get("status")=="SUCCESS"),None)
         if succ is not None: cat="success"; clean=bool(succ.get("clean"))
         else: cat="fail"; clean=False
-        out.append(dict(run_id=rid,trial=tr,task=task,cat=cat,clean=clean,
-                        backend=all(r.get("status")=="GENERATION_FAIL" for r in rounds)))
+        out.append(dict(run_id=rid,trial=tr,task=task,cat=cat,clean=clean,backend=False))
     return out
 def first5(outs, task):
     ts=[o for o in outs if o["task"]==task]
@@ -71,7 +94,8 @@ for m,ps in MODELS.items():
     n=12*CAP
     lo,hi=wilson(total,n)
     print(f"{m:24s} {total:5d}/{n}  {100*total/n:4.0f}%  CI[{lo*100:.0f},{hi*100:.0f}]  (n=5値:{CURRENT[m]}/60)  {short_tasks if short_tasks else 'all full'}")
-# emit per-task rates JSON for fig4
+# emit per-task rates JSON for fig4（第三者環境でも動くようカレントディレクトリへ）
 import json as J
-J.dump(rates_out, open("/tmp/claude-1000/hard12_rates_new.json","w"))
-print("\nper-task rates -> /tmp/claude-1000/hard12_rates_new.json")
+outp=os.environ.get("HARD12_RATES_OUT","hard12_rates_new.json")
+J.dump(rates_out, open(outp,"w"))
+print(f"\nper-task rates -> {outp}")

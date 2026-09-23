@@ -120,6 +120,7 @@ used to produce the reported results.
   - `make_figs.py` — 全図の生成（`BASIC19_N10` / `HARD12_RATES` / `EXT12_RATES` を内蔵）
   - `dump.py` / `agg_data.json` — 旧・図用集計（参考）
   - `classify_design_general.py` — 可逆化設計の分類器（`rabin_karp/classify_design.py` の全コーパス版。history / algebraic-inverse / recompute / direct）。結果と分布表は `analysis/design_space/`
+  - `analysis/v0_rescore/` — V0（表4，jana 採点）を PyJanus `--std jana2014` で再採点した結果と V0〜V2 の世代間比較表（採点スクリプトは V0 コーパスを持つ gen_janus 側で作成，追補予定）
 
 ## 5. 再現方法
 

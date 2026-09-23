@@ -6,11 +6,11 @@ V1・V2 と同じ検証器 PyJanus（`--std jana2014`）で再採点し，V0〜V
 
 - 結果（CSV）: `v0_rescore_by_prompt_model.csv`（§4 の表(d)），`cross_generation_table.csv`（§5 の表(e)）
 - 採点器: PyJanus commit `e0cd78ff0ace`（2026-07-17，yokoyama-lab/pyjanus main）
-- 注意: 1 ファイル 1 行の全件 CSV（8,325 プログラム × 2 std = 16,650 行）と採点・集計スクリプト
-  （`build_manifest.py` / `score.py` / `v2_agg.py` / `final_agg.py`）は，V0 の .janus コーパス本体を持つ
-  tetsuo-jp/gen_janus 上の別コンテナで作成した。本アーティファクト・リポジトリの `v0_251226/` には
-  `stat_*.txt`（jana の採点結果）しか収載していないため，ここでは集計表のみを収める。
-  スクリプトは受領次第，追補コミットで `analysis/v0_rescore/scripts/` に追加する。
+- スクリプト: `scripts/`（`build_manifest.py` / `score.py` / `v2_agg.py` / `final_agg.py`，§7 参照）
+- 注意: 採点・集計は，V0 の .janus コーパス本体を持つ tetsuo-jp/gen_janus 上の別コンテナで行った。
+  本アーティファクト・リポジトリの `v0_251226/` には `stat_*.txt`（jana の採点結果）しか収載していないため，
+  1 ファイル 1 行の全件 CSV（8,325 プログラム × 2 std = 16,650 行，`final_agg.py` が出力する
+  `v0_pyjanus_rescore.csv`）はここには含めず，集計表（上記 2 CSV）とスクリプトのみを収める。
 
 ## 1. 対象コーパスの棚卸し
 
@@ -206,8 +206,17 @@ V1 の難課題で分母が極端に小さいのは，1,600 試行のうち 1,34
 
 ## 7. 再現手順
 
-V0 の .janus コーパス（tetsuo-jp/gen_janus の `251226/`）と PyJanus のチェックアウトを前提とする。
-スクリプト本体は追補コミットで `scripts/` に追加予定（§冒頭の注意を参照）。
+スクリプトは `scripts/` にある。前提となる配置は次のとおり（パスはスクリプト内にハードコードされている）:
+
+- gen_janus のチェックアウト（V0 コーパス `251226/`，`paper260703_evidence/`，V2 の `260607/runs/`）が `/home/claude/gen_janus`
+- PyJanus のチェックアウトが `/home/claude/pyjanus`（`score.py` が `PYTHONPATH` に設定）
+- 作業ディレクトリ S: `final_agg.py` 冒頭の `S=` にハードコードされたパスを自分の作業ディレクトリに書き換える。
+  `final_agg.py` は S から `manifest.csv`，`scores_raw.csv`，`v2_basic19_agg.json` を読み，
+  `OUT`（既定 `/home/claude`）に `v0_pyjanus_rescore.csv`・`v0_rescore_by_prompt_model.csv`・`cross_generation_table.csv` を書く。
+
+実行順序: (1) `build_manifest.py > manifest.csv`；(2) `jobs.txt`（各行 `<file> <std>`）を作り
+`xargs -P 8 -L 1 python3 score.py < jobs.txt > scores_raw.csv`；(3) `v2_agg.py v2_basic19_agg.csv`
+（cwd = gen_janus。同名の `.json` も出力）；(4) `final_agg.py`。
 
 ```
 GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 https://github.com/yokoyama-lab/pyjanus /home/claude/pyjanus   # e0cd78f

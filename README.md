@@ -119,6 +119,7 @@ used to produce the reported results.
   - `table7_hard12.py` — 表7の集計（table89 と同一規約）
   - `make_figs.py` — 全図の生成（`BASIC19_N10` / `HARD12_RATES` / `EXT12_RATES` を内蔵）
   - `dump.py` / `agg_data.json` — 旧・図用集計（参考）
+  - `classify_design_general.py` — 可逆化設計の分類器（`rabin_karp/classify_design.py` の全コーパス版。history / algebraic-inverse / recompute / direct）。結果と分布表は `analysis/design_space/`
 
 ## 5. 再現方法
 

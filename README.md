@@ -144,6 +144,8 @@ V0の日付はrun名由来であり、試行別の実行時刻までは確定で
   - `table7_hard12.py` — 表7の集計（table89 と同一規約）
   - `make_figs.py` — 全図の生成（`BASIC19_N10` / `HARD12_RATES` / `EXT12_RATES` を内蔵）
   - `dump.py` / `agg_data.json` — 旧・図用集計（参考）
+  - `classify_design_general.py` — 可逆化設計の分類器（`rabin_karp/classify_design.py` の全コーパス版。history / algebraic-inverse / recompute / direct）。結果と分布表は `analysis/design_space/`
+  - `analysis/v0_rescore/` — V0（表4，jana 採点）を PyJanus `--std jana2014` で再採点した結果と V0〜V2 の世代間比較表（採点・集計スクリプトは `analysis/v0_rescore/scripts/`；V0 コーパスを持つ gen_janus 側で実行）
 
 ## 5. 再現方法
 

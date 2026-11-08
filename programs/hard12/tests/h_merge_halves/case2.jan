@@ -1,0 +1,49 @@
+procedure mergeh(int a[], int b[], int m, int n, int trace)
+    local int i = 0, int j = m, int k = 0
+        from k = 0 do
+            local int s = 0
+                if i = m then
+                    s += 1
+                else
+                    if j < m + n then
+                        if a[i] > a[j] then
+                            s += 1
+                        else
+                            skip
+                        fi s = 1
+                    else
+                        skip
+                    fi j < m + n
+                fi i = m
+                if s = 0 then
+                    b[k] += a[i]
+                    a[i] -= b[k]
+                    i += 1
+                    trace *= 2
+                else
+                    b[k] += a[j]
+                    a[j] -= b[k]
+                    j += 1
+                    trace *= 2
+                    trace += 1
+                fi s = 0
+            delocal int s = trace % 2
+            k += 1
+        loop
+            skip
+        until k = m + n
+    delocal int i = m, int j = m + n, int k = m + n
+
+
+procedure main()
+    int a[3]
+    int b[3]
+    int m
+    int n
+    int trace
+    a[0] += 4
+    a[1] += 9
+    a[2] += 5
+    m += 2
+    n += 1
+    call mergeh(a, b, m, n, trace)

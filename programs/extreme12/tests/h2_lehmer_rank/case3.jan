@@ -1,0 +1,65 @@
+procedure factorial(int f, int m)
+if m > 0 then
+  local int i = 1
+    from i = 1 do
+      f *= i
+    loop
+      i += 1
+    until i = m
+  delocal int i = m
+else
+  skip
+fi m > 0
+
+procedure rank(int p[], int n, int r)
+if n > 0 then
+  local int i = 0
+    from i = 0 do
+      if i < n - 1 then
+        local int j = i + 1
+          from j = i + 1 do
+            if p[j] > p[i] then
+              p[j] -= 1
+            else
+              skip
+            fi p[j] >= p[i]
+          loop
+            j += 1
+          until j = n - 1
+        delocal int j = n - 1
+      else
+        skip
+      fi i < n - 1
+      local int m = n
+        m -= 1
+        m -= i
+        local int f = 1
+          call factorial(f, m)
+          local int d = 0
+            d <=> p[i]
+            r += d * f
+            d -= (r / f) % (m + 1)
+          delocal int d = 0
+          uncall factorial(f, m)
+        delocal int f = 1
+        m += i
+        m += 1
+      delocal int m = n
+    loop
+      i += 1
+    until i = n - 1
+  delocal int i = n - 1
+else
+  skip
+fi n > 0
+
+
+procedure main()
+    int p[4]
+    int n
+    int r
+    p[0] += 1
+    p[1] += 3
+    p[3] += 2
+    n += 4
+    call rank(p, n, r)

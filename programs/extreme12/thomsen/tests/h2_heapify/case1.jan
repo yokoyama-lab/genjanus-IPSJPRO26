@@ -1,0 +1,100 @@
+procedure siftdown(int a[], int n, int steps[], int i, int trace)
+  local int j = i
+    local int go = 1
+      from j = i
+      do
+        local int cb = 0
+          if (2 * j + 2) < n then
+            if a[2 * j + 2] > a[2 * j + 1] then
+              cb += 1
+            else
+              skip
+            fi a[2 * j + 2] > a[2 * j + 1]
+          else
+            skip
+          fi (2 * j + 2) < n
+          local int sb = 0
+            if a[((2 * j) + 1) + cb] > a[j] then
+              sb += 1
+            else
+              skip
+            fi a[((2 * j) + 1) + cb] > a[j]
+            trace *= 4
+            trace += (cb * 2) + sb
+            steps[i] += 1
+            if sb = 1 then
+              a[((2 * j) + 1) + cb] <=> a[j]
+              local int nj = ((2 * j) + 1) + cb
+                j <=> nj
+              delocal int nj = ((j - 1) - cb) / 2
+            else
+              go -= 1
+            fi sb = 1
+          delocal int sb = trace % 2
+        delocal int cb = (trace / 2) % 2
+      loop
+        skip
+      until (go = 0) || (((2 * j) + 1) >= n)
+    if ((2 * j) + 1) >= n then
+      go -= 1
+    else
+      skip
+    fi ((2 * j) + 1) >= n
+    delocal int go = 0
+    local int p = 1
+      local int c = 0
+        from c = 0
+        do
+          local int r = (trace / p) % 4
+            if (r % 2) = 1 then
+              local int oj = ((j - 1) - (r / 2)) / 2
+                j <=> oj
+              delocal int oj = ((2 * j) + 1) + (r / 2)
+            else
+              skip
+            fi (r % 2) = 1
+          delocal int r = (trace / p) % 4
+          c += 1
+        loop
+          p *= 4
+        until c = steps[i]
+      delocal int c = steps[i]
+      if steps[i] > 1 then
+        local int c3 = 0
+          from c3 = 0
+          do
+            p /= 4
+            c3 += 1
+          loop
+            skip
+          until c3 = (steps[i] - 1)
+        delocal int c3 = steps[i] - 1
+      else
+        skip
+      fi steps[i] > 1
+    delocal int p = 1
+  delocal int j = i
+
+procedure heapify(int a[], int n, int steps[], int trace)
+  if ((n / 2) - 1) >= 0 then
+    local int i = (n / 2) - 1
+    from i = ((n / 2) - 1)
+    do
+      call siftdown(a, n, steps, i, trace)
+    loop
+      i -= 1
+    until i <= 0
+    delocal int i = 0
+  else
+    skip
+  fi ((n / 2) - 1) >= 0
+
+procedure main()
+    int a[2]
+    int n
+    int steps[1]
+    int trace
+    a[0] += 1
+    a[1] += 2
+    n += 2
+    call heapify(a, n, steps, trace)

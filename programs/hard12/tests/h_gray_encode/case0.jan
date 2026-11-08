@@ -1,0 +1,10 @@
+procedure gray(int n, int g)
+    g ^= n
+    g ^= n / 2
+
+
+procedure main()
+    int n
+    int g
+    n += 13
+    call gray(n, g)

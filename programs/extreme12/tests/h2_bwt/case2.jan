@@ -1,0 +1,119 @@
+procedure rotkey(int s[], int n, int off, int base, int key)
+local int p = 0
+from p = 0 do
+  local int ap = 0
+    ap += off
+    ap += p
+    if ap >= n then
+      ap -= n
+    else
+      skip
+    fi off + p >= n
+    key *= base
+    key += s[ap] % base
+  delocal int ap = (off + p) % n
+  p += 1
+loop
+  skip
+until p = n
+delocal int p = n
+
+procedure bwt(int s[], int n, int idx)
+local int base = 1000003, int r = 0
+from r = 0 do
+  local int rank = 0, int q = 0
+  from q = 0 do
+    local int keyq = 0, int keyr = 0
+      call rotkey(s, n, q, base, keyq)
+      call rotkey(s, n, r, base, keyr)
+      if keyq < keyr then
+        rank += 1
+      else
+        skip
+      fi keyq < keyr
+      if keyq = keyr then
+        if q < r then
+          rank += 1
+        else
+          skip
+        fi q < r
+      else
+        skip
+      fi keyq = keyr
+      uncall rotkey(s, n, r, base, keyr)
+      uncall rotkey(s, n, q, base, keyq)
+    delocal int keyq = 0, int keyr = 0
+    q += 1
+  loop
+    skip
+  until q = n
+  local int lp = 0, int ch = 0
+    lp += r
+    lp += n
+    lp -= 1
+    if lp >= n then
+      lp -= n
+    else
+      skip
+    fi r != 0
+    ch += s[lp] % base
+    s[rank] += ch * base
+  delocal int lp = (r + n - 1) % n, int ch = s[lp] % base
+  if r = 0 then
+    idx += rank
+  else
+    skip
+  fi r = 0
+  from q = n do
+    q -= 1
+    local int keyq = 0, int keyr = 0
+      call rotkey(s, n, q, base, keyq)
+      call rotkey(s, n, r, base, keyr)
+      if keyq < keyr then
+        rank -= 1
+      else
+        skip
+      fi keyq < keyr
+      if keyq = keyr then
+        if q < r then
+          rank -= 1
+        else
+          skip
+        fi q < r
+      else
+        skip
+      fi keyq = keyr
+      uncall rotkey(s, n, r, base, keyr)
+      uncall rotkey(s, n, q, base, keyq)
+    delocal int keyq = 0, int keyr = 0
+  loop
+    skip
+  until q = 0
+  delocal int rank = 0, int q = 0
+  r += 1
+loop
+  skip
+until r = n
+local int i = 0
+from i = 0 do
+  local int lo = 0
+    lo += s[i] % base
+    s[i] -= lo
+  delocal int lo = lo
+  s[i] /= base
+  i += 1
+loop
+  skip
+until i = n
+delocal int i = n
+delocal int base = 1000003, int r = n
+
+
+procedure main()
+    int s[2]
+    int n
+    int idx
+    s[0] += 2
+    s[1] += 1
+    n += 2
+    call bwt(s, n, idx)

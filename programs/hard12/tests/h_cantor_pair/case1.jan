@@ -1,0 +1,21 @@
+procedure pair(int x, int y, int z)
+    from z = 0 do
+        skip
+    loop
+        if y > 0 then
+            x += 1
+            y -= 1
+        else
+            y += x
+            x -= y
+            y -= 1
+        fi x > 0
+        z += 1
+    until (x = 0) && (y = 0)
+
+
+procedure main()
+    int x
+    int y
+    int z
+    call pair(x, y, z)

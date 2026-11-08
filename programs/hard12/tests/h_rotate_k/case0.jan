@@ -1,0 +1,28 @@
+procedure reverse(int a[], int lo, int hi)
+  local int m = 0
+  from m = 0 do
+    skip
+  loop
+    a[lo + m] <=> a[hi - m]
+    m += 1
+  until m >= (hi - lo + 1) / 2
+  delocal int m = (hi - lo + 1) / 2
+
+procedure rotk(int a[], int n, int k)
+  call reverse(a, 0, k - 1)
+  call reverse(a, k, n - 1)
+  call reverse(a, 0, n - 1)
+
+
+procedure main()
+    int a[5]
+    int n
+    int k
+    a[0] += 1
+    a[1] += 2
+    a[2] += 3
+    a[3] += 4
+    a[4] += 5
+    n += 5
+    k += 2
+    call rotk(a, n, k)

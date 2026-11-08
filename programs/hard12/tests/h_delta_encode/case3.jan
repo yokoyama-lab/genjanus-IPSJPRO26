@@ -1,0 +1,25 @@
+procedure denc(int a[], int n)
+  local int i = n
+  from i = n do
+    i -= 1
+    if i >= 1 then
+      local int t = a[i-1]
+      a[i] -= t
+      delocal int t = a[i-1]
+    else
+      skip
+    fi i >= 1
+  loop
+    skip
+  until i = 0
+  delocal int i = 0
+
+
+procedure main()
+    int a[3]
+    int n
+    a[0] += 10
+    a[1] += 4
+    a[2] += 7
+    n += 3
+    call denc(a, n)

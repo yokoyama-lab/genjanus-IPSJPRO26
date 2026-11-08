@@ -1,0 +1,58 @@
+procedure pow2(int n, int k)
+local int c = 0
+from c = 0 do
+  n *= 2
+loop
+  c += 1
+until c = k - 1
+delocal int c = k - 1
+
+procedure revbits(int x, int y, int k)
+local int c = 0
+from c = 0 do
+  local int b = x % 2
+    x -= b
+    x /= 2
+    y *= 2
+    y += b
+  delocal int b = y % 2
+loop
+  c += 1
+until c = k - 1
+delocal int c = k - 1
+
+procedure brev(int a[], int k)
+local int n = 1
+  call pow2(n, k)
+  local int i = 0
+  from i = 0 do
+    local int x = i, int j = 0
+      call revbits(x, j, k)
+      if i < j then
+        a[i] <=> a[j]
+      else
+        skip
+      fi i < j
+      uncall revbits(x, j, k)
+    delocal int x = i, int j = 0
+  loop
+    i += 1
+  until i = n - 1
+  delocal int i = n - 1
+  uncall pow2(n, k)
+delocal int n = 1
+
+
+procedure main()
+    int a[8]
+    int k
+    a[0] += 10
+    a[1] += 11
+    a[2] += 12
+    a[3] += 13
+    a[4] += 14
+    a[5] += 15
+    a[6] += 16
+    a[7] += 17
+    k += 3
+    call brev(a, k)

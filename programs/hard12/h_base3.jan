@@ -1,0 +1,13 @@
+procedure base3(int n, int trits, int cnt)
+      if n > 0 then
+        local int d = n % 3
+          n -= d
+          n /= 3
+          call base3(n, trits, cnt)
+          trits *= 10
+          trits += d
+          cnt += 1
+        delocal int d = trits % 10
+      else
+        skip
+      fi cnt > 0

@@ -1,0 +1,19 @@
+procedure ddec(int a[], int n)
+  local int i = 1
+  from i = 1 do
+    skip
+  loop
+    local int t = a[i - 1]
+    a[i] += t
+    delocal int t = a[i - 1]
+    i += 1
+  until i = n
+  delocal int i = n
+
+
+procedure main()
+    int a[3]
+    int n
+    a[0] += 2
+    n += 3
+    call ddec(a, n)

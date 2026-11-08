@@ -1,0 +1,21 @@
+procedure unpair(int z, int x, int y)
+    local int c = 0
+    from c = 0 do
+        skip
+    loop
+        c += 1
+        z -= c
+    until z <= c
+    x += c
+    x -= z
+    y += z
+    z -= y
+    delocal int c = x + y
+
+
+procedure main()
+    int z
+    int x
+    int y
+    z += 10
+    call unpair(z, x, y)

@@ -1,0 +1,44 @@
+procedure csort(int a[], int n, int trace)
+  local int c = 0
+    local int i = n
+    from i = n do
+      i -= 1
+      trace *= 2
+      trace += a[i]
+      c += trace % 2
+      a[i] -= trace % 2
+    loop
+      skip
+    until i = 0
+    delocal int i = 0
+
+    local int j = n
+    from j = n do
+      j -= 1
+      if j >= n - c then
+        a[j] += 1
+      else
+        skip
+      fi j >= n - c
+    loop
+      skip
+    until j = 0
+    delocal int j = 0
+
+    local int k = n
+    from k = n do
+      k -= 1
+      c -= a[k]
+    loop
+      skip
+    until k = 0
+    delocal int k = 0
+  delocal int c = 0
+
+
+procedure main()
+    int a[2]
+    int n
+    int trace
+    n += 2
+    call csort(a, n, trace)

@@ -1,0 +1,17 @@
+procedure igray(int g, int n, int steps)
+  local int p = 1
+    from steps = 0 do
+      n ^= g / p
+    loop
+      p *= 2
+      steps += 1
+    until g / p = 0
+    local int c = 0
+      from c = 0 do
+        skip
+      loop
+        p /= 2
+        c += 1
+      until c = steps
+    delocal int c = steps
+  delocal int p = 1

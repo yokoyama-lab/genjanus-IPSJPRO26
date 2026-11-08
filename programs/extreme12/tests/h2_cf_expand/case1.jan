@@ -1,0 +1,19 @@
+procedure cf(int a, int b, int q[], int cnt)
+  from cnt = 0 do
+    q[cnt] += a / b
+    a -= q[cnt] * b
+    a <=> b
+    cnt += 1
+  loop
+    skip
+  until b = 0
+
+
+procedure main()
+    int a
+    int b
+    int q[4]
+    int cnt
+    a += 17
+    b += 5
+    call cf(a, b, q, cnt)

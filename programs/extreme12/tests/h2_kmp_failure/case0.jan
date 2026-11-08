@@ -1,0 +1,95 @@
+procedure kmpbad(int s[], int e, int c, int bad)
+if c > 0 then
+  local int j = 0
+    from j = 0 do
+      if s[j] != s[e - c + 1 + j] then
+        bad += 1
+      else
+        skip
+      fi s[j] != s[e - c + 1 + j]
+    loop
+      j += 1
+    until j = c - 1
+  delocal int j = c - 1
+else
+  skip
+fi c > 0
+
+procedure kmpstops(int s[], int p, int i, int l, int stop)
+if l < p then
+  local int b = l + 1
+    from b = l + 1 do
+      local int bad = 0
+        call kmpbad(s, i - 1, b, bad)
+        if bad = 0 && s[b] = s[i] then
+          stop += 1
+        else
+          skip
+        fi bad = 0 && s[b] = s[i]
+        uncall kmpbad(s, i - 1, b, bad)
+      delocal int bad = 0
+    loop
+      b += 1
+    until b = p
+  delocal int b = p
+else
+  skip
+fi l < p
+
+procedure kmpfail(int s[], int pi[], int n, int fb[])
+if n > 1 then
+  local int i = 1
+    from i = 1 do
+      local int c = i, int bad = 0
+        from c = i do
+          call kmpbad(s, i, c, bad)
+        loop
+          uncall kmpbad(s, i, c, bad)
+          c -= 1
+        until bad = 0
+        pi[i] += c
+        c -= pi[i]
+      delocal int c = 0, int bad = 0
+      if pi[i - 1] > 0 then
+        local int l = 1
+          from l = 1 do
+            local int bbad = 0, int stop = 0
+              call kmpbad(s, i - 1, l, bbad)
+              call kmpstops(s, pi[i - 1], i, l, stop)
+              if bbad = 0 && s[l] != s[i] && stop = 0 then
+                fb[i] += 1
+              else
+                skip
+              fi bbad = 0 && s[l] != s[i] && stop = 0
+              uncall kmpstops(s, pi[i - 1], i, l, stop)
+              uncall kmpbad(s, i - 1, l, bbad)
+            delocal int bbad = 0, int stop = 0
+          loop
+            l += 1
+          until l = pi[i - 1]
+        delocal int l = pi[i - 1]
+      else
+        skip
+      fi pi[i - 1] > 0
+    loop
+      i += 1
+    until i = n - 1
+  delocal int i = n - 1
+else
+  skip
+fi n > 1
+
+
+procedure main()
+    int s[6]
+    int pi[6]
+    int n
+    int fb[6]
+    s[0] += 1
+    s[1] += 2
+    s[2] += 1
+    s[3] += 2
+    s[4] += 1
+    s[5] += 3
+    n += 6
+    call kmpfail(s, pi, n, fb)

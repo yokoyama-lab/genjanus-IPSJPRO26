@@ -1,0 +1,2399 @@
+{
+ "h_base3": {
+  "difficulty": 6,
+  "proc_name": "base3",
+  "params": [
+   "int n",
+   "int trits",
+   "int cnt"
+  ],
+  "description": "Convert n to base 3, consuming n: trits (which starts at 0) must become the base-3 digits of n packed as a decimal number (the digit of weight 3^j is stored at decimal weight 10^j), and cnt (which starts at 0) must become the number of base-3 digits of n. After execution n must be 0. For example n = 11 = 1*9 + 0*3 + 2 gives trits = 102 and cnt = 3. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "n": 11,
+     "trits": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "trits": 102,
+     "cnt": 3
+    }
+   },
+   {
+    "inputs": {
+     "n": 1,
+     "trits": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "trits": 1,
+     "cnt": 1
+    }
+   },
+   {
+    "inputs": {
+     "n": 8,
+     "trits": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "trits": 22,
+     "cnt": 2
+    }
+   },
+   {
+    "inputs": {
+     "n": 27,
+     "trits": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "trits": 1000,
+     "cnt": 4
+    }
+   },
+   {
+    "inputs": {
+     "n": 5,
+     "trits": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "trits": 12,
+     "cnt": 2
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_bingcd": {
+  "difficulty": 8,
+  "proc_name": "bgcd",
+  "params": [
+   "int x",
+   "int y",
+   "int steps",
+   "int flags"
+  ],
+  "description": "Compute the greatest common divisor of x and y with the binary (Stein) algorithm, recording the branch taken at each step. Repeat while x != y: if x is even, halve x (branch digit 0); otherwise if y is even, halve y (branch digit 1); otherwise if x > y, subtract y from x (branch digit 2); otherwise subtract x from y (branch digit 3). Each iteration must update flags := flags*4 + digit and steps := steps + 1 (both start at 0). When the loop ends, x equals y equals gcd(x, y); finally subtract x from y, so that x = gcd(x, y) and y = 0. Assume x >= 1, y >= 1, and x and y are not both even.",
+  "test_cases": [
+   {
+    "inputs": {
+     "x": 12,
+     "y": 9,
+     "steps": 0,
+     "flags": 0
+    },
+    "expected": {
+     "x": 3,
+     "y": 0,
+     "steps": 4,
+     "flags": 13
+    }
+   },
+   {
+    "inputs": {
+     "x": 1,
+     "y": 1,
+     "steps": 0,
+     "flags": 0
+    },
+    "expected": {
+     "x": 1,
+     "y": 0,
+     "steps": 0,
+     "flags": 0
+    }
+   },
+   {
+    "inputs": {
+     "x": 5,
+     "y": 3,
+     "steps": 0,
+     "flags": 0
+    },
+    "expected": {
+     "x": 1,
+     "y": 0,
+     "steps": 4,
+     "flags": 141
+    }
+   },
+   {
+    "inputs": {
+     "x": 4,
+     "y": 7,
+     "steps": 0,
+     "flags": 0
+    },
+    "expected": {
+     "x": 1,
+     "y": 0,
+     "steps": 6,
+     "flags": 221
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_bsort01": {
+  "difficulty": 6,
+  "proc_name": "csort",
+  "params": [
+   "int a[]",
+   "int n",
+   "int trace"
+  ],
+  "description": "Sort the array a, which contains only 0s and 1s, into ascending order in place, and record the original contents in trace so that no information is lost: trace (which starts at 0) must become the sum of (original a[i]) * 2^i over all 0 <= i < n (the original bit pattern packed least-significant-bit first). n must remain unchanged. Assume the array has exactly n elements, each 0 or 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      1,
+      0,
+      1,
+      1,
+      0
+     ],
+     "n": 5,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      1,
+      1,
+      1
+     ],
+     "n": 5,
+     "trace": 13
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      0,
+      0
+     ],
+     "n": 2,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0
+     ],
+     "n": 2,
+     "trace": 0
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      1,
+      1
+     ],
+     "n": 3,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      1,
+      1,
+      1
+     ],
+     "n": 3,
+     "trace": 7
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0
+     ],
+     "n": 6,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      1
+     ],
+     "n": 6,
+     "trace": 18
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_cantor_pair": {
+  "difficulty": 7,
+  "proc_name": "pair",
+  "params": [
+   "int x",
+   "int y",
+   "int z"
+  ],
+  "description": "Encode the pair (x, y) into a single number with the Cantor pairing function: z must become (x+y)*(x+y+1)/2 + y. z starts at 0. After execution x and y must both be 0 (the pair is consumed into z; the pairing is a bijection, so no information is lost). Assume x >= 0 and y >= 0.",
+  "test_cases": [
+   {
+    "inputs": {
+     "x": 2,
+     "y": 3,
+     "z": 0
+    },
+    "expected": {
+     "x": 0,
+     "y": 0,
+     "z": 18
+    }
+   },
+   {
+    "inputs": {
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    "expected": {
+     "x": 0,
+     "y": 0,
+     "z": 0
+    }
+   },
+   {
+    "inputs": {
+     "x": 3,
+     "y": 2,
+     "z": 0
+    },
+    "expected": {
+     "x": 0,
+     "y": 0,
+     "z": 17
+    }
+   },
+   {
+    "inputs": {
+     "x": 0,
+     "y": 4,
+     "z": 0
+    },
+    "expected": {
+     "x": 0,
+     "y": 0,
+     "z": 14
+    }
+   },
+   {
+    "inputs": {
+     "x": 4,
+     "y": 0,
+     "z": 0
+    },
+    "expected": {
+     "x": 0,
+     "y": 0,
+     "z": 10
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_cantor_unpair": {
+  "difficulty": 8,
+  "proc_name": "unpair",
+  "params": [
+   "int z",
+   "int x",
+   "int y"
+  ],
+  "description": "Decode the Cantor pairing function: given z, recover the unique pair (x, y) such that (x+y)*(x+y+1)/2 + y = z. x and y start at 0. After execution z must be 0 (z is consumed into the pair). Assume z >= 0.",
+  "test_cases": [
+   {
+    "inputs": {
+     "z": 18,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "z": 0,
+     "x": 2,
+     "y": 3
+    }
+   },
+   {
+    "inputs": {
+     "z": 0,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "z": 0,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "inputs": {
+     "z": 10,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "z": 0,
+     "x": 4,
+     "y": 0
+    }
+   },
+   {
+    "inputs": {
+     "z": 14,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "z": 0,
+     "x": 0,
+     "y": 4
+    }
+   },
+   {
+    "inputs": {
+     "z": 17,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "z": 0,
+     "x": 3,
+     "y": 2
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_delta_decode": {
+  "difficulty": 5,
+  "proc_name": "ddec",
+  "params": [
+   "int a[]",
+   "int n"
+  ],
+  "description": "Decode a delta-encoded array in place (the inverse of delta encoding): after execution, for every index i with 0 <= i <= n-1, a[i] must equal the prefix sum a[0] + a[1] + ... + a[i] of the original values. n must remain unchanged. Assume n >= 1 and the array has exactly n elements.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      3,
+      2,
+      4,
+      5
+     ],
+     "n": 4
+    },
+    "expected": {
+     "a": [
+      3,
+      5,
+      9,
+      14
+     ],
+     "n": 4
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      5
+     ],
+     "n": 1
+    },
+    "expected": {
+     "a": [
+      5
+     ],
+     "n": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      2,
+      0,
+      0
+     ],
+     "n": 3
+    },
+    "expected": {
+     "a": [
+      2,
+      2,
+      2
+     ],
+     "n": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      -1,
+      1,
+      -1
+     ],
+     "n": 4
+    },
+    "expected": {
+     "a": [
+      1,
+      0,
+      1,
+      0
+     ],
+     "n": 4
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_delta_encode": {
+  "difficulty": 5,
+  "proc_name": "denc",
+  "params": [
+   "int a[]",
+   "int n"
+  ],
+  "description": "Delta-encode the array a of n elements in place: after execution, for every index i with 1 <= i <= n-1, a[i] must equal the difference (original a[i]) - (original a[i-1]). a[0] and n must remain unchanged. Assume n >= 1 and the array has exactly n elements.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      3,
+      5,
+      9,
+      14
+     ],
+     "n": 4
+    },
+    "expected": {
+     "a": [
+      3,
+      2,
+      4,
+      5
+     ],
+     "n": 4
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      5
+     ],
+     "n": 1
+    },
+    "expected": {
+     "a": [
+      5
+     ],
+     "n": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      2,
+      2,
+      2
+     ],
+     "n": 3
+    },
+    "expected": {
+     "a": [
+      2,
+      0,
+      0
+     ],
+     "n": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      10,
+      4,
+      7
+     ],
+     "n": 3
+    },
+    "expected": {
+     "a": [
+      10,
+      -6,
+      3
+     ],
+     "n": 3
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_gray_decode": {
+  "difficulty": 6,
+  "proc_name": "igray",
+  "params": [
+   "int g",
+   "int n",
+   "int steps"
+  ],
+  "description": "Convert the Gray code g back to the binary number n: n must become g XOR floor(g/2) XOR floor(g/4) XOR ... where the terms continue until they reach 0. steps (which starts at 0) must end as the number of XOR terms accumulated, i.e. the smallest s such that floor(g / 2^s) = 0. g must remain unchanged and n starts at 0. Assume g >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "g": 11,
+     "n": 0,
+     "steps": 0
+    },
+    "expected": {
+     "g": 11,
+     "n": 13,
+     "steps": 4
+    }
+   },
+   {
+    "inputs": {
+     "g": 1,
+     "n": 0,
+     "steps": 0
+    },
+    "expected": {
+     "g": 1,
+     "n": 1,
+     "steps": 1
+    }
+   },
+   {
+    "inputs": {
+     "g": 31,
+     "n": 0,
+     "steps": 0
+    },
+    "expected": {
+     "g": 31,
+     "n": 21,
+     "steps": 5
+    }
+   },
+   {
+    "inputs": {
+     "g": 8,
+     "n": 0,
+     "steps": 0
+    },
+    "expected": {
+     "g": 8,
+     "n": 15,
+     "steps": 4
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_gray_encode": {
+  "difficulty": 4,
+  "proc_name": "gray",
+  "params": [
+   "int n",
+   "int g"
+  ],
+  "description": "Convert the binary number n to its Gray code: g must become n XOR floor(n/2) (the bitwise exclusive-or of n and n shifted right by one bit). g starts at 0 and n must remain unchanged. Assume n >= 0.",
+  "test_cases": [
+   {
+    "inputs": {
+     "n": 13,
+     "g": 0
+    },
+    "expected": {
+     "n": 13,
+     "g": 11
+    }
+   },
+   {
+    "inputs": {
+     "n": 0,
+     "g": 0
+    },
+    "expected": {
+     "n": 0,
+     "g": 0
+    }
+   },
+   {
+    "inputs": {
+     "n": 1,
+     "g": 0
+    },
+    "expected": {
+     "n": 1,
+     "g": 1
+    }
+   },
+   {
+    "inputs": {
+     "n": 21,
+     "g": 0
+    },
+    "expected": {
+     "n": 21,
+     "g": 31
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_merge_halves": {
+  "difficulty": 9,
+  "proc_name": "mergeh",
+  "params": [
+   "int a[]",
+   "int b[]",
+   "int m",
+   "int n",
+   "int trace"
+  ],
+  "description": "The array a holds two sorted runs: a[0..m-1] is sorted ascending and a[m..m+n-1] is sorted ascending. Merge them into the array b (which has m+n elements, all starting at 0) in ascending order, moving every element: after execution every element of a must be 0. Elements are moved one at a time, always taking the smaller front element of the two runs (on ties take from the left run; when one run is exhausted take from the other). Every move must record its source in trace: trace := trace*2 + 0 when the element comes from the left run and trace := trace*2 + 1 when it comes from the right run (so the first move ends up in the most significant bit). trace starts at 0; m and n must remain unchanged. Assume m >= 1 and n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      1,
+      3,
+      5,
+      2,
+      4,
+      6
+     ],
+     "b": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "m": 3,
+     "n": 3,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "b": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "m": 3,
+     "n": 3,
+     "trace": 21
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      2,
+      2
+     ],
+     "b": [
+      0,
+      0
+     ],
+     "m": 1,
+     "n": 1,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0
+     ],
+     "b": [
+      2,
+      2
+     ],
+     "m": 1,
+     "n": 1,
+     "trace": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      4,
+      9,
+      5
+     ],
+     "b": [
+      0,
+      0,
+      0
+     ],
+     "m": 2,
+     "n": 1,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      0
+     ],
+     "b": [
+      4,
+      5,
+      9
+     ],
+     "m": 2,
+     "n": 1,
+     "trace": 2
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      5,
+      1,
+      2,
+      3
+     ],
+     "b": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "m": 1,
+     "n": 3,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "b": [
+      1,
+      2,
+      3,
+      5
+     ],
+     "m": 1,
+     "n": 3,
+     "trace": 14
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_modexp": {
+  "difficulty": 9,
+  "proc_name": "modexp",
+  "params": [
+   "int base",
+   "int e",
+   "int m",
+   "int r",
+   "int q[]"
+  ],
+  "description": "Compute the modular exponentiation r = base^e mod m by e successive multiplications, banking each lost quotient: r starts at 1; for each step i = 0, 1, ..., e-1 (in this order), first multiply r by base, then set q[i] to the quotient floor(r/m) and reduce r by q[i]*m. After execution r = base^e mod m, e must be 0 (it is consumed as the loop counter), base and m must remain unchanged, and q holds the e quotients. The array q has exactly e elements, all starting at 0. Assume base >= 1, m >= 2, and e >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "base": 3,
+     "e": 4,
+     "m": 7,
+     "r": 1,
+     "q": [
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "base": 3,
+     "e": 0,
+     "m": 7,
+     "r": 4,
+     "q": [
+      0,
+      1,
+      0,
+      2
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "base": 2,
+     "e": 3,
+     "m": 5,
+     "r": 1,
+     "q": [
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "base": 2,
+     "e": 0,
+     "m": 5,
+     "r": 3,
+     "q": [
+      0,
+      0,
+      1
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "base": 5,
+     "e": 1,
+     "m": 3,
+     "r": 1,
+     "q": [
+      0
+     ]
+    },
+    "expected": {
+     "base": 5,
+     "e": 0,
+     "m": 3,
+     "r": 2,
+     "q": [
+      1
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "base": 4,
+     "e": 2,
+     "m": 6,
+     "r": 1,
+     "q": [
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "base": 4,
+     "e": 0,
+     "m": 6,
+     "r": 4,
+     "q": [
+      0,
+      2
+     ]
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h_rotate_k": {
+  "difficulty": 5,
+  "proc_name": "rotk",
+  "params": [
+   "int a[]",
+   "int n",
+   "int k"
+  ],
+  "description": "Rotate the first n elements of the array a to the left by k positions in place: for every index i with 0 <= i < n, a[i] must become the original element at index (i+k) mod n. n and k must remain unchanged. Assume 0 < k < n and the array has exactly n elements.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "n": 5,
+     "k": 2
+    },
+    "expected": {
+     "a": [
+      3,
+      4,
+      5,
+      1,
+      2
+     ],
+     "n": 5,
+     "k": 2
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      7,
+      7,
+      1
+     ],
+     "n": 3,
+     "k": 1
+    },
+    "expected": {
+     "a": [
+      7,
+      1,
+      7
+     ],
+     "n": 3,
+     "k": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "n": 6,
+     "k": 4
+    },
+    "expected": {
+     "a": [
+      5,
+      6,
+      1,
+      2,
+      3,
+      4
+     ],
+     "n": 6,
+     "k": 4
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      9,
+      -2
+     ],
+     "n": 2,
+     "k": 1
+    },
+    "expected": {
+     "a": [
+      -2,
+      9
+     ],
+     "n": 2,
+     "k": 1
+    }
+   }
+  ],
+  "suite": "hard12",
+  "reference": "hand-written reference"
+ },
+ "h2_bitrev": {
+  "difficulty": 7,
+  "proc_name": "brev",
+  "params": [
+   "int a[]",
+   "int k"
+  ],
+  "description": "Apply the bit-reversal permutation (the data reordering used by radix-2 FFT) to the array a of length 2^k in place: for every index i, the element at i must move to index rev_k(i), where rev_k(i) is the k-bit binary representation of i read backwards (e.g. for k = 3, rev(1) = 4, rev(3) = 6, rev(6) = 3). Since rev_k is an involution, this is achieved by swapping a[i] with a[rev_k(i)] exactly for the pairs with i < rev_k(i). k must remain unchanged. Assume k >= 1 and the array has exactly 2^k elements.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17
+     ],
+     "k": 3
+    },
+    "expected": {
+     "a": [
+      10,
+      14,
+      12,
+      16,
+      11,
+      15,
+      13,
+      17
+     ],
+     "k": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      3,
+      2,
+      4
+     ],
+     "k": 2
+    },
+    "expected": {
+     "a": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "k": 2
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      7,
+      -2
+     ],
+     "k": 1
+    },
+    "expected": {
+     "a": [
+      7,
+      -2
+     ],
+     "k": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      0,
+      0,
+      5,
+      0
+     ],
+     "k": 2
+    },
+    "expected": {
+     "a": [
+      0,
+      5,
+      0,
+      0
+     ],
+     "k": 2
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_bwt": {
+  "difficulty": 10,
+  "proc_name": "bwt",
+  "params": [
+   "int s[]",
+   "int n",
+   "int idx"
+  ],
+  "description": "Apply the Burrows-Wheeler transform (the heart of bzip2 and the FM-index) to the array s in place: consider the n cyclic rotations of s, sort them lexicographically (ties keep the rotation with the smaller starting offset first), replace s by the sequence of last elements of the sorted rotations, and set idx (which starts at 0) to the position of the original string (rotation by 0) in the sorted order. The pair (BWT output, idx) determines the input uniquely, so this is a bijection. n must remain unchanged. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "s": [
+      2,
+      1,
+      3,
+      1,
+      3,
+      1
+     ],
+     "n": 6,
+     "idx": 0
+    },
+    "expected": {
+     "s": [
+      3,
+      3,
+      2,
+      1,
+      1,
+      1
+     ],
+     "n": 6,
+     "idx": 3
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      1,
+      1
+     ],
+     "n": 2,
+     "idx": 0
+    },
+    "expected": {
+     "s": [
+      1,
+      1
+     ],
+     "n": 2,
+     "idx": 0
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      2,
+      1
+     ],
+     "n": 2,
+     "idx": 0
+    },
+    "expected": {
+     "s": [
+      2,
+      1
+     ],
+     "n": 2,
+     "idx": 1
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      3,
+      1,
+      2,
+      1
+     ],
+     "n": 4,
+     "idx": 0
+    },
+    "expected": {
+     "s": [
+      3,
+      2,
+      1,
+      1
+     ],
+     "n": 4,
+     "idx": 3
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_cf_expand": {
+  "difficulty": 7,
+  "proc_name": "cf",
+  "params": [
+   "int a",
+   "int b",
+   "int q[]",
+   "int cnt"
+  ],
+  "description": "Compute the continued fraction expansion of a/b by the Euclidean algorithm, recording every quotient: repeat while b != 0: store the quotient floor(a/b) into q[cnt], replace (a, b) by (b, a mod b), and increment cnt. After execution a holds gcd of the original a and b, b is 0, q[0..cnt-1] holds the quotient sequence (the continued fraction [q0; q1, q2, ...]) and the remaining entries of q stay 0. cnt starts at 0 and the array q has enough room. Assume a >= 1 and b >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": 36,
+     "b": 24,
+     "q": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 12,
+     "b": 0,
+     "q": [
+      1,
+      2,
+      0,
+      0
+     ],
+     "cnt": 2
+    }
+   },
+   {
+    "inputs": {
+     "a": 17,
+     "b": 5,
+     "q": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 1,
+     "b": 0,
+     "q": [
+      3,
+      2,
+      2,
+      0
+     ],
+     "cnt": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": 5,
+     "b": 17,
+     "q": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 1,
+     "b": 0,
+     "q": [
+      0,
+      3,
+      2,
+      2
+     ],
+     "cnt": 4
+    }
+   },
+   {
+    "inputs": {
+     "a": 8,
+     "b": 8,
+     "q": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 8,
+     "b": 0,
+     "q": [
+      1,
+      0,
+      0,
+      0
+     ],
+     "cnt": 1
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_heapify": {
+  "difficulty": 9,
+  "proc_name": "heapify",
+  "params": [
+   "int a[]",
+   "int n",
+   "int steps[]",
+   "int trace"
+  ],
+  "description": "Build a max-heap from the array a with Floyd's bottom-up heapify, recording a certificate: for each internal node i = n/2 - 1 down to 0, sift down from i: at each level with current node j and children 2j+1 (and 2j+2 if it exists), first choose the larger child c (choice bit cb = 1 if the right child exists and is strictly larger than the left, else cb = 0 and c is the left child); then if a[c] > a[j], swap them and set sb = 1 and continue sifting from c, otherwise sb = 0 and the sift stops. After every comparison update trace := trace*4 + cb*2 + sb and increment steps[i] (the number of comparisons performed at node i). After execution a satisfies the max-heap property. steps and trace start at all 0; n is unchanged. The array steps has exactly n/2 (integer division) elements. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      1,
+      3,
+      5,
+      2,
+      4
+     ],
+     "n": 5,
+     "steps": [
+      0,
+      0
+     ],
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      5,
+      4,
+      1,
+      2,
+      3
+     ],
+     "n": 5,
+     "steps": [
+      1,
+      1
+     ],
+     "trace": 15
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      2
+     ],
+     "n": 2,
+     "steps": [
+      0
+     ],
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      2,
+      1
+     ],
+     "n": 2,
+     "steps": [
+      1
+     ],
+     "trace": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      5,
+      4,
+      3,
+      2
+     ],
+     "n": 4,
+     "steps": [
+      0,
+      0
+     ],
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      5,
+      4,
+      3,
+      2
+     ],
+     "n": 4,
+     "steps": [
+      1,
+      1
+     ],
+     "trace": 0
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "n": 6,
+     "steps": [
+      0,
+      0,
+      0
+     ],
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      6,
+      5,
+      3,
+      4,
+      2,
+      1
+     ],
+     "n": 6,
+     "steps": [
+      2,
+      1,
+      1
+     ],
+     "trace": 125
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "model-generated (Claude Opus, run 20260613_claude_opus_hard2, trial 11 round 0); NOT a hand-written reference"
+ },
+ "h2_hilbert": {
+  "difficulty": 10,
+  "proc_name": "hil",
+  "params": [
+   "int d",
+   "int k",
+   "int x",
+   "int y"
+  ],
+  "description": "Convert the Hilbert curve index d (order k) to coordinates, consuming d: the Hilbert space-filling curve visits every cell of the 2^k x 2^k grid exactly once; (x, y) must become the coordinates of the d-th cell. Use the standard iterative algorithm: starting with t = d and cell size s = 1, while s < 2^k: rx = bit1(t) (i.e. (t/2) mod 2), ry = (t XOR rx) mod 2; if ry = 0 then (if rx = 1, reflect x := s-1-x and y := s-1-y) and swap x and y; then x += s*rx, y += s*ry, t := t/4, s := s*2. The order-1 curve visits (0,0), (0,1), (1,1), (1,0) for d = 0..3. After execution d must be 0 and k unchanged. Assume k >= 1 and 0 <= d < 4^k.",
+  "test_cases": [
+   {
+    "inputs": {
+     "d": 6,
+     "k": 2,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "d": 0,
+     "k": 2,
+     "x": 1,
+     "y": 3
+    }
+   },
+   {
+    "inputs": {
+     "d": 0,
+     "k": 1,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "d": 0,
+     "k": 1,
+     "x": 0,
+     "y": 0
+    }
+   },
+   {
+    "inputs": {
+     "d": 3,
+     "k": 1,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "d": 0,
+     "k": 1,
+     "x": 1,
+     "y": 0
+    }
+   },
+   {
+    "inputs": {
+     "d": 11,
+     "k": 2,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "d": 0,
+     "k": 2,
+     "x": 3,
+     "y": 2
+    }
+   },
+   {
+    "inputs": {
+     "d": 37,
+     "k": 3,
+     "x": 0,
+     "y": 0
+    },
+    "expected": {
+     "d": 0,
+     "k": 3,
+     "x": 4,
+     "y": 7
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_kmp_failure": {
+  "difficulty": 10,
+  "proc_name": "kmpfail",
+  "params": [
+   "int s[]",
+   "int pi[]",
+   "int n",
+   "int fb[]"
+  ],
+  "description": "Compute the KMP prefix function (failure function) of the pattern s, recording the fallback certificate: pi[i] must become the length of the longest proper prefix of s[0..i] that is also a suffix of it (pi[0] = 0). Use the standard algorithm: keep k (starting 0); for i = 1 to n-1: while k > 0 and s[k] != s[i], fall back k := pi[k-1] and count the fallback; then if s[k] = s[i], increment k; set pi[i] := k. fb[i] must record the number of fallbacks performed at position i (fb[0] = 0). s and n must remain unchanged; pi and fb start at all 0 and have n elements each. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "s": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      3
+     ],
+     "pi": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "n": 6,
+     "fb": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "s": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      3
+     ],
+     "pi": [
+      0,
+      0,
+      1,
+      2,
+      3,
+      0
+     ],
+     "n": 6,
+     "fb": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      2
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      1,
+      1,
+      1
+     ],
+     "pi": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "fb": [
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "s": [
+      1,
+      1,
+      1
+     ],
+     "pi": [
+      0,
+      1,
+      2
+     ],
+     "n": 3,
+     "fb": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      1,
+      2,
+      3
+     ],
+     "pi": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "fb": [
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "s": [
+      1,
+      2,
+      3
+     ],
+     "pi": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "fb": [
+      0,
+      0,
+      0
+     ]
+    }
+   },
+   {
+    "inputs": {
+     "s": [
+      1,
+      2,
+      1,
+      1,
+      2,
+      1,
+      2
+     ],
+     "pi": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "n": 7,
+     "fb": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+     ]
+    },
+    "expected": {
+     "s": [
+      1,
+      2,
+      1,
+      1,
+      2,
+      1,
+      2
+     ],
+     "pi": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      3,
+      2
+     ],
+     "n": 7,
+     "fb": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1
+     ]
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_lehmer_rank": {
+  "difficulty": 9,
+  "proc_name": "rank",
+  "params": [
+   "int p[]",
+   "int n",
+   "int r"
+  ],
+  "description": "Compute the Lehmer rank of the permutation p of 0..n-1, consuming p: r (which starts at 0) must become sum over i of L_i * (n-1-i)!, where L_i is the number of indices j > i with p[j] < p[i] (the Lehmer code, i.e. the factorial number system digit). This ranks permutations lexicographically: r is in 0..n!-1 and the mapping is a bijection. After execution every element of p must be 0. n must remain unchanged. Assume p is a permutation of 0..n-1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "p": [
+      2,
+      0,
+      1
+     ],
+     "n": 3,
+     "r": 0
+    },
+    "expected": {
+     "p": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "r": 4
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      0,
+      1,
+      2
+     ],
+     "n": 3,
+     "r": 0
+    },
+    "expected": {
+     "p": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "r": 0
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      2,
+      1,
+      0
+     ],
+     "n": 3,
+     "r": 0
+    },
+    "expected": {
+     "p": [
+      0,
+      0,
+      0
+     ],
+     "n": 3,
+     "r": 5
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      1,
+      3,
+      0,
+      2
+     ],
+     "n": 4,
+     "r": 0
+    },
+    "expected": {
+     "p": [
+      0,
+      0,
+      0,
+      0
+     ],
+     "n": 4,
+     "r": 10
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_modinv": {
+  "difficulty": 8,
+  "proc_name": "minv",
+  "params": [
+   "int a",
+   "int m",
+   "int inv",
+   "int q[]",
+   "int cnt"
+  ],
+  "description": "Compute the modular inverse of a modulo m by the extended Euclidean algorithm: inv (which starts at 0) must become the unique value with a * inv mod m = 1 and 0 < inv < m. The quotient sequence of the Euclidean algorithm applied to (m, a) must be recorded into q: repeat with (r0, r1) = (m, a) while r1 != 0: store floor(r0/r1) into q[cnt], replace (r0, r1) by (r1, r0 mod r1), increment cnt. a and m must remain unchanged; cnt starts at 0; unused entries of q stay 0. Assume 1 <= a < m, m >= 2, and gcd(a, m) = 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": 3,
+     "m": 7,
+     "inv": 0,
+     "q": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 3,
+     "m": 7,
+     "inv": 5,
+     "q": [
+      2,
+      3,
+      0,
+      0,
+      0
+     ],
+     "cnt": 2
+    }
+   },
+   {
+    "inputs": {
+     "a": 10,
+     "m": 17,
+     "inv": 0,
+     "q": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 10,
+     "m": 17,
+     "inv": 12,
+     "q": [
+      1,
+      1,
+      2,
+      3,
+      0
+     ],
+     "cnt": 4
+    }
+   },
+   {
+    "inputs": {
+     "a": 1,
+     "m": 5,
+     "inv": 0,
+     "q": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 1,
+     "m": 5,
+     "inv": 1,
+     "q": [
+      5,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 1
+    }
+   },
+   {
+    "inputs": {
+     "a": 7,
+     "m": 9,
+     "inv": 0,
+     "q": [
+      0,
+      0,
+      0,
+      0,
+      0
+     ],
+     "cnt": 0
+    },
+    "expected": {
+     "a": 7,
+     "m": 9,
+     "inv": 4,
+     "q": [
+      1,
+      3,
+      2,
+      0,
+      0
+     ],
+     "cnt": 3
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_mtf": {
+  "difficulty": 8,
+  "proc_name": "mtf",
+  "params": [
+   "int a[]",
+   "int sym[]",
+   "int n",
+   "int k"
+  ],
+  "description": "Apply the move-to-front transform (the second stage of bzip2) to the sequence a in place. sym is the alphabet list, initially the identity [0, 1, ..., k-1]. For each t = 0, 1, ..., n-1 in order: let c be the current position of the symbol a[t] in sym; replace a[t] by c; then move that symbol to the front of sym (rotate sym[0..c] right by one so the symbol at position c comes to position 0). After execution a is the MTF code sequence and sym is the final alphabet ordering. n and k must remain unchanged. Assume every a[t] is in 0..k-1 and sym starts as the identity.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      1,
+      1,
+      0,
+      2
+     ],
+     "sym": [
+      0,
+      1,
+      2
+     ],
+     "n": 4,
+     "k": 3
+    },
+    "expected": {
+     "a": [
+      1,
+      0,
+      1,
+      2
+     ],
+     "sym": [
+      2,
+      0,
+      1
+     ],
+     "n": 4,
+     "k": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      0,
+      0,
+      0
+     ],
+     "sym": [
+      0,
+      1,
+      2
+     ],
+     "n": 3,
+     "k": 3
+    },
+    "expected": {
+     "a": [
+      0,
+      0,
+      0
+     ],
+     "sym": [
+      0,
+      1,
+      2
+     ],
+     "n": 3,
+     "k": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      2,
+      2,
+      1,
+      1
+     ],
+     "sym": [
+      0,
+      1,
+      2
+     ],
+     "n": 4,
+     "k": 3
+    },
+    "expected": {
+     "a": [
+      2,
+      0,
+      2,
+      0
+     ],
+     "sym": [
+      1,
+      2,
+      0
+     ],
+     "n": 4,
+     "k": 3
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      0
+     ],
+     "sym": [
+      0,
+      1
+     ],
+     "n": 2,
+     "k": 2
+    },
+    "expected": {
+     "a": [
+      1,
+      1
+     ],
+     "sym": [
+      0,
+      1
+     ],
+     "n": 2,
+     "k": 2
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_oesort": {
+  "difficulty": 8,
+  "proc_name": "oesort",
+  "params": [
+   "int a[]",
+   "int n",
+   "int trace"
+  ],
+  "description": "Sort the array a ascending with the odd-even transposition sorting network, recording every comparator outcome: for round r = 0, 1, ..., n-1, apply comparators at positions i = r mod 2, r mod 2 + 2, r mod 2 + 4, ... (every i with i+1 <= n-1, in increasing order): if a[i] > a[i+1], swap them and let bit = 1, otherwise bit = 0; after every comparator update trace := trace*2 + bit. The comparator schedule is fixed by n, so the recorded bit count is fixed and the original array is recoverable from the sorted array and trace. trace starts at 0; n must remain unchanged. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "a": [
+      3,
+      1,
+      2
+     ],
+     "n": 3,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      1,
+      2,
+      3
+     ],
+     "n": 3,
+     "trace": 6
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      1,
+      2
+     ],
+     "n": 2,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      1,
+      2
+     ],
+     "n": 2,
+     "trace": 0
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      4,
+      3,
+      2,
+      1
+     ],
+     "n": 4,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "n": 4,
+     "trace": 63
+    }
+   },
+   {
+    "inputs": {
+     "a": [
+      2,
+      2,
+      -1
+     ],
+     "n": 3,
+     "trace": 0
+    },
+    "expected": {
+     "a": [
+      -1,
+      2,
+      2
+     ],
+     "n": 3,
+     "trace": 3
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_perm_inverse": {
+  "difficulty": 9,
+  "proc_name": "pinv",
+  "params": [
+   "int p[]",
+   "int n"
+  ],
+  "description": "Replace the permutation p of 0..n-1 by its inverse permutation in place: after execution, for every i, p_new[p_old[i]] = i. No auxiliary array parameter is provided (local scalar variables are allowed). n must remain unchanged. Assume p is a permutation of 0..n-1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "p": [
+      2,
+      0,
+      1
+     ],
+     "n": 3
+    },
+    "expected": {
+     "p": [
+      1,
+      2,
+      0
+     ],
+     "n": 3
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      0,
+      1,
+      2
+     ],
+     "n": 3
+    },
+    "expected": {
+     "p": [
+      0,
+      1,
+      2
+     ],
+     "n": 3
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      1,
+      0,
+      3,
+      2
+     ],
+     "n": 4
+    },
+    "expected": {
+     "p": [
+      1,
+      0,
+      3,
+      2
+     ],
+     "n": 4
+    }
+   },
+   {
+    "inputs": {
+     "p": [
+      3,
+      0,
+      1,
+      2
+     ],
+     "n": 4
+    },
+    "expected": {
+     "p": [
+      1,
+      2,
+      3,
+      0
+     ],
+     "n": 4
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ },
+ "h2_zeckendorf": {
+  "difficulty": 7,
+  "proc_name": "zeck",
+  "params": [
+   "int n",
+   "int z",
+   "int cnt"
+  ],
+  "description": "Convert n to its Zeckendorf representation (Fibonacci number system), consuming n: every n >= 1 is a unique sum of non-consecutive Fibonacci numbers (F_2 = 1, F_3 = 2, F_4 = 3, F_5 = 5, ...). z (which starts at 0) must become the indicator digits packed as a decimal number: the digit at decimal weight 10^j is 1 if F_{j+2} is used and 0 otherwise. cnt (which starts at 0) must become the number of digits (j_max + 1 where F_{j_max+2} is the largest Fibonacci number used). After execution n must be 0. For example n = 30 = 21 + 8 + 1 = F_8 + F_6 + F_2 gives z = 1010001 and cnt = 7. Assume n >= 1.",
+  "test_cases": [
+   {
+    "inputs": {
+     "n": 30,
+     "z": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "z": 1010001,
+     "cnt": 7
+    }
+   },
+   {
+    "inputs": {
+     "n": 1,
+     "z": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "z": 1,
+     "cnt": 1
+    }
+   },
+   {
+    "inputs": {
+     "n": 4,
+     "z": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "z": 101,
+     "cnt": 3
+    }
+   },
+   {
+    "inputs": {
+     "n": 100,
+     "z": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "z": 1000010100,
+     "cnt": 10
+    }
+   },
+   {
+    "inputs": {
+     "n": 12,
+     "z": 0,
+     "cnt": 0
+    },
+    "expected": {
+     "n": 0,
+     "z": 10101,
+     "cnt": 5
+    }
+   }
+  ],
+  "suite": "extreme12",
+  "reference": "hand-written reference"
+ }
+}

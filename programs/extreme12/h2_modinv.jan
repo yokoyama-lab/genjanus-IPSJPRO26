@@ -1,0 +1,16 @@
+procedure minv(int a, int m, int inv, int q[], int cnt)
+local int r0 = m, int r1 = a
+  from cnt = 0 do
+    q[cnt] += r0 / r1
+    r0 -= q[cnt] * r1
+    r0 <=> r1
+    cnt += 1
+  loop
+    skip
+  until r1 = 0
+delocal int r0 = 1, int r1 = 0
+from inv = 0 do
+  inv += 1
+loop
+  skip
+until (a * inv) % m = 1

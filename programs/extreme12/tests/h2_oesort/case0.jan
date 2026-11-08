@@ -1,0 +1,81 @@
+procedure oecomp(int a[], int i, int trace)
+local int bit = 0
+  if a[i] > a[i + 1] then
+    a[i] <=> a[i + 1]
+    bit += 1
+  else
+    skip
+  fi bit = 1
+  trace *= 2
+  trace += bit
+delocal int bit = trace % 2
+
+procedure evenpass(int a[], int n, int trace)
+if n > 1 then
+  if n % 2 = 0 then
+    local int i = 0
+      from i = 0 do
+        call oecomp(a, i, trace)
+      loop
+        i += 2
+      until i + 2 > n - 2
+    delocal int i = n - 2
+  else
+    local int i = 0
+      from i = 0 do
+        call oecomp(a, i, trace)
+      loop
+        i += 2
+      until i + 2 > n - 2
+    delocal int i = n - 3
+  fi n % 2 = 0
+else
+  skip
+fi n > 1
+
+procedure oddpass(int a[], int n, int trace)
+if n > 2 then
+  if n % 2 = 0 then
+    local int i = 1
+      from i = 1 do
+        call oecomp(a, i, trace)
+      loop
+        i += 2
+      until i + 2 > n - 2
+    delocal int i = n - 3
+  else
+    local int i = 1
+      from i = 1 do
+        call oecomp(a, i, trace)
+      loop
+        i += 2
+      until i + 2 > n - 2
+    delocal int i = n - 2
+  fi n % 2 = 0
+else
+  skip
+fi n > 2
+
+procedure oesort(int a[], int n, int trace)
+local int r = 0
+  from r = 0 do
+    if r % 2 = 0 then
+      call evenpass(a, n, trace)
+    else
+      call oddpass(a, n, trace)
+    fi r % 2 = 0
+  loop
+    r += 1
+  until r = n - 1
+delocal int r = n - 1
+
+
+procedure main()
+    int a[3]
+    int n
+    int trace
+    a[0] += 3
+    a[1] += 1
+    a[2] += 2
+    n += 3
+    call oesort(a, n, trace)

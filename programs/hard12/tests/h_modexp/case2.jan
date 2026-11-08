@@ -1,0 +1,25 @@
+procedure modexp(int base, int e, int m, int r, int q[])
+   local int i = 0
+   from i = 0 do
+      r *= base
+      q[i] += r / m
+      r -= q[i] * m
+      i += 1
+      e -= 1
+   loop
+      skip
+   until e = 0
+   delocal int i = size(q)
+
+
+procedure main()
+    int base
+    int e
+    int m
+    int r
+    int q[1]
+    base += 5
+    e += 1
+    m += 3
+    r += 1
+    call modexp(base, e, m, r, q)

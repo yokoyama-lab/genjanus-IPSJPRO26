@@ -136,6 +136,7 @@ V0の日付はrun名由来であり、試行別の実行時刻までは確定で
   Gemini-3.1-flash-lite = 20260610b＋API topup10；Opus 4.8/high = 20260703_opus_high_basic19。
 - `v2_hard12/` — 表7の8モデル分（n=10 化の topup10h 5 run を含む 16 run）。Gemini 2 モデルは公式 API run（20260702）＋topup を採用し，gemini-cli 版 2 run は参考として収載（本文の「素朴集計12%」の根拠は `20260612_gemini_gemini-3-flash-preview_hard12`）。
 - `v2_extreme12/` — 表8・図5の10モデル分（n=10 化の topup10 6 run を含む 21 run。うち集計プールは 20 run で，extreme3fill は予備＝§3 の注を参照）。
+- `programs/` — Hard12・Extreme12 の 24 課題の参照 Janus プログラム・課題仕様・テストプログラム・L4_full プロンプト・検証スクリプト（2026-11-08 追加）。**h2_heapify は模範解答ではなくモデル生成の検証済みプログラム**，h2_bwt・h2_perm_inverse の参照プログラムは可逆でない点に注意（[programs/README.md](programs/README.md)）。
 - `h3_probe/` — Extreme12 を越える課題の予備調査（2 run）。
 - `rabin_karp/` — 可逆 Rabin–Karp 実験一式（4 run のログと生成 .jan，オラクル，実行可能例）。
 - `canary_opus47/` — §6.7 のカナリア実験一式（収録ログの記録日: 2026-05-23，Opus 4.7。旧表記2026-03を訂正）。raw/ に生成原文を保存。

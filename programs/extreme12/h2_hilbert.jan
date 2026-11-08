@@ -1,0 +1,42 @@
+procedure hil(int d, int k, int x, int y)
+local int s = 1
+  local int q = k
+    from q = k do
+      local int r = 0
+        r += d % 4
+        if (r ^ (r / 2)) % 2 = 0 then
+          if r / 2 = 1 then
+            local int a = s - 1
+              a -= x
+              x <=> a
+            delocal int a = s - 1 - x
+            local int b = s - 1
+              b -= y
+              y <=> b
+            delocal int b = s - 1 - y
+          else
+            skip
+          fi r / 2 = 1
+          x <=> y
+        else
+          skip
+        fi (r ^ (r / 2)) % 2 = 0
+        x += s * (r / 2)
+        y += s * ((r ^ (r / 2)) % 2)
+        d -= r
+        d /= 4
+        r -= (2 * (x / s)) + ((x / s) ^ (y / s))
+      delocal int r = 0
+      q -= 1
+      s *= 2
+    loop
+      skip
+    until q = 0
+    from q = 0 do
+      s /= 2
+      q += 1
+    loop
+      skip
+    until q = k
+  delocal int q = k
+delocal int s = 1

@@ -1,0 +1,50 @@
+procedure mtf(int a[], int sym[], int n, int k)
+  local int t = 0
+    if n = 0 then
+      skip
+    else
+      from t = 0 do
+        local int val = a[t], int c = 0
+          if sym[c] = val then
+            skip
+          else
+            from c = 0 do
+              c += 1
+            loop
+              skip
+            until sym[c] = val
+          fi c = 0
+          a[t] -= val
+          a[t] += c
+          if a[t] = 0 then
+            skip
+          else
+            from c = a[t] do
+              sym[c] <=> sym[c - 1]
+              c -= 1
+            loop
+              skip
+            until c = 0
+          fi a[t] = 0
+        delocal int val = sym[0], int c = 0
+        t += 1
+      loop
+        skip
+      until t = n
+    fi n = 0
+  delocal int t = n
+
+
+procedure main()
+    int a[4]
+    int sym[3]
+    int n
+    int k
+    a[0] += 1
+    a[1] += 1
+    a[3] += 2
+    sym[1] += 1
+    sym[2] += 2
+    n += 4
+    k += 3
+    call mtf(a, sym, n, k)

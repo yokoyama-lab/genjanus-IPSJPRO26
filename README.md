@@ -7,6 +7,10 @@
 > 牧野 透也，横山 哲郎：可逆プログラミング課題における大規模言語モデルのコード生成能力の比較評価，
 > 情報処理学会 プログラミング研究会（IPSJ SIGPRO）発表予稿，2026年8月．
 
+**採録情報．** 本論文は2026年10月6日に採録が決定した．英語版を正本として，
+Journal of Information Processing（JIP）から出版される予定である
+（仮題：*A Comparative Evaluation of Large Language Models on Reversible Program Synthesis under Formal Constraints*）．
+
 **English overview.**
 This directory is the research artifact for our IPSJ SIGPRO paper
 *"Evaluating Large Language Models on Reversible Program Synthesis under Formal Constraints."*
@@ -16,6 +20,9 @@ results) for the V0/V1/V2 experiments over the Basic19, Hard12, and Extreme12 ta
 the preliminary h3 probe, the reversible Rabin–Karp case study, and the canary
 (data-contamination) check — together with the exact aggregation scripts and conventions
 used to produce the reported results.
+The paper was accepted on October 6, 2026; its English version, which is the version of record,
+is scheduled to appear in the Journal of Information Processing (JIP) under the tentative title
+*"A Comparative Evaluation of Large Language Models on Reversible Program Synthesis under Formal Constraints."*
 
 ---
 

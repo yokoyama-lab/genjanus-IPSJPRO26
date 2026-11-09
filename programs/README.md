@@ -3,6 +3,10 @@
 論文の Hard12・Extreme12 の 24 課題について，参照用の Janus プログラム，課題仕様，
 テストケース，実験で使ったプロンプト（L4_full）をまとめたものです（2026-11-08 追加）。
 
+**正解データについて**：論文の Hard12・Extreme12 のテストケースの期待値は，Janus ではなく
+**Python の参照実装**（[`checks/refs.py`](checks/refs.py)）から作られています。ここにある Janus プログラムは
+正解データとは別に用意されたもので，論文には載っていません。
+
 ## 構成
 
 ```
@@ -14,6 +18,7 @@ programs/
   */tests/<task>/caseK.jan   参照プログラム＋main の実行可能なテストプログラム
   */prompts_L4_full/<task>.txt  実験で LLM に与えたプロンプト（L4_full 条件）
   extreme12/thomsen/         Thomsen の jana で動くように書き換えた版（3 本）とそのテスト
+  checks/                    Python 参照実装（refs.py）と，それとの照合スクリプト（check.py）・結果
 ```
 
 `tests/<task>/case0.jan` がプロンプトに載せた例で，case1 以降は LLM に見せていない
@@ -47,9 +52,10 @@ python3 programs/verify.py --interp pyjanus --roundtrip # call → uncall で入
 
 ### 全域・乱択での検査（2026-11-09 実行）
 
-テストケースだけでは模範解答として足りるか分からないので，実験ハーネスの Python 参照実装
-（課題ごとの単射な状態写像。非公開の実験リポジトリ `gen_janus` の `tools/hard_reference.py`）を
-正解として，pyjanus で次の 2 つを行いました。どちらも，前向き（期待値と一致し，期待外の非ゼロ変数が
+テストケースだけでは模範解答として足りるか分からないので，Python 参照実装
+（課題ごとの単射な状態写像。`tasks.json` の期待値もここから作られている）を正解として，
+pyjanus で次の 2 つを行いました。参照実装・検査スクリプト・結果は [`checks/`](checks/) にあり，
+再実行できます（`python3 programs/checks/check.py --domain` など）。どちらも，前向き（期待値と一致し，期待外の非ゼロ変数が
 残らない）と往復（`call` の後に `uncall` して全変数が入力に戻る）の両方を見ています。
 
 1. **定義域の全列挙**：課題ごとに決めてある有界な入力をすべて試す（39〜6651 入力／課題）。

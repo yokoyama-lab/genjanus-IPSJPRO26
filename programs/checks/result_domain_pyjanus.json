@@ -1,0 +1,259 @@
+[
+ {
+  "task": "h_base3",
+  "program": "hard12/h_base3.jan",
+  "inputs": 400,
+  "skipped": 0,
+  "forward": 400,
+  "roundtrip": 400,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_bingcd",
+  "program": "hard12/h_bingcd.jan",
+  "inputs": 1200,
+  "skipped": 0,
+  "forward": 1200,
+  "roundtrip": 1200,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_bsort01",
+  "program": "hard12/h_bsort01.jan",
+  "inputs": 254,
+  "skipped": 0,
+  "forward": 254,
+  "roundtrip": 254,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_cantor_pair",
+  "program": "hard12/h_cantor_pair.jan",
+  "inputs": 1681,
+  "skipped": 0,
+  "forward": 1681,
+  "roundtrip": 1681,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_cantor_unpair",
+  "program": "hard12/h_cantor_unpair.jan",
+  "inputs": 401,
+  "skipped": 0,
+  "forward": 401,
+  "roundtrip": 401,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_delta_decode",
+  "program": "hard12/h_delta_decode.jan",
+  "inputs": 780,
+  "skipped": 0,
+  "forward": 780,
+  "roundtrip": 780,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_delta_encode",
+  "program": "hard12/h_delta_encode.jan",
+  "inputs": 780,
+  "skipped": 0,
+  "forward": 780,
+  "roundtrip": 780,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_gray_decode",
+  "program": "hard12/h_gray_decode.jan",
+  "inputs": 512,
+  "skipped": 0,
+  "forward": 512,
+  "roundtrip": 512,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_gray_encode",
+  "program": "hard12/h_gray_encode.jan",
+  "inputs": 513,
+  "skipped": 0,
+  "forward": 513,
+  "roundtrip": 513,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_merge_halves",
+  "program": "hard12/h_merge_halves.jan",
+  "inputs": 3025,
+  "skipped": 0,
+  "forward": 3025,
+  "roundtrip": 3025,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_modexp",
+  "program": "hard12/h_modexp.jan",
+  "inputs": 75,
+  "skipped": 0,
+  "forward": 75,
+  "roundtrip": 75,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h_rotate_k",
+  "program": "hard12/h_rotate_k.jan",
+  "inputs": 306,
+  "skipped": 0,
+  "forward": 306,
+  "roundtrip": 306,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_bitrev",
+  "program": "extreme12/h2_bitrev.jan",
+  "inputs": 6651,
+  "skipped": 0,
+  "forward": 6651,
+  "roundtrip": 6651,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_bwt",
+  "program": "extreme12/h2_bwt.jan",
+  "inputs": 120,
+  "skipped": 0,
+  "forward": 120,
+  "roundtrip": 0,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": {
+   "input": {
+    "s": [
+     1
+    ],
+    "n": 1,
+    "idx": 0
+   },
+   "output": "PyJanus execution error\n  message: Variable `lo' has not been declared\n  legacy: Error at line 99:\n            Variable `lo' has not been declared\n            In statement:\n              local int lo = lo\n                  s[i] += lo\n                  lo -= s[i] % base\n              delocal int lo\n "
+  }
+ },
+ {
+  "task": "h2_cf_expand",
+  "program": "extreme12/h2_cf_expand.jan",
+  "inputs": 625,
+  "skipped": 0,
+  "forward": 625,
+  "roundtrip": 625,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_heapify",
+  "program": "extreme12/h2_heapify.jan",
+  "inputs": 363,
+  "skipped": 3,
+  "forward": 360,
+  "roundtrip": 360,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_hilbert",
+  "program": "extreme12/h2_hilbert.jan",
+  "inputs": 84,
+  "skipped": 0,
+  "forward": 84,
+  "roundtrip": 84,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_kmp_failure",
+  "program": "extreme12/h2_kmp_failure.jan",
+  "inputs": 126,
+  "skipped": 0,
+  "forward": 126,
+  "roundtrip": 126,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_lehmer_rank",
+  "program": "extreme12/h2_lehmer_rank.jan",
+  "inputs": 153,
+  "skipped": 0,
+  "forward": 153,
+  "roundtrip": 153,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_modinv",
+  "program": "extreme12/h2_modinv.jan",
+  "inputs": 199,
+  "skipped": 0,
+  "forward": 199,
+  "roundtrip": 199,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_mtf",
+  "program": "extreme12/h2_mtf.jan",
+  "inputs": 39,
+  "skipped": 0,
+  "forward": 39,
+  "roundtrip": 39,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_oesort",
+  "program": "extreme12/h2_oesort.jan",
+  "inputs": 340,
+  "skipped": 0,
+  "forward": 340,
+  "roundtrip": 340,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ },
+ {
+  "task": "h2_perm_inverse",
+  "program": "extreme12/h2_perm_inverse.jan",
+  "inputs": 153,
+  "skipped": 0,
+  "forward": 153,
+  "roundtrip": 0,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": {
+   "input": {
+    "p": [
+     0
+    ],
+    "n": 1
+   },
+   "output": "PyJanus execution error\n  message: Variable `m' has not been declared\n  legacy: Error at line 33:\n            Variable `m' has not been declared\n            In statement:\n              local int m = m\n                  p[j] += n\n                  if m == 1 then\n                      p[j] += n\n      "
+  }
+ },
+ {
+  "task": "h2_zeckendorf",
+  "program": "extreme12/h2_zeckendorf.jan",
+  "inputs": 300,
+  "skipped": 0,
+  "forward": 300,
+  "roundtrip": 300,
+  "first_forward_fail": null,
+  "first_roundtrip_fail": null
+ }
+]
